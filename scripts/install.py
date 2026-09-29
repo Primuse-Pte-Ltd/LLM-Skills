@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Link this skill into Claude, Codex, Gemini, and Antigravity."""
+"""Link this skill into Claude, Codex, Gemini, Antigravity, and Cursor."""
 
 from __future__ import annotations
 
@@ -14,6 +14,7 @@ TARGETS = {
     "codex": HOME / ".codex" / "skills" / "llm-council",
     "gemini": HOME / ".gemini" / "skills" / "llm-council",
     "antigravity": HOME / ".gemini" / "antigravity" / "skills" / "llm-council",
+    "cursor": HOME / ".cursor" / "skills" / "llm-council",
 }
 
 

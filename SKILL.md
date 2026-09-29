@@ -8,10 +8,9 @@ description: >-
   chairman picks only after every option is disposed. Seats are The User,
   Contrarian, First Principles, Expansionist, Outsider, and Executor.
   Team is router, researcher, architect, assessor, planner, implementer,
-  test-designer, reviewer, red-team, and shipper. Also runs Claude,
-  Codex, Gemini, and Antigravity, plus a ChatGPT/Gemini consult, a live
-  dashboard, an OpenCode worktree council, and the the-llm-council CLI.
-  Use when the user says "council this", "run the council", "council
+  test-designer, reviewer, red-team, and shipper. Installs into Claude,
+  Codex, Gemini, Antigravity, Cursor, Omniroute, and KisumAI. Each host
+  uses its own model. Use when the user says "council this", "run the council", "council
   run", "war room", "pressure-test", "stress-test", "debate this",
   "consult the council", "ask other models", "compare models", or
   "council dashboard", or brings a real tradeoff. Skip factual lookups,
@@ -619,15 +618,33 @@ Chairman:
 
 That is the density the chairman owes the user. Seats may be longer. The verdict stays this sharp.
 
-## Pair consult — ChatGPT and Gemini
+## Ask the other agents
 
-Use this when the user wants those models' own words on a plan. Run it from this skill directory. The script prefers the `codex` and `gemini` CLIs, then falls back to the APIs. It prints JSON: `chatgpt` and `gemini`, each with `model`, `source`, and `response`.
+The council seats are the installed agents, not a fixed OpenAI plus Gemini pair. A model id from one agent is invalid on the others. `gpt-5-nano` is an OpenAI API id. `gemini-3-flash-preview` is a Gemini API id. Claude will not accept either. Cursor, Codex, and Antigravity will not accept a Gemini id. KisumAI does not read either variable.
+
+Leave the model flag off unless the user named a model for that agent. The omitted flag uses the model that agent is already configured to run. If you pass a model, pass that agent's own id, from that agent's list command.
+
+| Agent | Ask, read-only | Model flag | Where the ids come from |
+|---|---|---|---|
+| Claude | `claude -p --bare --output-format text` | `--model` | Alias `fable`, `opus`, `sonnet`, or a full Claude name such as `claude-fable-5` |
+| Codex | `codex exec --ephemeral --skip-git-repo-check -s read-only` | `-m` | The model configured in Codex. `codex exec -m <id>` |
+| Gemini | `gemini -p --approval-mode plan --output-format text` | `-m` | A Gemini model id. `gemini -m <id>` |
+| Antigravity | `agy --print --mode plan` | `--model` | `agy models` |
+| Cursor | `agent -p --mode ask --output-format text` | `--model` | `agent --list-models`. Examples the CLI documents: `gpt-5`, `sonnet-4`, `sonnet-4-thinking` |
+
+Do not add `--dangerously-skip-permissions`, `--yolo`, `--force`, or `--dangerously-bypass-approvals-and-sandbox`. Those flags let a member edit the machine. The council only needs the judgment.
+
+Run the members you have, in parallel. Name any member that is not installed. Then you are the chairman: ledger, anonymous review, verdict. Attribute a claim to the agent that said it ("Claude: …", "Cursor: …"), not to a model family that agent does not run.
+
+### OpenAI and Gemini HTTP APIs
+
+Use this only when the user wants those two APIs and the agent CLIs above are not the seats. The script is `scripts/query_llms.py` in this skill. Run it from the skill directory, the folder that contains this file. It prefers the `codex` and `gemini` CLIs, then falls back to the APIs. It prints JSON with `chatgpt` and `gemini` objects (`model`, `source`, `response`). It imports `requests`. If that import fails, `python3 -m pip install requests` once, then rerun.
 
 ```bash
-python3 ../a-llm-council-skill/llm-council/scripts/query_llms.py "<framed question>"
+python3 scripts/query_llms.py "<framed question>"
 ```
 
-When the CLIs are absent, put this in the working directory as `.env`. Never commit it. Never paste the keys into chat or into the task.
+When the CLIs are absent and the user still wants the HTTP APIs, put this in the working directory as `.env`. Never commit it. Never paste the keys into chat or into the task.
 
 ```
 OPENAI_API_KEY=sk-...
@@ -638,31 +655,29 @@ GEMINI_MODEL=gemini-3-flash-preview
 
 Keys: https://platform.openai.com/api-keys and https://aistudio.google.com/app/apikey.
 
-OpenAI, lower capability to higher: `gpt-5-nano` (default), `gpt-5-mini`, `gpt-5.2`, `gpt-5.2-pro`. Gemini, lower to higher: `gemini-2.5-flash-lite`, `gemini-2.5-flash`, `gemini-3-flash-preview` (default), `gemini-3-pro-preview`. Use the default pair unless the user asks for a stronger read or the question is a high-stakes architecture or security decision, in which case move up one step and say which models ran. Do not invent current prices. If cost matters, check the provider's pricing page before a premium run.
+These ladders are API ids only. They are not the model list for Claude, Codex, Cursor, Antigravity, Omniroute, or KisumAI.
 
-Useful pairs when the user asks for a posture:
+OpenAI API, lower capability to higher: `gpt-5-nano`, `gpt-5-mini`, `gpt-5.2`, `gpt-5.2-pro`.
+Gemini API, lower to higher: `gemini-2.5-flash-lite`, `gemini-2.5-flash`, `gemini-3-flash-preview`, `gemini-3-pro-preview`.
 
-- Default: `gpt-5-nano` + `gemini-3-flash-preview`
-- Cheaper: `gpt-5-nano` + `gemini-2.5-flash`
-- Heavier reasoning: `gpt-5.2` + `gemini-3-pro-preview`
+Do not invent current prices. If cost matters, check that provider's pricing page before a heavier API model.
 
-Then you are the chairman. Peer-review the two answers (and your own independent read, labeled as a third seat, the lens that best fits the discipline). Deliver the verdict. Attribute specific claims. If one API errors, name it and proceed. If both error, say so and run the lens council.
-
-A direct test of the script:
+A direct test of the script, from the skill directory:
 
 ```bash
-python3 ../a-llm-council-skill/llm-council/scripts/query_llms.py "Test prompt"
+python3 scripts/query_llms.py "Test prompt"
 ```
 
-Success is JSON with both responses. An error string inside a seat means that seat dropped.
+Success is JSON with both responses. An error string inside a seat means that seat dropped. If both error, say so and run the lens council on this agent.
 
 ## Dashboard — live multi-model council
 
 Use this when the user wants to watch models side by side, vote, or compare. The server is stdlib Python. The UI is vanilla JS. No install step beyond the API key.
 
+From the skill directory:
+
 ```bash
-cd ../d-llm-council/scripts
-python3 server.py
+python3 scripts/dashboard/server.py
 ```
 
 If something is already bound to the port, stop it or set `COUNCIL_PORT`. A health check after startup:
@@ -697,32 +712,32 @@ Open `http://localhost:8787`. Requires `AI_GATEWAY_API_KEY`. Requests go to `htt
 
 Voting: each selected model scores every other response on accuracy, helpfulness, and quality, without the author's name. Labels are letters. The highest aggregate wins. The vote stream sends `: keepalive` comments about every 5 seconds so a proxy does not cut the connection (Cloudflare 524s show up when this is missing). The server is a `ThreadingHTTPServer` because the stream and the keepalive have to run together.
 
-Files: `../d-llm-council/scripts/server.py`, `../d-llm-council/scripts/ai_gateway.py`, `../d-llm-council/scripts/static/index.html`, `../d-llm-council/scripts/static/app.js`. Those paths exist in this repo. An installed copy of this skill does not include them. Use the host CLIs in the next section when the sibling folders are absent. Static files are served with `Cache-Control: no-store, no-cache`. After editing `app.js`, bump the `?v=` on the script tag in `index.html` or the browser will keep the old client.
+Files, all in this skill: `scripts/dashboard/server.py`, `scripts/dashboard/ai_gateway.py`, `scripts/dashboard/static/index.html`, `scripts/dashboard/static/app.js`. The model ids in the table above belong to that dashboard's gateway only. They are not Claude, Cursor, Codex, Antigravity, or Kisum model ids. Static files are served with `Cache-Control: no-store, no-cache`. After editing `app.js`, bump the `?v=` on the script tag in `index.html` or the browser will keep the old client.
 
 The grid is not the verdict. When the user wants a decision, take the completed responses through Stage 2 and Stage 3 and post the chairman's verdict. The synthesis endpoint is a draft the chairman may overrule.
 
 ## OpenCode council — models, history, and code
 
-Use this when the user wants specific models through OpenCode, a TUI of the run, conversation history, or independent code proposals in git worktrees. It needs the OpenCode CLI, Python 3.8+, and a git repository for worktree mode. First run creates a virtualenv. Manual setup: `python3 ../e-llm-council/scripts/setup_environment.py`. Check it with `--check`.
+Use this when the user wants specific models through OpenCode, a TUI of the run, conversation history, or independent code proposals in git worktrees. The runner is `opencode/` in this skill. Run the commands below from the skill directory, the folder that contains this file. It needs the OpenCode CLI, Python 3.8+, and a git repository for worktree mode. First run creates a virtualenv at `opencode/.venv`. Manual setup: `python3 opencode/scripts/setup_environment.py`. Check it with `--check`.
 
-Create `../e-llm-council/scripts/.env`:
+Create `opencode/scripts/.env`:
 
 ```
 COUNCIL_MODELS=opencode/openai/gpt-4,opencode/anthropic/claude-3-5-sonnet,opencode/google/gemini-pro
 CHAIRMAN_MODEL=opencode/anthropic/claude-3-5-sonnet
 ```
 
-`provider/model` is accepted; `opencode/` is the default prefix. Optional: `TITLE_MODEL`, `DASHBOARD_TIMEOUT` (seconds to leave the TUI up after the run), `DASHBOARD_REFRESH_RATE` (Hz). Change members by editing `COUNCIL_MODELS`. Change prompts in `../e-llm-council/scripts/prompts/templates.py` only when the user wants the rubric itself changed.
+`provider/model` is accepted; `opencode/` is the default prefix. Optional: `TITLE_MODEL`, `DASHBOARD_TIMEOUT` (seconds to leave the TUI up after the run), `DASHBOARD_REFRESH_RATE` (Hz). Change members by editing `COUNCIL_MODELS`. Change prompts in `opencode/scripts/prompts/templates.py` only when the user wants the rubric itself changed.
 
 Stage 1 collects an independent answer from each member. In worktree mode each member edits in its own worktree. Stage 2 anonymizes those answers as letters and ranks them. Stage 3 is the chairman model. You still read the result and post the verdict in this session. If the chairman model smoothed a real defect out of the winning diff, say so. Do not pass a weak synthesis through unchallenged.
 
 ```bash
-python3 ../e-llm-council/scripts/run.py council_skill.py "<question>"
-python3 ../e-llm-council/scripts/run.py cli.py --dashboard "<question>"
-python3 ../e-llm-council/scripts/run.py council_skill.py --list
-python3 ../e-llm-council/scripts/run.py council_skill.py --show N
-python3 ../e-llm-council/scripts/run.py council_skill.py --continue N "<follow-up>"
-python3 ../e-llm-council/scripts/run.py council_skill.py --setup
+python3 opencode/scripts/run.py council_skill.py "<question>"
+python3 opencode/scripts/run.py cli.py --dashboard "<question>"
+python3 opencode/scripts/run.py council_skill.py --list
+python3 opencode/scripts/run.py council_skill.py --show N
+python3 opencode/scripts/run.py council_skill.py --continue N "<follow-up>"
+python3 opencode/scripts/run.py council_skill.py --setup
 ```
 
 | Flag | Effect |
@@ -737,13 +752,13 @@ python3 ../e-llm-council/scripts/run.py council_skill.py --setup
 | `--list` / `--show N` / `--continue N` | History, one session, follow-up |
 
 ```bash
-python3 ../e-llm-council/scripts/run.py council_skill.py --dry-run "Fix the bug in buggy.py"
-python3 ../e-llm-council/scripts/run.py council_skill.py --auto-merge --confirm "Add error handling"
-python3 ../e-llm-council/scripts/run.py council_skill.py --merge 2 "Refactor this"
-python3 ../e-llm-council/scripts/run.py council_skill.py --auto-merge --no-commit "Add tests"
+python3 opencode/scripts/run.py council_skill.py --dry-run "Fix the bug in buggy.py"
+python3 opencode/scripts/run.py council_skill.py --auto-merge --confirm "Add error handling"
+python3 opencode/scripts/run.py council_skill.py --merge 2 "Refactor this"
+python3 opencode/scripts/run.py council_skill.py --auto-merge --no-commit "Add tests"
 ```
 
-Code seats must say what they changed and why, in the files they touched. Reviewers rank proposals and end on `FINAL RANKING`. "not a git repository" means initialize git or leave worktree mode off. Leftover worktrees: `git worktree prune`. History and logs live under `../e-llm-council/scripts/data/`.
+Code seats must say what they changed and why, in the files they touched. Reviewers rank proposals and end on `FINAL RANKING`. "not a git repository" means initialize git or leave worktree mode off. Leftover worktrees: `git worktree prune`. History and logs live under `opencode/scripts/data/`.
 
 Bring the ranking and the verdict back to chat. The user decides what lands in the tree.
 
@@ -860,28 +875,33 @@ Generated code is a proposal. It does not land because the council was confident
 
 Context is sent to external providers. Do not attach `.env` files, credentials, tokens, or customer data. Threat-model output can describe real holes in a real system. Keep it in the transcript and the chat. Do not repost it into a public place.
 
-## Host members — Claude, Codex, Gemini, Antigravity
+## Host members
 
-When this skill is installed in one of those tools, that tool is the chairman. The others are optional seats. Ask them in parallel, in read-only mode, so they answer and do not edit the tree. Treat each answer as a seat. Then run the ledger, the anonymous review, and the chairman here. A missing CLI is a dropped seat, named in the verdict.
+When this skill is installed in Claude, Codex, Gemini, Antigravity, or Cursor, that host is the chairman. The others are optional seats. Ask them with the commands in "Ask the other agents", each on its own model. A missing CLI is a dropped seat, named in the verdict.
 
-```bash
-claude -p --bare "<framed question>"
-codex exec --ephemeral --skip-git-repo-check -s read-only "<framed question>"
-gemini -p "<framed question>" --approval-mode plan --output-format text
-agy --print "<framed question>" --mode plan
-```
+Omniroute is the router in front of those agents. It does not load this `SKILL.md`. The model Omniroute selects is the upstream provider's model, not the OpenAI/Gemini ladder in this file.
 
-`agy` is the Antigravity CLI. Do not pass `--dangerously-skip-permissions`, `--yolo`, or `--dangerously-bypass-approvals-and-sandbox` for a council question. Those flags let a member change the machine. The council only needs their judgment.
+KisumAI's chat council is a separate runtime. Its models are `COUNCIL_ADVISOR_MODEL`, `COUNCIL_REVIEWER_MODEL`, and `COUNCIL_CHAIRMAN_MODEL` in `ai-agent-chat/.env`. Do not overwrite those with `gpt-5-nano` or `gemini-3-flash-preview`.
 
 If the user asked only for a side-by-side comparison, bring the answers back and still build the ledger before calling it a decision.
 
 ## Install
 
-This folder is the skill. Linking it makes the same files visible to each host. From this directory:
+The agent does this. Do not ask the user to clone the repo or run the script. The source is GitHub:
+
+```
+https://github.com/Primuse-Pte-Ltd/llm-council
+```
+
+Clone it outside the current project, then link that clone:
 
 ```bash
-python3 scripts/install.py
+mkdir -p "$HOME/.agents/skills"
+gh repo clone Primuse-Pte-Ltd/llm-council "$HOME/.agents/skills/llm-council"
+python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
 ```
+
+If that directory already exists, `git -C "$HOME/.agents/skills/llm-council" pull --ff-only` and run `install.py` again. A link that already points at the clone is left alone. A real directory that is not a link is left in place and reported. Do not delete it unless the user asked.
 
 | Host | Where it lands |
 |---|---|
@@ -889,8 +909,11 @@ python3 scripts/install.py
 | Codex | `~/.codex/skills/llm-council` |
 | Gemini CLI | `~/.gemini/skills/llm-council` |
 | Antigravity | `~/.gemini/antigravity/skills/llm-council` |
+| Cursor | `~/.cursor/skills/llm-council` |
 
-The link points back here, so edits to this file are the edits those hosts read. Do not copy a second SKILL.md into those folders. Gemini can also register the link with `gemini skills link <this directory> --consent`.
+The links point at the clone, so a later pull is what every host reads. Do not copy a second `SKILL.md` into those folders. If `gemini` is on `PATH`, also run `gemini skills link "$HOME/.agents/skills/llm-council" --consent`.
+
+Omniroute and KisumAI do not take that link. See `README.md`.
 
 ## Rules
 

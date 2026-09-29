@@ -30,7 +30,7 @@ if gh repo view "$REPO" --json nameWithOwner,viewerPermission >/dev/null 2>&1; t
   echo "Repo already exists: $REPO"
 else
   echo "Repo does not exist, creating..."
-  gh repo create "$REPO" --private
+  gh repo create "$REPO" --public
 fi
 
 echo "=== 6. Initialize git if needed ==="
