@@ -8,4 +8,4 @@ export interface BadgeProps {
   uppercase?: boolean;
   style?: React.CSSProperties;
 }
-export function Badge(props: BadgeProps): JSX.Element;
+export function Badge(props: BadgeProps): React.JSX.Element;

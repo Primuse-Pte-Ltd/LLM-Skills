@@ -8,4 +8,4 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
   style?: React.CSSProperties;
   wrapStyle?: React.CSSProperties;
 }
-export function Select(props: SelectProps): JSX.Element;
+export function Select(props: SelectProps): React.JSX.Element;

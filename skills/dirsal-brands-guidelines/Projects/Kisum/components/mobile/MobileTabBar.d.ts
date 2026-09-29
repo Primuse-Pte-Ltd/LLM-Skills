@@ -17,4 +17,4 @@ export interface MobileTabBarProps {
   onChange?: (key: string) => void;
   style?: React.CSSProperties;
 }
-export function MobileTabBar(props: MobileTabBarProps): JSX.Element;
+export function MobileTabBar(props: MobileTabBarProps): React.JSX.Element;

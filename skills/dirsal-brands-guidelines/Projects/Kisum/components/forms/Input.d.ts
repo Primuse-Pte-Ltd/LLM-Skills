@@ -12,4 +12,4 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   style?: React.CSSProperties;
   wrapStyle?: React.CSSProperties;
 }
-export function Input(props: InputProps): JSX.Element;
+export function Input(props: InputProps): React.JSX.Element;

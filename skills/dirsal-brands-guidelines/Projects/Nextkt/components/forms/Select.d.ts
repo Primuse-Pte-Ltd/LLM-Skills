@@ -10,4 +10,4 @@ export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectE
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   style?: React.CSSProperties;
 }
-export function Select(props: SelectProps): JSX.Element;
+export function Select(props: SelectProps): React.JSX.Element;

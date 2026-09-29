@@ -21,4 +21,4 @@ export interface TicketTierProps {
   onChange?: (qty: number) => void;
   style?: React.CSSProperties;
 }
-export function TicketTier(props: TicketTierProps): JSX.Element;
+export function TicketTier(props: TicketTierProps): React.JSX.Element;

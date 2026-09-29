@@ -11,4 +11,4 @@ export interface DateChipProps {
   variant?: "leaf" | "glass" | "plain";
   style?: React.CSSProperties;
 }
-export function DateChip(props: DateChipProps): JSX.Element;
+export function DateChip(props: DateChipProps): React.JSX.Element;

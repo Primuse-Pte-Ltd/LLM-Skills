@@ -29,4 +29,4 @@ export interface EventCardProps {
   onClick?: () => void;
   style?: React.CSSProperties;
 }
-export function EventCard(props: EventCardProps): JSX.Element;
+export function EventCard(props: EventCardProps): React.JSX.Element;

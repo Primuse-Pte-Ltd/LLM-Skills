@@ -13,4 +13,4 @@ export interface StatCardProps {
   highlight?: boolean;
   style?: React.CSSProperties;
 }
-export function StatCard(props: StatCardProps): JSX.Element;
+export function StatCard(props: StatCardProps): React.JSX.Element;

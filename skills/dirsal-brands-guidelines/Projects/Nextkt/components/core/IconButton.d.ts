@@ -15,4 +15,4 @@ export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
   count?: number;
   style?: React.CSSProperties;
 }
-export function IconButton(props: IconButtonProps): JSX.Element;
+export function IconButton(props: IconButtonProps): React.JSX.Element;

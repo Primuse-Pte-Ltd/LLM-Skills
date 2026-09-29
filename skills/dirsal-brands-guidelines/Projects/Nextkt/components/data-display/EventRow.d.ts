@@ -18,4 +18,4 @@ export interface EventRowProps {
   onClick?: () => void;
   style?: React.CSSProperties;
 }
-export function EventRow(props: EventRowProps): JSX.Element;
+export function EventRow(props: EventRowProps): React.JSX.Element;

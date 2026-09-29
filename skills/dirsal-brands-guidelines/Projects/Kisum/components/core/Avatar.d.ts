@@ -8,4 +8,4 @@ export interface AvatarProps {
   square?: boolean;
   style?: React.CSSProperties;
 }
-export function Avatar(props: AvatarProps): JSX.Element;
+export function Avatar(props: AvatarProps): React.JSX.Element;

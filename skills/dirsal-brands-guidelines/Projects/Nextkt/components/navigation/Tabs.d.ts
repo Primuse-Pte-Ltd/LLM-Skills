@@ -11,4 +11,4 @@ export interface TabsProps {
   variant?: "nav" | "underline" | "chips" | "segmented";
   style?: React.CSSProperties;
 }
-export function Tabs(props: TabsProps): JSX.Element;
+export function Tabs(props: TabsProps): React.JSX.Element;

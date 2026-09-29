@@ -12,4 +12,4 @@ export interface TabsProps {
   onChange?: (value: string) => void;
   style?: React.CSSProperties;
 }
-export function Tabs(props: TabsProps): JSX.Element;
+export function Tabs(props: TabsProps): React.JSX.Element;

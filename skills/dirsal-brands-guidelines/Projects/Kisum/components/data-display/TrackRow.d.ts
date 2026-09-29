@@ -11,4 +11,4 @@ export interface TrackRowProps {
   onClick?: () => void;
   style?: React.CSSProperties;
 }
-export function TrackRow(props: TrackRowProps): JSX.Element;
+export function TrackRow(props: TrackRowProps): React.JSX.Element;

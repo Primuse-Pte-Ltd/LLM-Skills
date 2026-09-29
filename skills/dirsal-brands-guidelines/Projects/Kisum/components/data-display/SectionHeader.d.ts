@@ -8,4 +8,4 @@ export interface SectionHeaderProps {
   description?: string;
   style?: React.CSSProperties;
 }
-export function SectionHeader(props: SectionHeaderProps): JSX.Element;
+export function SectionHeader(props: SectionHeaderProps): React.JSX.Element;

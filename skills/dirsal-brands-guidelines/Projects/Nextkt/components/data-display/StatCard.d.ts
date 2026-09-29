@@ -12,4 +12,4 @@ export interface StatCardProps {
   onClick?: () => void;
   style?: React.CSSProperties;
 }
-export function StatCard(props: StatCardProps): JSX.Element;
+export function StatCard(props: StatCardProps): React.JSX.Element;

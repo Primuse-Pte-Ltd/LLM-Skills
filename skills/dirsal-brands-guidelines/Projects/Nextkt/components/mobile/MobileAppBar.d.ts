@@ -13,4 +13,4 @@ export interface MobileAppBarProps {
   onLogo?: () => void;
   style?: React.CSSProperties;
 }
-export function MobileAppBar(props: MobileAppBarProps): JSX.Element;
+export function MobileAppBar(props: MobileAppBarProps): React.JSX.Element;

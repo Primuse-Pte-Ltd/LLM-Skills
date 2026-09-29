@@ -12,4 +12,4 @@ export interface MobileTabBarProps {
   safeArea?: number;
   style?: React.CSSProperties;
 }
-export function MobileTabBar(props: MobileTabBarProps): JSX.Element;
+export function MobileTabBar(props: MobileTabBarProps): React.JSX.Element;

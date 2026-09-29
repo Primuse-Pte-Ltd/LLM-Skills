@@ -20,4 +20,4 @@ export interface ArtistCardProps {
   onDetails?: () => void;
   style?: React.CSSProperties;
 }
-export function ArtistCard(props: ArtistCardProps): JSX.Element;
+export function ArtistCard(props: ArtistCardProps): React.JSX.Element;

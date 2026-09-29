@@ -15,4 +15,4 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   soft?: boolean;
   style?: React.CSSProperties;
 }
-export function Card(props: CardProps): JSX.Element;
+export function Card(props: CardProps): React.JSX.Element;

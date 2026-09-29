@@ -8,4 +8,4 @@ export interface NavItemProps {
   onClick?: () => void;
   style?: React.CSSProperties;
 }
-export function NavItem(props: NavItemProps): JSX.Element;
+export function NavItem(props: NavItemProps): React.JSX.Element;

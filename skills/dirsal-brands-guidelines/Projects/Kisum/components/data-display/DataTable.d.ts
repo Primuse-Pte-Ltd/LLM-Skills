@@ -18,4 +18,4 @@ export interface DataTableProps {
   onRowClick?: (row: any) => void;
   style?: React.CSSProperties;
 }
-export function DataTable(props: DataTableProps): JSX.Element;
+export function DataTable(props: DataTableProps): React.JSX.Element;

@@ -1,6 +1,7 @@
 ---
 name: dirsal-brands-guidelines
-description: Brand and design guidelines for our internal projects — Kisum (live-music operating platform, purple analytics UI, web + mobile), The Stage (luxury event venue in Bali, dark green and gold), and Nextkt (consumer ticketing storefront, teal and navy on light, Inter, photo-first event cards). Identifies which project the user is working on and applies that project's colors, typography, logos, components, templates, and voice. Use this whenever the user builds, designs, restyles, or reviews anything visual for Kisum, The Stage, or Nextkt — UI screens, components, landing pages, mockups, prototypes, slides, emails, marketing pages — or mentions branding, brand colors, design system, look-and-feel, or "make it on-brand", even if they don't name the project. If the project can't be determined, this skill asks the user instead of guessing.
+description: Brand and design guidelines for our internal projects — Kisum (live-music operating platform, purple analytics UI, web + mobile), The Stage (luxury event venue in Bali, dark green and gold), and Nextkt (consumer ticketing storefront, teal and navy on light, Inter, photo-first event cards). Identifies which project the user is working on and applies that project's colors, typography, logos, components, templates, and voice. Use this whenever the user builds, designs, restyles, or reviews anything visual for Kisum, The Stage, or Nextkt — UI screens, components, landing pages, mockups, prototypes, slides, emails, marketing pages — or mentions branding, brand colors, design system, look-and-feel, or "make it on-brand", even if they don't name the project. If the project can't be determined, this skill asks the user instead of guessing. Accepts an optional project argument (`/dirsal-brands-guidelines kisum|thestage|nextkt`) that skips detection.
+argument-hint: "[kisum|thestage|nextkt]"
 ---
 
 # Dirsal Brands Guidelines
@@ -13,6 +14,34 @@ you which folder to open.
 
 Paths below are relative to this skill's directory.
 
+## Quick use
+
+The easiest way to use this skill is to name the design in the invocation:
+
+```
+/dirsal-brands-guidelines [design]
+```
+
+The argument is the first word after `/dirsal-brands-guidelines` in the user's
+message (Claude Code may also pass it as an `ARGUMENTS:` line). It is optional and
+case-insensitive, and the rest of the message is the actual request:
+
+| Argument | Goes straight to |
+|---|---|
+| `kisum` | Kisum |
+| `thestage`, `the-stage`, `stage` | The Stage |
+| `nextkt`, `nexticket` | Nextkt |
+
+- **First word matches the table:** skip detection and go directly to Step 2 for
+  that project. The argument wins over anything the workspace suggests.
+- **First word doesn't match** (or there's nothing after the command): there is
+  no argument. The whole message is the request; identify the project yourself,
+  as described in Step 1. If the word looks like a misspelled project name, treat
+  it as a hint and confirm with the user.
+
+Examples: `/dirsal-brands-guidelines nextkt build a checkout summary card` goes
+straight to Nextkt; `/dirsal-brands-guidelines restyle this page` detects the project.
+
 ## Project registry
 
 | Project | Folder | What it is | Start by reading |
@@ -24,8 +53,9 @@ Paths below are relative to this skill's directory.
 
 ## Step 1 — Identify the project
 
-Work through these sources in order and stop at the first one that gives a clear,
-single answer:
+If the skill was invoked with a recognized `[design]` argument (see Quick use),
+skip this step. Otherwise, work through these sources in order and stop at the first
+one that gives a clear, single answer:
 
 1. **The user says so.** The project is named in the request or earlier in the
    conversation ("Kisum", "The Stage", "TheStage", "The Stage Bali", "Nextkt", "NexTkt").
@@ -132,5 +162,6 @@ Reference them from HTML if you need them at runtime.
 
 1. Put the design-system export in `Projects/<Name>/`, with an entry README.
 2. Add a row to the registry above, plus its distinctive signals in Step 1 and its key files in Step 2.
-3. Add it to the example question in `Projects/Default/README.md`.
-4. Add a quick-reference theme in `../dirsal-theme-factory/themes/<name>.md`.
+3. Add its `[design]` argument values to the Quick use table.
+4. Add it to the example question in `Projects/Default/README.md`.
+5. Add a quick-reference theme in `../dirsal-theme-factory/themes/<name>.md`.
