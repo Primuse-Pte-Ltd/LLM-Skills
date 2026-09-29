@@ -10,6 +10,34 @@ https://github.com/Primuse-Pte-Ltd/llm-council
 
 Each host runs its own model. Do not reuse an OpenAI model id on Claude, Cursor, Codex, Antigravity, or Gemini, and do not reuse a Gemini model id on the others. Leave the model flag off to keep the model that host is already using.
 
+## Install with a prompt
+
+Paste this prompt into any coding agent. One install covers every host on the machine, so you only need to run it once.
+
+```text
+Install the llm-council skill from https://github.com/Primuse-Pte-Ltd/llm-council.
+Follow the "Install" section of its README.md exactly: clone it to
+~/.agents/skills/llm-council (or pull if it already exists), then run
+python3 ~/.agents/skills/llm-council/scripts/install.py.
+This writes outside the current project; ask me once to approve, then continue.
+When done, tell me which hosts were linked and which were skipped.
+```
+
+| Host | Where to paste it | Notes |
+|---|---|---|
+| Claude Code | Terminal or IDE chat | Approve the shell commands when asked. Start a new session so the skill loads. |
+| Codex | Codex CLI or IDE chat | Codex may run commands in a sandbox that cannot write to `~`. Approve the command or allow full access for this step. Restart Codex after. |
+| Cursor | Agent chat (Agent mode, not Ask) | Approve the terminal commands. Reload the window after. |
+| Antigravity | Agent panel | Approve the terminal commands. Restart Antigravity so it lists the skill. |
+| Gemini CLI | `gemini` chat | Approve the shell commands. The agent also runs `gemini skills link` when `gemini` is installed. |
+| Claude app (claude.ai, desktop) | Not by prompt | Zip the skill folder and upload it in the app's Skills settings. The prompt install is for coding agents only. |
+| Omniroute | Not by prompt | See [Omniroute](#omniroute). |
+| KisumAI | Not by prompt | See [KisumAI](#kisumai). |
+
+To check it worked, ask the agent: "Do you have the llm-council skill? Run the council on: <your question>".
+
+To update later, paste the same prompt again. It pulls the latest version and links again.
+
 ## Install
 
 The agent does this. Do not ask the user to clone the repo, change directory, or run the script.
