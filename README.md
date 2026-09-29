@@ -1,133 +1,126 @@
-# LLM Coding Council
+> **Note:** This repository is the working collection of skills for Claude, Codex, Gemini, Cursor, Antigravity, Omniroute, and KisumAI. For information about the Agent Skills standard, see [agentskills.io](http://agentskills.io).
 
-This council is for code and systems: an architecture, an API, a schema, a migration, a production change, or a security review of code. Product bets, prices, hires, positioning, and pivots are out of scope. The protocol is `SKILL.md`. The working team drafts the plan, the ledger lists every option, mistake, and bug, and six seats judge it. The consult script, the dashboard, and the OpenCode runner are in this repository: `scripts/query_llms.py`, `scripts/dashboard/`, and `opencode/`.
+# Skills
+Skills are folders of instructions, scripts, and resources that an agent loads dynamically to improve performance on specialized tasks. Skills teach the agent how to complete specific tasks in a repeatable way, whether that's creating documents with your company's brand guidelines, analyzing data using your organization's specific workflows, or automating personal tasks.
 
-The source is GitHub, not a path inside someone's project:
+These skills are written for:
 
-```
-https://github.com/Primuse-Pte-Ltd/llm-coding-council
-```
+- **Claude** (Claude Code, Claude.ai, and the Claude API)
+- **Codex**
+- **Gemini**
+- **Cursor**
+- **Antigravity**
+- **Omniroute**
+- **KisumAI**
 
-Each host runs its own model. Do not reuse an OpenAI model id on Claude, Cursor, Codex, Antigravity, or Gemini, and do not reuse a Gemini model id on the others. Leave the model flag off to keep the model that host is already using.
+The same skill folder works across those hosts. Each host loads it from its own skills directory and runs it on that host's model.
 
-## Install with a prompt
+For more information, check out:
+- [What are skills?](https://support.claude.com/en/articles/12512176-what-are-skills)
+- [Using skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude)
+- [How to create custom skills](https://support.claude.com/en/articles/12512198-creating-custom-skills)
+- [Equipping agents for the real world with Agent Skills](https://anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
 
-Paste this prompt into any coding agent. One install covers every agent installed on that computer, so you only need to run it once per computer. Run it from an agent on your own computer, not from a cloud chat: the script checks this and stops if it finds no agents.
+# About This Repository
 
-```text
-Install the llm-coding-council skill from https://github.com/Primuse-Pte-Ltd/llm-coding-council.
-Follow the "Install" section of its README.md exactly: clone it to
-~/.agents/skills/llm-coding-council (or pull if it already exists), then run
-python3 ~/.agents/skills/llm-coding-council/scripts/install.py.
-This writes outside the current project; ask me once to approve, then continue.
-The script checks where it is running first. If it prints STOP, do not work
-around it: tell me what it found and what I should do.
-When done, tell me which agents were linked and which were skipped.
-```
+This repository contains the skills we maintain for the agents above. These skills range from creative applications (art, music, design) to technical tasks (testing web apps, MCP server generation) to enterprise workflows (communications, branding, etc.).
 
-| Host | Where to paste it | Notes |
-|---|---|---|
-| Claude Code | Terminal or IDE chat | Approve the shell commands when asked. Start a new session so the skill loads. |
-| Codex | Codex CLI or IDE chat | Codex may run commands in a sandbox that cannot write to `~`. Approve the command or allow full access for this step. Restart Codex after. |
-| Cursor | Agent chat (Agent mode, not Ask) | Approve the terminal commands. Reload the window after. |
-| Antigravity | Agent panel | Approve the terminal commands. Restart Antigravity so it lists the skill. |
-| Gemini CLI | `gemini` chat | Approve the shell commands. The agent also runs `gemini skills link` when `gemini` is installed. |
-| Claude app (claude.ai, desktop) | Not by prompt | Zip the skill folder and upload it in the app's Skills settings. The prompt install is for coding agents only. |
-| Omniroute | Not by prompt | See [Omniroute](#omniroute). |
-| KisumAI | Not by prompt | See [KisumAI](#kisumai). |
+Each skill is self-contained in its own folder with a `SKILL.md` file containing the instructions and metadata the agent uses. Browse through these skills to get inspiration for your own skills or to understand different patterns and approaches.
 
-To check it worked, ask the agent: "Do you have the llm-coding-council skill? Council this change: <the design>".
+Many skills in this repo are open source (Apache 2.0). The document creation and editing skills live in [`skills/docx`](./skills/docx), [`skills/pdf`](./skills/pdf), [`skills/pptx`](./skills/pptx), and [`skills/xlsx`](./skills/xlsx). These are source-available, not open source, and are included as a reference for more complex skills used in production.
 
-To update later, paste the same prompt again. It pulls the latest version and links again.
+## Disclaimer
 
-## Install
+**These skills are provided for demonstration and educational purposes only.** Behavior can differ by host: Claude, Codex, Gemini, Cursor, Antigravity, Omniroute, and KisumAI each load skills in their own way, and the result you get may differ from what a skill describes. These skills are meant to illustrate patterns and possibilities. Always test skills thoroughly in your own environment before relying on them for critical tasks.
 
-The agent does this. Do not ask the user to clone the repo, change directory, or run the script.
+# Skill Sets
+- [./skills](./skills): Skill examples for Creative & Design, Development & Technical, Enterprise & Communication, and Document Skills
+- [./spec](./spec): The Agent Skills specification
+- [./template](./template): Skill template
 
-The install writes outside the current project (`~/.agents`, `~/.claude`, `~/.gemini`, `~/.cursor`). If the host asks for permission, ask the user once to approve those writes, then run the commands. Needs only `git` and `python3`; the repository is public, so no GitHub login is required.
+# Use with Claude, Codex, Gemini, Cursor, Antigravity, Omniroute, and KisumAI
 
-Clone outside the current project, then link that clone into every coding agent:
+Point the host at the skill folder (or a copy of it). After it is installed, mention the skill by name.
 
-```bash
-mkdir -p "$HOME/.agents/skills"
-git clone https://github.com/Primuse-Pte-Ltd/llm-coding-council.git "$HOME/.agents/skills/llm-coding-council"
-python3 "$HOME/.agents/skills/llm-coding-council/scripts/install.py"
-```
-
-If `$HOME/.agents/skills/llm-council` already exists and `$HOME/.agents/skills/llm-coding-council` does not, rename the old folder, then update it and link again. If `$HOME/.agents/skills/llm-coding-council` already exists, update it and link again:
-
-```bash
-git -C "$HOME/.agents/skills/llm-coding-council" remote set-url origin https://github.com/Primuse-Pte-Ltd/llm-coding-council.git
-git -C "$HOME/.agents/skills/llm-coding-council" pull --ff-only
-python3 "$HOME/.agents/skills/llm-coding-council/scripts/install.py"
-```
-
-`install.py` first checks where it is running, then links only the agents it finds:
-
-- It reports the OS and whether this looks like a container, cloud sandbox, CI runner, or SSH session.
-- An agent counts as installed only if its own folder exists in the home folder (`~/.claude`, `~/.codex`, `~/.gemini`, `~/.cursor`, `~/.gemini/antigravity`) or its app is installed. A command on `PATH` alone does not count, because sandboxes often ship a `claude` binary nobody has used.
-- If it finds no agents, it prints `STOP`, links nothing, and exits with code 2. That means the agent is running somewhere other than the user's computer, such as a cloud chat or remote session. Tell the user to run the prompt from a coding agent on their own machine. Do not rerun with `--all` unless the user asks.
-- If the home folder cannot be written, it prints `STOP` and exits with code 3. The agent is sandboxed. Ask the user to approve the command with full access.
-- On Windows without symlink rights, it copies the skill instead of linking it. Run `install.py` again after every update.
-
-Options: `--check` reports without changing anything. `--all` links every host even if it was not found.
-
-For the agents it finds, `install.py` creates the links below. A link that already points at the clone is left alone. A real directory that is not a link is left in place and reported. Do not delete that directory unless the user asked.
-
-| Host | Where it reads the skill |
+| Host | Where it reads skills |
 |---|---|
-| Claude Code | `~/.claude/skills/llm-coding-council` |
-| Codex | `~/.agents/skills/llm-coding-council` |
-| Gemini CLI | `~/.gemini/skills/llm-coding-council` |
-| Antigravity | `~/.gemini/config/skills/llm-coding-council` |
-| Cursor | `~/.cursor/skills/llm-coding-council` |
+| Claude Code | `~/.claude/skills/<skill-name>` |
+| Codex | `~/.agents/skills/<skill-name>` |
+| Gemini | `~/.gemini/skills/<skill-name>` |
+| Cursor | `~/.cursor/skills/<skill-name>` |
+| Antigravity | `~/.gemini/config/skills/<skill-name>` |
+| Omniroute | Does not load `SKILL.md` directly. Agents behind Omniroute use the install paths above. `omniroute skills install` is for executable handler skills, not these instruction folders. |
+| KisumAI | Coding agents in that environment use the install paths above. KisumAI chat runtimes load their own prompt files and are not a drop-in for `SKILL.md`. |
 
-If `gemini` is on `PATH`, register the same clone:
+A skill that ships its own installer (for example `llm-council` and `llm-coding-council`) documents the exact prompt and link steps in that skill's `README.md`. Follow that file when it exists.
 
-```bash
-gemini skills link "$HOME/.agents/skills/llm-coding-council" --consent
+## Claude Code
+You can register this repository as a Claude Code Plugin marketplace by running the following command in Claude Code:
+```
+/plugin marketplace add anthropics/skills
 ```
 
-Codex reads `~/.agents/skills` itself. `~/.codex/skills` is the old location, so this install does not add a second link there.
+Then, to install a specific set of skills:
+1. Select `Browse and install plugins`
+2. Select `anthropic-agent-skills`
+3. Select `document-skills` or `example-skills`
+4. Select `Install now`
 
-Then tell the user which hosts were linked and which were skipped. The host that is running is the chairman. The others are seats, asked read-only, each with its own model flag. Those commands are in `references/agents.md`.
-
-## Uninstall
-
-Paste this prompt into a coding agent on the same computer:
-
-```text
-Uninstall the llm-coding-council skill. Run
-python3 ~/.agents/skills/llm-coding-council/scripts/uninstall.py --check
-show me what it would remove, ask me once to approve, then run it again
-without --check. When done, tell me what was removed and what was left.
+Alternatively, directly install either Plugin via:
+```
+/plugin install document-skills@anthropic-agent-skills
+/plugin install example-skills@anthropic-agent-skills
 ```
 
-Or run it yourself:
+After installing the plugin, you can use the skill by just mentioning it. For instance, if you install the `document-skills` plugin from the marketplace, you can ask Claude Code to do something like: "Use the PDF skill to extract the form fields from `path/to/some-file.pdf`"
 
-```bash
-python3 "$HOME/.agents/skills/llm-coding-council/scripts/uninstall.py" --check   # preview, changes nothing
-python3 "$HOME/.agents/skills/llm-coding-council/scripts/uninstall.py"           # remove
+## Claude.ai
+
+To use any skill from this repository or upload custom skills, follow the instructions in [Using skills in Claude](https://support.claude.com/en/articles/12512180-using-skills-in-claude#h_a4222fa77b).
+
+## Claude API
+
+You can upload these skills, and use pre-built skills, via the Claude API. See the [Skills API Quickstart](https://docs.claude.com/en/api/skills-guide#creating-a-skill) for more.
+
+## Codex, Gemini, Cursor, and Antigravity
+
+Copy or symlink the skill folder into the host path in the table above, then start a new session so the agent reloads its skills. Codex reads `~/.agents/skills`. Cursor reads `~/.cursor/skills`. Gemini reads `~/.gemini/skills`. Antigravity reads `~/.gemini/config/skills`.
+
+## Omniroute and KisumAI
+
+Omniroute routes a request to an upstream agent. That agent is what loads `SKILL.md`, from the Claude, Codex, Gemini, Cursor, or Antigravity path already installed on the machine. KisumAI coding agents do the same. A KisumAI chat service that keeps its own prompt files does not replace those files with a skill folder from this repo.
+
+# Creating a Basic Skill
+
+Skills are simple to create - just a folder with a `SKILL.md` file containing YAML frontmatter and instructions. You can use the **template-skill** in this repository as a starting point:
+
+```markdown
+---
+name: my-skill-name
+description: A clear description of what this skill does and when to use it
+---
+
+# My Skill Name
+
+[Add your instructions here that the agent will follow when this skill is active]
+
+## Examples
+- Example usage 1
+- Example usage 2
+
+## Guidelines
+- Guideline 1
+- Guideline 2
 ```
 
-`uninstall.py` removes the links in `~/.claude/skills`, `~/.gemini/skills`, `~/.cursor/skills` and the old `~/.codex/skills`, the Antigravity folder and its manifest entry, and last the clone in `~/.agents/skills/llm-coding-council` (which is what Codex reads). It also removes the previous folder name, `llm-council`, when that folder is this skill. It only deletes a link that points at an `llm-coding-council` or `llm-council` folder, or a folder whose `SKILL.md` says `name: llm-coding-council` or `name: llm-council`. Anything else is left in place and reported. Use `--keep-clone` to remove the links but keep the clone. Restart each agent afterwards.
+The frontmatter requires only two fields:
+- `name` - A unique identifier for your skill (lowercase, hyphens for spaces)
+- `description` - A complete description of what the skill does and when to use it
 
-If you ran `gemini skills link` before, check `gemini skills list` and remove the entry there too. A skill uploaded to the Claude app is removed in the app's Skills settings.
+The markdown content below contains the instructions, examples, and guidelines that the agent will follow. For more details, see [How to create custom skills](https://support.claude.com/en/articles/12512198-creating-custom-skills).
 
-## Omniroute
+# Partner Skills
 
-Omniroute does not load `SKILL.md`. `omniroute skills install` registers an executable skill: a JSON file with `name`, `schema.input`, `schema.output`, and a `handler` string that names code Omniroute can run. This council is instructions for an agent, not that kind of handler.
+Skills are a great way to teach these agents how to get better at using specific pieces of software. As we see awesome example skills from partners, we may highlight some of them here:
 
-The install above is what Omniroute's agents read. Omniroute picks the upstream provider and that provider's model. The OpenAI and Gemini ladders in `SKILL.md` are only for the optional HTTP fallback, not for Omniroute routes.
-
-If `omniroute` is on `PATH`, confirm its own registry:
-
-```bash
-omniroute skills list
-```
-
-## KisumAI
-
-The Kisum chat service has its own live-entertainment council. It loads `ai-agent-chat/skills/council/prompts/*.md`, not this file. Models for that runtime are `COUNCIL_ADVISOR_MODEL`, `COUNCIL_REVIEWER_MODEL`, and `COUNCIL_CHAIRMAN_MODEL` in `ai-agent-chat/.env` and `.env.production`. Do not replace those prompt files with this skill, and do not set those variables to `gpt-5-nano` or `gemini-3-flash-preview`.
-
-Coding agents in that repo use the links from the install above. Do not copy this skill into the Kisum tree.
+- **Notion** - [Notion Skills for Claude](https://www.notion.so/notiondevs/Notion-Skills-for-Claude-28da4445d27180c7af1df7d8615723d0)

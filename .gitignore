@@ -1,9 +1,5 @@
 .DS_Store
 __pycache__/
-*.pyc
-.env
-.venv/
-temp/
-opencode/.venv/
-opencode/scripts/data/
-opencode/scripts/worktrees/
+.idea/
+.vscode/
+
