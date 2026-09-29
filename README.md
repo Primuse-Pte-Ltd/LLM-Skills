@@ -1,11 +1,11 @@
-# LLM Council
+# LLM Coding Council
 
-The protocol is `SKILL.md`. The working team drafts the plan, the ledger lists every option, mistake, and bug, and six seats judge it. The consult script, the dashboard, and the OpenCode runner are in this repository: `scripts/query_llms.py`, `scripts/dashboard/`, and `opencode/`.
+This council is for code and systems: an architecture, an API, a schema, a migration, a production change, or a security review of code. Product bets, prices, hires, positioning, and pivots are out of scope. The protocol is `SKILL.md`. The working team drafts the plan, the ledger lists every option, mistake, and bug, and six seats judge it. The consult script, the dashboard, and the OpenCode runner are in this repository: `scripts/query_llms.py`, `scripts/dashboard/`, and `opencode/`.
 
 The source is GitHub, not a path inside someone's project:
 
 ```
-https://github.com/Primuse-Pte-Ltd/llm-council
+https://github.com/Primuse-Pte-Ltd/llm-coding-council
 ```
 
 Each host runs its own model. Do not reuse an OpenAI model id on Claude, Cursor, Codex, Antigravity, or Gemini, and do not reuse a Gemini model id on the others. Leave the model flag off to keep the model that host is already using.
@@ -15,10 +15,10 @@ Each host runs its own model. Do not reuse an OpenAI model id on Claude, Cursor,
 Paste this prompt into any coding agent. One install covers every agent installed on that computer, so you only need to run it once per computer. Run it from an agent on your own computer, not from a cloud chat: the script checks this and stops if it finds no agents.
 
 ```text
-Install the llm-council skill from https://github.com/Primuse-Pte-Ltd/llm-council.
+Install the llm-coding-council skill from https://github.com/Primuse-Pte-Ltd/llm-coding-council.
 Follow the "Install" section of its README.md exactly: clone it to
-~/.agents/skills/llm-council (or pull if it already exists), then run
-python3 ~/.agents/skills/llm-council/scripts/install.py.
+~/.agents/skills/llm-coding-council (or pull if it already exists), then run
+python3 ~/.agents/skills/llm-coding-council/scripts/install.py.
 This writes outside the current project; ask me once to approve, then continue.
 The script checks where it is running first. If it prints STOP, do not work
 around it: tell me what it found and what I should do.
@@ -36,7 +36,7 @@ When done, tell me which agents were linked and which were skipped.
 | Omniroute | Not by prompt | See [Omniroute](#omniroute). |
 | KisumAI | Not by prompt | See [KisumAI](#kisumai). |
 
-To check it worked, ask the agent: "Do you have the llm-council skill? Run the council on: <your question>".
+To check it worked, ask the agent: "Do you have the llm-coding-council skill? Council this change: <the design>".
 
 To update later, paste the same prompt again. It pulls the latest version and links again.
 
@@ -50,16 +50,16 @@ Clone outside the current project, then link that clone into every coding agent:
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
-git clone https://github.com/Primuse-Pte-Ltd/llm-council.git "$HOME/.agents/skills/llm-council"
-python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
+git clone https://github.com/Primuse-Pte-Ltd/llm-coding-council.git "$HOME/.agents/skills/llm-coding-council"
+python3 "$HOME/.agents/skills/llm-coding-council/scripts/install.py"
 ```
 
-If `$HOME/.agents/skills/llm-council` already exists, update it and link again:
+If `$HOME/.agents/skills/llm-council` already exists and `$HOME/.agents/skills/llm-coding-council` does not, rename the old folder, then update it and link again. If `$HOME/.agents/skills/llm-coding-council` already exists, update it and link again:
 
 ```bash
-git -C "$HOME/.agents/skills/llm-council" remote set-url origin https://github.com/Primuse-Pte-Ltd/llm-council.git
-git -C "$HOME/.agents/skills/llm-council" pull --ff-only
-python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
+git -C "$HOME/.agents/skills/llm-coding-council" remote set-url origin https://github.com/Primuse-Pte-Ltd/llm-coding-council.git
+git -C "$HOME/.agents/skills/llm-coding-council" pull --ff-only
+python3 "$HOME/.agents/skills/llm-coding-council/scripts/install.py"
 ```
 
 `install.py` first checks where it is running, then links only the agents it finds:
@@ -76,16 +76,16 @@ For the agents it finds, `install.py` creates the links below. A link that alrea
 
 | Host | Where it reads the skill |
 |---|---|
-| Claude Code | `~/.claude/skills/llm-council` |
-| Codex | `~/.agents/skills/llm-council` |
-| Gemini CLI | `~/.gemini/skills/llm-council` |
-| Antigravity | `~/.gemini/config/skills/llm-council` |
-| Cursor | `~/.cursor/skills/llm-council` |
+| Claude Code | `~/.claude/skills/llm-coding-council` |
+| Codex | `~/.agents/skills/llm-coding-council` |
+| Gemini CLI | `~/.gemini/skills/llm-coding-council` |
+| Antigravity | `~/.gemini/config/skills/llm-coding-council` |
+| Cursor | `~/.cursor/skills/llm-coding-council` |
 
 If `gemini` is on `PATH`, register the same clone:
 
 ```bash
-gemini skills link "$HOME/.agents/skills/llm-council" --consent
+gemini skills link "$HOME/.agents/skills/llm-coding-council" --consent
 ```
 
 Codex reads `~/.agents/skills` itself. `~/.codex/skills` is the old location, so this install does not add a second link there.
@@ -97,8 +97,8 @@ Then tell the user which hosts were linked and which were skipped. The host that
 Paste this prompt into a coding agent on the same computer:
 
 ```text
-Uninstall the llm-council skill. Run
-python3 ~/.agents/skills/llm-council/scripts/uninstall.py --check
+Uninstall the llm-coding-council skill. Run
+python3 ~/.agents/skills/llm-coding-council/scripts/uninstall.py --check
 show me what it would remove, ask me once to approve, then run it again
 without --check. When done, tell me what was removed and what was left.
 ```
@@ -106,11 +106,11 @@ without --check. When done, tell me what was removed and what was left.
 Or run it yourself:
 
 ```bash
-python3 "$HOME/.agents/skills/llm-council/scripts/uninstall.py" --check   # preview, changes nothing
-python3 "$HOME/.agents/skills/llm-council/scripts/uninstall.py"           # remove
+python3 "$HOME/.agents/skills/llm-coding-council/scripts/uninstall.py" --check   # preview, changes nothing
+python3 "$HOME/.agents/skills/llm-coding-council/scripts/uninstall.py"           # remove
 ```
 
-`uninstall.py` removes the links in `~/.claude/skills`, `~/.gemini/skills`, `~/.cursor/skills` and the old `~/.codex/skills`, the Antigravity folder and its manifest entry, and last the clone in `~/.agents/skills/llm-council` (which is what Codex reads). It only deletes a link that points at a `llm-council` folder or a folder whose `SKILL.md` says `name: llm-council`. Anything else is left in place and reported. Use `--keep-clone` to remove the links but keep the clone. Restart each agent afterwards.
+`uninstall.py` removes the links in `~/.claude/skills`, `~/.gemini/skills`, `~/.cursor/skills` and the old `~/.codex/skills`, the Antigravity folder and its manifest entry, and last the clone in `~/.agents/skills/llm-coding-council` (which is what Codex reads). It also removes the previous folder name, `llm-council`, when that folder is this skill. It only deletes a link that points at an `llm-coding-council` or `llm-council` folder, or a folder whose `SKILL.md` says `name: llm-coding-council` or `name: llm-council`. Anything else is left in place and reported. Use `--keep-clone` to remove the links but keep the clone. Restart each agent afterwards.
 
 If you ran `gemini skills link` before, check `gemini skills list` and remove the entry there too. A skill uploaded to the Claude app is removed in the app's Skills settings.
 

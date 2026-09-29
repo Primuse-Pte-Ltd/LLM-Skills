@@ -1,23 +1,21 @@
 #!/usr/bin/env python3
-"""Remove the llm-coding-council skill from every coding agent on this machine.
+"""Remove the llm-council skill from every coding agent on this machine.
 
 It undoes what install.py did:
 - removes the links in ~/.claude/skills, ~/.gemini/skills, ~/.cursor/skills
   and the old ~/.codex/skills
 - removes the Antigravity folder in ~/.gemini/config/skills and its entry in
   Antigravity's skills manifest
-- removes the clone in ~/.agents/skills/llm-coding-council (that is what Codex reads)
-- removes the previous name, llm-council, when that folder is this same skill
+- removes the clone in ~/.agents/skills/llm-council (that is what Codex reads)
 
-It only deletes things that belong to this skill: a link that points at an
-llm-coding-council or llm-council folder, or a folder whose SKILL.md says
-`name: llm-coding-council` or `name: llm-council`.
+It only deletes things that belong to this skill: a link that points at a
+llm-council folder, or a folder whose SKILL.md says `name: llm-council`.
 Anything else is left in place and reported.
 
 Usage:
     python3 uninstall.py               # remove everything
     python3 uninstall.py --check       # show what would be removed, change nothing
-    python3 uninstall.py --keep-clone  # remove the links, keep ~/.agents/skills/llm-coding-council
+    python3 uninstall.py --keep-clone  # remove the links, keep ~/.agents/skills/llm-council
 """
 
 from __future__ import annotations
@@ -30,31 +28,27 @@ import sys
 from pathlib import Path
 
 HOME = Path.home()
-SKILL = "llm-coding-council"
-LEGACY = "llm-council"
-NAMES = (SKILL, LEGACY)
+SKILL = "llm-council"
 CLONE = HOME / ".agents" / "skills" / SKILL
-LEGACY_CLONE = HOME / ".agents" / "skills" / LEGACY
 ANTIGRAVITY = HOME / ".gemini" / "config" / "skills" / SKILL
-LEGACY_ANTIGRAVITY = HOME / ".gemini" / "config" / "skills" / LEGACY
 MANIFEST = ANTIGRAVITY.parent / ".datacloud_skills_manifest"
 
-LINKS = {}
-for _name in NAMES:
-    LINKS[f"claude ({_name})"] = HOME / ".claude" / "skills" / _name
-    LINKS[f"gemini ({_name})"] = HOME / ".gemini" / "skills" / _name
-    LINKS[f"cursor ({_name})"] = HOME / ".cursor" / "skills" / _name
-    LINKS[f"codex old location ({_name})"] = HOME / ".codex" / "skills" / _name
+LINKS = {
+    "claude": HOME / ".claude" / "skills" / SKILL,
+    "gemini": HOME / ".gemini" / "skills" / SKILL,
+    "cursor": HOME / ".cursor" / "skills" / SKILL,
+    "codex (old location)": HOME / ".codex" / "skills" / SKILL,
+}
 
 
 def is_ours(path: Path) -> bool:
-    """True if this folder holds this skill's SKILL.md, including the old name."""
+    """True if this folder holds the llm-council SKILL.md."""
     skill_md = path / "SKILL.md"
     try:
         head = skill_md.read_text(errors="ignore")[:500]
     except OSError:
         return False
-    return any(f"name: {name}" in head for name in NAMES)
+    return f"name: {SKILL}" in head
 
 
 def remove_path(path: Path) -> None:
@@ -70,7 +64,7 @@ def remove_entry(label: str, path: Path, check: bool) -> str:
         return f"{label}: nothing there"
     if path.is_symlink():
         target = Path(os.readlink(path))
-        if target.name not in NAMES and not is_ours(path):
+        if target.name != SKILL and not is_ours(path):
             return f"{label}: left {path} in place, it links to {target}, not this skill"
         what = f"link {path} -> {target}"
     elif path.is_dir():
@@ -93,13 +87,11 @@ def remove_manifest_entry(check: bool) -> str | None:
     except (OSError, json.JSONDecodeError):
         return f"antigravity: could not read {MANIFEST}, left it alone"
     skills = manifest.get("skills", {})
-    present = [name for name in NAMES if name in skills]
-    if not present:
+    if SKILL not in skills:
         return None
     if check:
         return "antigravity: would remove the manifest entry"
-    for name in present:
-        del skills[name]
+    del skills[SKILL]
     MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n")
     return "antigravity: removed the manifest entry"
 
@@ -107,7 +99,7 @@ def remove_manifest_entry(check: bool) -> str | None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--check", action="store_true", help="show what would be removed, change nothing")
-    parser.add_argument("--keep-clone", action="store_true", help="keep ~/.agents/skills/llm-coding-council")
+    parser.add_argument("--keep-clone", action="store_true", help="keep ~/.agents/skills/llm-council")
     args = parser.parse_args()
 
     print(f"Home: {HOME}\n")
@@ -115,7 +107,6 @@ def main() -> int:
         print(remove_entry(label, path, args.check))
 
     print(remove_entry("antigravity", ANTIGRAVITY, args.check))
-    print(remove_entry("antigravity (previous name)", LEGACY_ANTIGRAVITY, args.check))
     note = remove_manifest_entry(args.check)
     if note:
         print(note)
@@ -123,13 +114,8 @@ def main() -> int:
     if args.keep_clone:
         print(f"codex: kept {CLONE} (--keep-clone), so Codex still sees the skill")
     else:
-        # The clone this file is running from goes last.
-        here = Path(__file__).resolve()
-        clones = [CLONE, LEGACY_CLONE]
-        clones.sort(key=lambda path: here.is_relative_to(path))
-        for path in clones:
-            label = "codex + clone" if path == CLONE else "codex + previous clone"
-            print(remove_entry(label, path, args.check))
+        # The clone is last, because this script may be running from inside it.
+        print(remove_entry("codex + clone", CLONE, args.check))
 
     if shutil.which("gemini"):
         print("\ngemini is on PATH: if you ran `gemini skills link` before, check `gemini skills list`")

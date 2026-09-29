@@ -1,23 +1,25 @@
 ---
-name: llm-council
+name: llm-coding-council
 description: >-
-  Run a question, plan, architecture, implementation, or review through
-  one strict LLM council. A working team drafts the plan. A decision
-  ledger lists every real option, the mistake that kills it, and the bugs
-  it carries. Six seats then answer and peer-review anonymously. The
-  chairman picks only after every option is disposed. Seats are The User,
-  Contrarian, First Principles, Expansionist, Outsider, and Executor.
-  Team is router, researcher, architect, assessor, planner, implementer,
-  test-designer, reviewer, red-team, and shipper. Installs into Claude,
-  Codex, Gemini, Antigravity, Cursor, Omniroute, and KisumAI. Each host
-  uses its own model. Use when the user says "council this", "run the council", "council
-  run", "war room", "pressure-test", "stress-test", "debate this",
-  "consult the council", "ask other models", "compare models", or
-  "council dashboard", or brings a real tradeoff. Skip factual lookups,
-  one-line fixes, and creation tasks with no decision.
+  Run a code or systems decision through one strict LLM council. A working
+  team drafts the plan. A decision ledger lists every real option, the
+  mistake that kills it, and the bugs it carries. Six seats then answer
+  and peer-review anonymously. The chairman picks only after every option
+  is disposed. Seats are The User, Contrarian, First Principles,
+  Expansionist, Outsider, and Executor. Team is router, researcher,
+  architect, assessor, planner, implementer, test-designer, reviewer,
+  red-team, and shipper. Installs into Claude, Codex, Gemini, Antigravity,
+  and Cursor. Each host uses its own model. Use when the user says
+  "coding council", "council this code", "council this change", "council
+  this design", "council this architecture", "council this system",
+  "council this API", "war room this design", or "pressure-test this
+  change", or brings a real tradeoff about architecture, implementation,
+  a production change, a schema, an API, or the security of a system.
+  Skip product bets, pricing, hiring, copy, pivots, factual lookups,
+  one-line fixes, and creation tasks.
 ---
 
-# LLM Council
+# LLM Coding Council
 
 This is the one council. The working team drafts how the plan works. The decision ledger then writes down every real option, the mistake that kills each one, and the bugs already in the code or the plan. Six seats attack that record. A chairman issues one verdict only after every option has been kept, rejected, or blocked by a named unknown.
 
@@ -25,9 +27,9 @@ A verdict that skips an option, a mistake, or a bug on the ledger is not finishe
 
 The team are specialists: they design, sequence, score, and try to break the plan. The seats are the jury. They do not share the job of sounding reasonable. A seat that could have been written for any other user has failed. The chairman's job is a decision, not a blend.
 
-The council is for work where a wrong call is expensive: a product bet, an architecture, a production change, a security review, a hire, a price, a pivot. Skip it for factual lookups, one-line edits, and creation tasks with no decision ("write the tweet", "summarize this").
+The council is for a wrong call in a system: an architecture, an API, a schema, a migration, a production change, or a security review of code. Skip product bets, prices, hires, positioning, pivots, factual lookups, one-line edits, and creation tasks ("write the tweet", "summarize this"). A question that does not change a system is not this council.
 
-If the ask is vague ("council this: my business"), ask one clarifying question. One. Then run.
+If the ask is vague ("council this: the backend"), ask one clarifying question. One. Then run.
 
 Copy this checklist and keep it current:
 
@@ -45,29 +47,29 @@ Council:
 - [ ] Anonymous peer review completed
 - [ ] Chairman named the call, what happened to the plan, and the assumption the call dies on
 - [ ] Verdict posted in chat
-- [ ] Transcript saved when the decision is worth reopening
+- [ ] HTML report and markdown transcript saved, and the HTML report opened
 ```
 
 ## The bar
 
 Every seat, in every mode, meets this bar. The chairman enforces it.
 
-**Expert on this task.** Before anyone answers, name the discipline in one line: pricing, architecture, security, hiring, copy, sequencing, implementation, research, or a tighter name when the task is tighter. Write the three or four criteria a specialist in that discipline would actually use. Advisors who answer a different question are off-brief.
+**Expert on this task.** Before anyone answers, name the discipline in one line: architecture, security, implementation, data, reliability, sequencing, or a tighter name when the task is tighter. Write the three or four criteria a specialist in that discipline would actually use. Advisors who answer a different question are off-brief.
 
 Specialist criteria, applied to the user's facts:
 
-- **Pricing and offers.** Who pays, what they use instead, cost to serve, reversibility of the price, what the refund looks like.
 - **Architecture.** Load, consistency, failure domain, operational cost, the first thing that breaks at ten times the current size.
 - **Implementation.** Files and invariants that already exist, the behavior change, the test that must stay green, the rollback.
 - **Review.** Defect, location, severity, whether it ships. Praise is optional and short. Findings come first.
 - **Security.** Asset, actor, control that is missing, CWE when one fits, residual risk, the fix. Report enough to fix the system. Do not publish a how-to for attacking it.
-- **Research.** Options, the criterion that separates them, a source or an explicit "unchecked" label. Never invent a citation, a benchmark, or a file.
+- **Data.** What is stored, who can read it, what a migration does to existing rows, and how to roll it back.
+- **Reliability.** What happens when a dependency errors, what the caller sees, and whether the success path is the leak.
 - **Sequencing.** Critical path, what can run in parallel, the rollback, the signal that a phase is done.
-- **Copy and positioning.** Who reads it, what they already believe, the single action the page is for.
+- **Research.** Technical options, the criterion that separates them, a source or an explicit "unchecked" label. Never invent a citation, a benchmark, or a file.
 
 **Straight.** No preamble, no compliment, no "great question", no "there are many factors." Do not open by agreeing with the user. Lean all the way into the assigned lens. Balance is the chairman's job, and even the chairman ends on a call.
 
-**Evidenced.** A claim needs a mechanism, a number from the user's material, or a condition that would prove it wrong. "The market is crowded" is not a finding. "At $297 you are next to free tutorials, and your buyer does not know the product name" is a finding. If the number is not in the material, say it is an assumption.
+**Evidenced.** A claim needs a mechanism, a number from the user's material, or a condition that would prove it wrong. "This will not scale" is not a finding. "Empty scopes still mean full admin, and the second service stores the key with no tenant id, so a key from the wrong tenant passes a 200 check" is a finding. If the number is not in the material, say it is an assumption.
 
 **Specific.** Name the file, the price, the user, the phase, the failure. Advice that still works after deleting the user's nouns is rejected.
 
@@ -79,7 +81,7 @@ Specialist criteria, applied to the user's facts:
 
 | Mode | Use when | Who answers |
 |---|---|---|
-| **Lens council** (default) | "council this", war room, pressure-test, stress-test, debate, a real tradeoff | Working team, then six seats: The User plus five lenses. No API keys. |
+| **Lens council** (default) | "coding council", "council this change", "council this design", a real systems tradeoff | Working team, then six seats: The User plus five lenses. No API keys. |
 | **Pair consult** | "ask ChatGPT and Gemini", "consult other models" on a plan | `codex` and `gemini` CLIs, else OpenAI and Gemini APIs |
 | **Dashboard** | live side-by-side comparison, anonymous model vote, "start the council dashboard" | AI Gateway models in the browser |
 | **OpenCode council** | several configured models should answer, or propose and rank code in worktrees | OpenCode CLI |
@@ -98,9 +100,9 @@ Look for:
 - `CLAUDE.md`, `AGENTS.md`, `.cursor/rules`, a `memory/` folder
 - Files the user attached or named
 - Recent `council-transcript-*.md` in the working directory or `active/`, so the council does not re-argue a settled point
-- For a pricing or offer question: revenue notes, past launches, audience descriptions
 - For a code question: the files in the request, the tests around them, the types and invariants they already obey
 - For an architecture question: the current boundaries, the datastore, the deploy path
+- For a data question: the schema, the migration, and what existing rows do today
 
 The framed question that every seat receives contains:
 
@@ -140,7 +142,7 @@ Return:
 - reasoning
 - confidence from 0 to 1
 
-Drop a role whose output cannot change the plan. A pricing decision does not need a release shipper. A "how does this get built" plan does not drop the builder.
+Drop a role whose output cannot change the plan. A schema question does not need a release shipper. A "how does this get built" plan does not drop the builder. A question that does not change a system does not get a crew.
 ```
 
 ### Wave 1 — builders, in parallel
@@ -277,7 +279,7 @@ The jury. They receive the framed question, the Council Brief, and the Decision 
 1. **Contrarian.** Hunts the fatal flaw, the missing piece, and the way this fails in ninety days. Assumes there is a hole and looks until it is found or genuinely is not there. This is the person who stops a bad deal, not a pessimist performing doubt.
 2. **First Principles Thinker.** Ignores the surface question and asks what is actually being solved. Strips assumptions. Rebuilds the problem. Allowed to say the question is the wrong question, and required to say what the right question is.
 3. **Expansionist.** Looks for upside, the adjacent opportunity, and what is undervalued. Owns the case where this works better than expected. Does not do risk. That is the Contrarian's job.
-4. **Outsider.** Has none of the insider vocabulary. Answers from what is literally in the frame and the brief. Catches the curse of knowledge: the thing that is obvious to the team and meaningless to the buyer, the new hire, or the on-call engineer.
+4. **Outsider.** Has none of the insider vocabulary. Answers from what is literally in the frame and the brief. Catches the curse of knowledge: the thing that is obvious to the team and meaningless to the on-call engineer or the next person who has to change the code.
 5. **Executor.** Can this actually be done, and what is the first concrete step. Ignores strategy that does not change Monday. A brilliant plan with no first action is unfinished. Checks the team's "first build step" and says whether it is real.
 
 Tensions to keep intact: The User against a plan that got too clever, Contrarian against Expansionist, First Principles against Executor, Outsider against everyone's assumptions.
@@ -380,22 +382,24 @@ Discipline: {discipline}
 
 On a pair consult, the Recommendation also carries a contribution line for each model that answered, tied to a specific claim: "ChatGPT: …", "Gemini: …". That attribution sits inside the verdict. It is not a second document.
 
-Save `council-transcript-YYYYMMDD-HHMM.md` when the user asks, or when the decision is worth reopening later (a bet, an architecture, a production change, a security finding). Include the raw question, the framed question, the discipline and criteria, the router crew, the Council Brief, the Decision Ledger, every seat including dropped ones, the letter mapping, every review, and the verdict. If an `active/` directory exists, save there. Otherwise save in the working directory.
+Every council session produces two files, with the same timestamp. The user sees the HTML report. The transcript is there if they want to dig deeper or reference a specific seat later.
 
-Write the report as two files with the same timestamp, only when the user asks for a report or a visual:
+- `council-report-YYYYMMDD-HHMM.html` — visual report for scanning
+- `council-transcript-YYYYMMDD-HHMM.md` — full transcript for reference
 
-- `council-report-YYYYMMDD-HHMM.md`
-- `council-report-YYYYMMDD-HHMM.html`
+If an `active/` directory exists, save both there. Otherwise save both in the working directory. A session that writes only one of the two files is not delivered.
 
-Same contents in both. The markdown file is the source. The HTML file is one self-contained page of that same report: inline CSS, system font stack, white background, subtle borders, no decoration. If an `active/` directory exists, save both there. Otherwise save both in the working directory. A report that exists in only one of the two formats is not delivered.
+The transcript includes the raw question, the framed question, the discipline and criteria, the router crew, the Council Brief, the Decision Ledger, every seat including dropped ones, the letter mapping, every review, and the verdict.
 
-Contents, in order:
+The HTML file is a briefing, not the transcript with tags around it. Headings, paragraphs, and one border around each block is a failed report. Build one self-contained file with inline CSS. System font stack, white background, subtle borders, readable line length. Soft accent colors only to separate the verdict, the first action, agreement, clash, and the seats. No gradients, no decoration, no animation. It should look like a professional briefing.
 
-1. The question and the discipline.
-2. The chairman's verdict, placed so it can be read without scrolling through seats.
-3. A plain agreement / clash breakdown: which seats aligned, which diverged, on which claim.
-4. Each seat's full answer. In the HTML file, this section is collapsed by default.
-5. Peer-review highlights. In the HTML file, this section is collapsed by default.
+The page, in order:
+
+1. The question at the top, with the discipline and the timestamp under it.
+2. The chairman's verdict, set apart so it can be read without opening a seat. Lead with the recommendation in large type. Put "The one thing to do first" in its own bar. Keep agrees, clashes, blind spots, what was discarded, what happened to the plan, and the bugs as short labeled blocks. Render options as a table with a disposition on each row: kept, amended, or rejected.
+3. An agreement / clash visual. One card per seat, showing the seat, whether it aligned or diverged, and the claim it took. A person should see the split without reading the paragraphs. Mark the side the chairman took.
+4. Each seat's full answer in its own `<details>`, collapsed. The summary is the seat name.
+5. Peer-review highlights in one `<details>`, collapsed.
 6. A footer with the timestamp and the question.
 
 Open the HTML file after writing both.
@@ -428,32 +432,32 @@ If the user asked only for a side-by-side comparison, bring the answers back and
 The agent does this. Do not ask the user to clone the repo or run the script. The install writes outside the current project (`~/.agents`, `~/.claude`, `~/.gemini`, `~/.cursor`). If the host asks for permission, ask the user once to approve those writes, then run the commands. Needs only `git` and `python3`; the repository is public, so no GitHub login is required. The source is GitHub:
 
 ```
-https://github.com/Primuse-Pte-Ltd/llm-council
+https://github.com/Primuse-Pte-Ltd/llm-coding-council
 ```
 
 Clone it outside the current project, then link that clone:
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
-git clone https://github.com/Primuse-Pte-Ltd/llm-council.git "$HOME/.agents/skills/llm-council"
-python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
+git clone https://github.com/Primuse-Pte-Ltd/llm-coding-council.git "$HOME/.agents/skills/llm-coding-council"
+python3 "$HOME/.agents/skills/llm-coding-council/scripts/install.py"
 ```
 
-If that directory already exists, run `git -C "$HOME/.agents/skills/llm-council" remote set-url origin https://github.com/Primuse-Pte-Ltd/llm-council.git`, then `git -C "$HOME/.agents/skills/llm-council" pull --ff-only`, and run `install.py` again. A link that already points at the clone is left alone. A real directory that is not a link is left in place and reported. Do not delete it unless the user asked.
+If `~/.agents/skills/llm-council` already exists and `~/.agents/skills/llm-coding-council` does not, rename the old folder to `llm-coding-council`, then pull and install. If `llm-coding-council` already exists, run `git -C "$HOME/.agents/skills/llm-coding-council" remote set-url origin https://github.com/Primuse-Pte-Ltd/llm-coding-council.git`, then `git -C "$HOME/.agents/skills/llm-coding-council" pull --ff-only`, and run `install.py` again. A link that already points at the clone is left alone. A real directory that is not a link is left in place and reported. Do not delete it unless the user asked. `install.py` removes a leftover link named `llm-council` when that link points at this clone.
 
 `install.py` checks where it is running first and links only the agents whose folder exists in the home folder. If it prints `STOP` (exit 2: no agents found, so this is a cloud or remote sandbox; exit 3: home folder not writable), do not work around it. Tell the user what it found and ask them to run the install from a coding agent on their own computer, or to approve full access. `--check` reports without changing anything.
 
 | Host | Where it lands |
 |---|---|
-| Claude Code | `~/.claude/skills/llm-council` |
-| Codex | `~/.agents/skills/llm-council` (Codex reads this directory; `~/.codex/skills` is the old location) |
-| Gemini CLI | `~/.gemini/skills/llm-council` |
-| Antigravity | `~/.gemini/config/skills/llm-council` |
-| Cursor | `~/.cursor/skills/llm-council` |
+| Claude Code | `~/.claude/skills/llm-coding-council` |
+| Codex | `~/.agents/skills/llm-coding-council` (Codex reads this directory; `~/.codex/skills` is the old location) |
+| Gemini CLI | `~/.gemini/skills/llm-coding-council` |
+| Antigravity | `~/.gemini/config/skills/llm-coding-council` |
+| Cursor | `~/.cursor/skills/llm-coding-council` |
 
-The links point at the clone, so a later pull is what every host reads. Do not copy a second `SKILL.md` into those folders. If `gemini` is on `PATH`, also run `gemini skills link "$HOME/.agents/skills/llm-council" --consent`.
+The links point at the clone, so a later pull is what every host reads. Do not copy a second `SKILL.md` into those folders. If `gemini` is on `PATH`, also run `gemini skills link "$HOME/.agents/skills/llm-coding-council" --consent`.
 
-To remove the skill, run `python3 "$HOME/.agents/skills/llm-council/scripts/uninstall.py" --check`, show the user what it would remove, and run it without `--check` after they approve.
+To remove the skill, run `python3 "$HOME/.agents/skills/llm-coding-council/scripts/uninstall.py" --check`, show the user what it would remove, and run it without `--check` after they approve.
 
 Omniroute and KisumAI do not take that link. See `README.md`.
 
@@ -468,9 +472,22 @@ Omniroute and KisumAI do not take that link. See `README.md`.
 - The chairman names the assumption that kills the recommendation.
 - One failed model does not cancel the council.
 - Do not council a question with a single right answer.
+- Do not council a product bet, a price, a hire, a piece of copy, or a pivot. This council is for code and systems.
 - Do not merge, commit, or apply code unless the user asked.
 - After a CLI `impl` run, run `critic --mode review` before calling the change done.
 - Do not send secrets to any external model. Do not invent sources, metrics, or file contents.
 - Do not compliment the user. Do not hide a clash. Do not end on a list of ten next steps.
 
 Methodology by Andrej Karpathy. This folder is the council: the six seats, the working team in `subagents/`, the decision ledger, the ChatGPT and Gemini consult, the dashboard, the OpenCode worktree council, and the `the-llm-council` CLI. The ledger is the part that makes the verdict earn the call.
+
+---
+
+## important notes
+
+- **Always spawn all 6 advisors in parallel.** Sequential spawning wastes time and lets earlier responses bleed into later ones.
+- **Always anonymize for peer review.** If reviewers know which advisor said what, they'll defer to certain thinking styles instead of evaluating on merit.
+- **The chairman can disagree with the majority.** If 5 out of 6 advisors say "do it" but the reasoning of the 1 dissenter is strongest, the chairman should side with the dissenter and explain why.
+- **Don't council trivial questions.** If the user asks something with one right answer, just answer it. If the question does not change a system, do not run this council.
+- **The visual report matters.** Most users will scan the report, not read the full transcript. Make the HTML output clean and scannable.
+
+---

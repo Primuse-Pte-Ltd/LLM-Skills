@@ -34,7 +34,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 HOME = Path.home()
-SKILL = "llm-council"
+SKILL = "llm-coding-council"
+LEGACY = "llm-council"
 EXPECTED_ROOT = HOME / ".agents" / "skills" / SKILL
 
 # Codex scans ~/.agents/skills, which is where the clone lives.
@@ -222,6 +223,33 @@ def link_antigravity(dest: Path) -> str:
     return f"antigravity: {dest} (real SKILL.md, {linked} links into {ROOT})"
 
 
+def cleanup_legacy() -> None:
+    """Drop the previous skill name when it is this same clone."""
+    legacy_links = [
+        HOME / ".claude" / "skills" / LEGACY,
+        HOME / ".gemini" / "skills" / LEGACY,
+        HOME / ".cursor" / "skills" / LEGACY,
+        HOME / ".codex" / "skills" / LEGACY,
+    ]
+    for path in legacy_links:
+        if path.is_symlink() and path.resolve() == ROOT:
+            path.unlink()
+            print(f"legacy: removed {path}")
+    if MANIFEST.is_file():
+        try:
+            manifest = json.loads(MANIFEST.read_text())
+        except (OSError, json.JSONDecodeError):
+            manifest = None
+        skills = manifest.get("skills", {}) if isinstance(manifest, dict) else {}
+        if LEGACY in skills:
+            del skills[LEGACY]
+            MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n")
+            print("legacy: removed the old Antigravity manifest entry")
+    old_clone = HOME / ".agents" / "skills" / LEGACY
+    if old_clone.exists() and old_clone.resolve() != ROOT.resolve():
+        print(f"legacy: {old_clone} is still installed. Move it to {EXPECTED_ROOT} or remove it, or Codex will load both.")
+
+
 def codex_status() -> str:
     notes = []
     if ROOT != EXPECTED_ROOT.resolve() and ROOT != EXPECTED_ROOT:
@@ -291,6 +319,8 @@ def main() -> int:
             print(link_antigravity(spec["dest"]))
         else:
             print(link(name, spec["dest"]))
+
+    cleanup_legacy()
 
     if found["gemini"] and shutil.which("gemini"):
         print("\ngemini is on PATH: also run")
