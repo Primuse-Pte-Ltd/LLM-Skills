@@ -1,0 +1,47 @@
+{
+  "skill_name": "dirsal-brands-guidelines",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need a quick HTML mock of the Kisum promoters dashboard header: page title, 4 KPI cards (open requests, confirmed shows, avg response time, gross this month) and a 'New booking' button. Save it as dashboard-header.html",
+      "expected_output": "Detects Kisum from the explicit name, reads Projects/Kisum/readme.md, produces HTML using Kisum purple #8466AC sparingly (one primary CTA), cool neutrals, Manrope headings + Inter body, 12px card radius, flat borders, tabular numbers, sentence case, and states it is applying Kisum guidelines.",
+      "files": [],
+      "assertions": [
+        "Response tells the user Kisum brand guidelines are being applied",
+        "dashboard-header.html exists",
+        "HTML uses Kisum Purple #8466AC",
+        "HTML uses Manrope and Inter fonts",
+        "HTML contains no warm cream page background or foreign brand colors (#faf9f5, #f5f3ee, #d97757)",
+        "HTML uses Kisum 12px card radius"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "can u make a hero section for our NYE party page? big title, date, and a button to grab tickets. save as nye-hero.html. repo files are in the workspace",
+      "expected_output": "Project is not named, but the workspace package.json depends on @thestage/ui, so it detects The Stage, reads Projects/TheStage/README.md, and builds a dark green (#0a140f) section with Cormorant Garamond display (font-normal, tracking-wide), Montserrat body, uppercase tracked taupe label, and a muted-gold (#c9a962) button with black text. States it is applying The Stage guidelines.",
+      "files": [
+        "evals/files/thestage-workspace/package.json"
+      ],
+      "assertions": [
+        "Response tells the user The Stage brand guidelines are being applied",
+        "nye-hero.html exists",
+        "HTML uses The Stage dark green #0a140f (or var(--color-dark-green))",
+        "HTML uses The Stage muted gold #c9a962 (or var(--color-muted-gold))",
+        "HTML uses Cormorant Garamond and Montserrat fonts",
+        "HTML contains no Kisum purple #8466AC"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design a booking confirmation page for our venue \u2014 shows the event name, date, number of guests and a download ticket button. Make it on-brand.",
+      "expected_output": "Only generic domain words (venue, booking, event), no workspace signal. Falls back to Projects/Default: applies no brand styling, does not invent a palette, and asks the user which project (Kisum or The Stage) in one short question, noting the venue/booking hint.",
+      "files": [],
+      "assertions": [
+        "No HTML/design file is produced before the project is known",
+        "Response asks the user which project the work is for",
+        "Response offers both Kisum and The Stage as options",
+        "Response does not propose an invented palette (no hex color codes)"
+      ]
+    }
+  ]
+}

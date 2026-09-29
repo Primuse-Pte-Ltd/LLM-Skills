@@ -3,3 +3,6 @@ __pycache__/
 .idea/
 .vscode/
 
+
+# skill-creator eval runs
+skills/*-workspace/

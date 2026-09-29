@@ -52,7 +52,7 @@ Point the host at the skill folder (or a copy of it). After it is installed, men
 | Omniroute | Does not load `SKILL.md` directly. Agents behind Omniroute use the install paths above. `omniroute skills install` is for executable handler skills, not these instruction folders. |
 | KisumAI | Coding agents in that environment use the install paths above. KisumAI chat runtimes load their own prompt files and are not a drop-in for `SKILL.md`. |
 
-A skill that ships its own installer (for example `llm-council` and `llm-coding-council`) documents the exact prompt and link steps in that skill's `README.md`. Follow that file when it exists.
+A skill that ships its own installer (for example `dirsal-llm-council` and `dirsal-llm-coding-council`) documents the exact prompt and link steps in that skill's `README.md`. Follow that file when it exists.
 
 ## Claude Code
 You can register this repository as a Claude Code Plugin marketplace by running the following command in Claude Code:
