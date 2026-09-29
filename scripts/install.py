@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Link this skill into Claude, Codex, Gemini, Antigravity, and Cursor."""
+"""Link this skill into Claude, Gemini, Antigravity, and Cursor.
+
+Codex reads ~/.agents/skills directly. Do not also link ~/.codex/skills.
+"""
 
 from __future__ import annotations
 
@@ -13,10 +16,14 @@ HOME = Path.home()
 
 TARGETS = {
     "claude": HOME / ".claude" / "skills" / "llm-council",
-    "codex": HOME / ".codex" / "skills" / "llm-council",
     "gemini": HOME / ".gemini" / "skills" / "llm-council",
     "cursor": HOME / ".cursor" / "skills" / "llm-council",
 }
+
+# Codex scans ~/.agents/skills, which is where the clone lives.
+# ~/.codex/skills is the old location and is still scanned, so a second link
+# would load this skill twice.
+CODEX_LEGACY = HOME / ".codex" / "skills" / "llm-council"
 
 # The Antigravity IDE lists skills from Gemini's config directory, not from
 # ~/.gemini/antigravity/skills. The skill folder and SKILL.md must be real
@@ -90,12 +97,22 @@ def link_antigravity(dest: Path) -> str:
     return f"antigravity: {dest} (real SKILL.md, {linked} links into {ROOT})"
 
 
+def retire_codex_link() -> str:
+    if not CODEX_LEGACY.exists() and not CODEX_LEGACY.is_symlink():
+        return "codex: reads ~/.agents/skills, no legacy link"
+    if not CODEX_LEGACY.is_symlink():
+        return f"codex: left {CODEX_LEGACY} in place, it is not a link"
+    CODEX_LEGACY.unlink()
+    return "codex: removed ~/.codex/skills/llm-council; Codex reads ~/.agents/skills"
+
+
 def main() -> int:
     if not (ROOT / "SKILL.md").is_file():
         print("SKILL.md is missing next to scripts/", file=sys.stderr)
         return 1
     for name, dest in TARGETS.items():
         print(link(name, dest))
+    print(retire_codex_link())
     print(link_antigravity(ANTIGRAVITY))
     return 0
 

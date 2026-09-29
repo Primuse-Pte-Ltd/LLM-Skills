@@ -288,70 +288,7 @@ Each seat still has to be an expert on the discipline in the frame. A Contrarian
 
 Spawn all six seats at the same time. Sequential calls let earlier answers leak into later ones. Each seat gets its role, the framed question, and the Council Brief. Nothing else. 150–300 words. No preamble.
 
-The User:
-
-```
-You are The User on an LLM Council. You hold the actual person's goal, constraints, taste, and what they have already ruled out. You are not a strategist and not a second critic.
-
-Discipline: [discipline]
-
-Framed question:
----
-[framed question]
----
-
-The working team's plan:
----
-[Council Brief]
----
-
-Decision ledger (options, mistakes, bugs, unknowns):
----
-[Decision Ledger]
----
-
-Say whether this plan does the thing that was asked. Name the option on the ledger that matches what was actually asked. Name any option that smuggles in scope. Name any constraint it breaks. Name where it got clever and left the original ask behind. If the original idea has a hole the user would hate in a month, say that in plain language. Do not add scope. Do not invent a new ambition. Do not protect a bad idea out of loyalty.
-
-150–300 words. No preamble.
-```
-
-Each lens:
-
-```
-You are [Advisor Name] on an LLM Council.
-
-Discipline: [discipline]
-Specialist criteria: [criteria]
-
-Your thinking style: [lens description]
-
-Framed question:
----
-[framed question]
----
-
-The working team's plan, which you are here to attack or defend from your lens only:
----
-[Council Brief]
----
-
-Decision ledger. Every option, mistake, and bug is in play. You may add one the ledger missed. You may not pretend a listed high-severity bug is absent.
----
-[Decision Ledger]
----
-
-Respond from your lens. Be direct and specific. Do not hedge. Do not try to be balanced. Do not compliment the user or the team. Lean fully into your assigned angle. The other seats cover the angles you are not covering.
-
-Rules:
-- Use the facts in the frame, the brief, and the ledger. If a fact is missing, name the assumption.
-- Tie every material claim to a mechanism, a number, or a condition that would prove you wrong.
-- Advice that would still fit after the user's names and numbers are deleted is a failed answer. Rewrite it.
-- Name the option you would keep and the option you would kill. Point at the mistake or the bug that decides it.
-- Say what should happen to the plan: adopt, amend, or kill. If amend, name the change.
-- End with the single strongest action your lens demands.
-
-150–300 words. No preamble. Start with the analysis.
-```
+The prompts are in `references/prompts.md`. Use them verbatim.
 
 On a pair consult or an OpenCode run, Stage 1 is the model runner. Treat each model answer as one seat. Do not edit those answers before review. If a model answer is generic, say so in the verdict. Do not quietly upgrade it.
 
@@ -380,55 +317,7 @@ Each review is under 200 words and answers three questions:
 
 "Strongest" is not best written. It is the answer a specialist would bet on. "Blind spot" is a missing fact, a missing failure mode, or a false assumption. "Everyone missed" has to be capable of changing the call. If nothing would change the call, say that.
 
-```
-You are reviewing an LLM Council. The seats answered independently. You do not know which lens wrote which response.
-
-Discipline: [discipline]
-Specialist criteria: [criteria]
-
-Question:
----
-[framed question]
----
-
-Plan under review:
----
-[Council Brief]
----
-
-Decision ledger:
----
-[Decision Ledger]
----
-
-**Response A:**
-[response]
-
-**Response B:**
-[response]
-
-**Response C:**
-[response]
-
-**Response D:**
-[response]
-
-**Response E:**
-[response]
-
-**Response F:**
-[response]
-
-Answer these three questions. Reference responses by letter. Be specific. Do not hedge.
-
-1. Which response is the strongest? Which claim makes it the one a specialist would bet on?
-2. Which response has the biggest blind spot? What exactly is missing?
-3. What did ALL of the responses miss that would change the decision?
-
-Under 200 words. No preamble.
-```
-
-With fewer than six seats, label only the answers you have. Reviewers still rank them and name the shared miss.
+The review prompt is in `references/prompts.md`. Use it verbatim. With fewer than six seats, label only the answers you have. Reviewers still rank them and name the shared miss.
 
 Code proposals from the OpenCode runner are ranked, not merely discussed. Each reviewer ends with this block and nothing after it. Letters only, each letter once, best first:
 
@@ -451,79 +340,7 @@ You may overrule the majority. If one seat's reasoning survives the reviews and 
 
 You do not get to decide until every option on the ledger has a disposition: kept, rejected, or blocked. A high-severity bug is either fixed by the call, explicitly accepted with the reason, or the reason the option died. Skipping a row is an unfinished verdict.
 
-```
-You are the Chairman of an LLM Council. Synthesize the seats and the peer reviews into one verdict.
-
-Discipline: [discipline]
-Specialist criteria: [criteria]
-
-Question:
----
-[framed question]
----
-
-COUNCIL BRIEF:
-[the working team's plan]
-
-DECISION LEDGER:
-[every option, mistake, bug, and unknown, including rows added after peer review]
-
-SEATS:
-[name + response for each surviving seat, including any seat dropped after a failed retry. The User is named here.]
-
-PEER REVIEWS:
-[all reviews, with the A–F mapping revealed]
-
-Produce exactly this structure:
-
-## Where the Council Agrees
-Points two or more seats reached independently. These are the high-confidence signals. Quote the shared claim, not a vibe.
-
-## Where the Council Clashes
-The genuine disagreements. Both sides, each side's strongest reason, and why a reasonable specialist could hold either. Do not dissolve the clash into a compromise.
-
-## Blind Spots the Council Caught
-What appeared only in peer review. Name the seat that caught it and the seat that missed it.
-
-## What was discarded
-Answers or claims you threw out, and the reason. Include seats that failed the bar.
-
-## What happened to the plan
-Adopt, amend, or kill the working team's plan. If you amend it, name the change. If you overrule The User, name the constraint you are breaking and why the evidence won.
-
-## Options
-One line per ledger option: kept, rejected, or blocked. The reason is the mistake or the bug, not a vibe. Do nothing must appear.
-
-## Mistakes and bugs that decided it
-The few that actually changed the call. Location and trigger for any bug. A high-severity bug you are leaving in place must be named, with why.
-
-## The Recommendation
-One call. The reason. The assumption that kills this recommendation if it is wrong. That assumption must be an unknown from the ledger, or a new one the reviews established. Not "it depends" as the ending.
-
-## The One Thing to Do First
-A single next action with a done-condition. Not a list. One action a person can start now.
-
-Be direct. Do not compliment the user. Do not hedge the last two sections.
-```
-
-For code, the recommendation is the change that should land: paths, behavior, and what was rejected in the other proposals. Use this close when the seats produced diffs:
-
-```
-You are the Chairman of an LLM Council for a code change. Seats proposed changes and ranked each other anonymously.
-
-Task:
----
-[framed question]
----
-
-PROPOSALS:
-[each seat, de-anonymized, with the files and the behavior change]
-
-PEER RANKINGS:
-[rankings and the mapping]
-
-Produce the verdict structure above. The Recommendation is the final change: which proposal wins, which pieces to take from the others, and which defects the reviews caught that the winner still has. Do not tell the user to merge. Describe the change. The user decides what lands in the tree.
-```
+The chairman prompts, including the verdict headings and the code close, are in `references/prompts.md`. Use them verbatim.
 
 ## Quality gate
 
@@ -576,308 +393,22 @@ Write `council-report-YYYYMMDD-HHMM.html` only when the user asks for a report o
 
 Open the file after writing it.
 
-## Worked verdict
+## Other instruments
 
-User: "Council this: I'm thinking of building a $297 course on Claude Code for beginners. My audience is mostly non-technical solopreneurs. Is this the right move?"
+Read only the file for the mode in "Choose the instrument". Stages 2 and 3 still happen here unless the user asked only for raw runner output.
 
-Discipline: offer design. Criteria: who the buyer is, what they already understand, the alternative they already have, cost to serve, reversibility.
-
-The router keeps researcher, assessor, and planner, and drops implementer, test designer, reviewer, red team, and shipper. Nothing is being built yet. The team briefs a plan: record an eight-module $297 course and sell it to the existing list.
-
-The ledger, before the seats speak:
-
-- **Original idea.** $297 beginner course. Mistake: the title names a tool the buyer does not know. No code surface.
-- **Team plan.** Eight modules to the existing list. Mistake: produces the expensive artifact before any proof of demand.
-- **Do nothing.** Keep publishing as now. Mistake: the audience the user named stays unserved. Cost is time, not a build.
-- **Smallest test.** One paid live workshop. Mistake: a full room of the wrong buyer (developers) would fake the signal.
-- **Upside.** A larger program with support. Mistake: support cost is the thing that makes $297 fail, so bundling more support first scales the failure.
-- **Unargued.** Sell the outcome as a service engagement to five buyers before any curriculum. Looked at the frame: no list, no past launch numbers, so a curriculum is not yet a closed set.
-- **Bug.** No code surface. Operational defect: no way to tell a refund wave from a messaging failure.
-
-The council is asked to break that record, not to invent a sixth plan in the verdict.
-
-The seats, compressed to the claim that matters:
-
-- **The User.** The ask was whether this is the right move for a non-technical audience. A plan that leads with the tool name ignores the audience already named. The $297 figure was a proposal, not a constraint.
-- **Contrarian.** At $297 the buyer is next to free tutorials. A non-technical audience means support load and refunds. The people who will pay $297 are likely past the beginner course already.
-- **First Principles.** Name the goal. Revenue from a course is a slow path. Authority might come from a free artifact. A customer list for a higher offer does not require this price or this title.
-- **Expansionist.** Beginners who are solopreneurs are underserved because the public material is aimed at developers. Own the entry. $297 may be low if support and a community are actually included.
-- **Outsider.** "Claude Code" is meaningless to the buyer. The page is selling a tool name. The buyer buys an outcome.
-- **Executor.** A full course is weeks of production. Sell a $97 live workshop to 50 people first. If 50 do not buy, 500 will not buy the course. The workshop becomes the raw material.
-
-Chairman:
-
-- **Agrees.** The audience is real. The title is the wrong product. The tool name does the selling, and the buyer does not know the tool.
-- **Clashes.** Price. The Contrarian says $297 is high against free alternatives and a high support cost. The Expansionist says $297 is low if access and support are bundled. The split is about what is included, not about a magic number.
-- **Blind spot.** Only the Outsider noticed that the product name is insider language. Every other seat argued price and format while assuming the buyer already wants "Claude Code."
-- **Discarded.** "Build the full course now." No seat showed evidence of demand at that scope, and the Executor's test is cheaper.
-- **Plan.** Killed. The team's eight-module course does not survive the audience the user already named.
-- **Options.** Original idea rejected (tool name). Team plan rejected (sequence). Do nothing rejected (the audience is real). Upside rejected (scales the support problem). Smallest test kept. The service-engagement option stays open and blocked: no evidence in the frame about whether five buyers exist.
-- **Recommendation.** Do not build the course yet. Validate with a smaller live offer, and sell the outcome (hours back, one business task automated), not the tool. This dies if a list of buyers has already paid for this exact beginner course. Nothing in the frame says that.
-- **First action.** Run one $97 workshop, "Automate your first business task with AI," capped at 50 people. The tool name stays out of the title. Done means 50 purchase attempts recorded, or the offer pulled.
-
-That is the density the chairman owes the user. Seats may be longer. The verdict stays this sharp.
-
-## Ask the other agents
-
-The council seats are the installed agents, not a fixed OpenAI plus Gemini pair. A model id from one agent is invalid on the others. `gpt-5-nano` is an OpenAI API id. `gemini-3-flash-preview` is a Gemini API id. Claude will not accept either. Cursor, Codex, and Antigravity will not accept a Gemini id. KisumAI does not read either variable.
-
-Leave the model flag off unless the user named a model for that agent. The omitted flag uses the model that agent is already configured to run. If you pass a model, pass that agent's own id, from that agent's list command.
-
-| Agent | Ask, read-only | Model flag | Where the ids come from |
-|---|---|---|---|
-| Claude | `claude -p --bare --output-format text` | `--model` | Alias `fable`, `opus`, `sonnet`, or a full Claude name such as `claude-fable-5` |
-| Codex | `codex exec --ephemeral --skip-git-repo-check -s read-only` | `-m` | The model configured in Codex. `codex exec -m <id>` |
-| Gemini | `gemini -p --approval-mode plan --output-format text` | `-m` | A Gemini model id. `gemini -m <id>` |
-| Antigravity | `agy --print --mode plan` | `--model` | `agy models` |
-| Cursor | `agent -p --mode ask --output-format text` | `--model` | `agent --list-models`. Examples the CLI documents: `gpt-5`, `sonnet-4`, `sonnet-4-thinking` |
-
-Do not add `--dangerously-skip-permissions`, `--yolo`, `--force`, or `--dangerously-bypass-approvals-and-sandbox`. Those flags let a member edit the machine. The council only needs the judgment.
-
-Run the members you have, in parallel. Name any member that is not installed. Then you are the chairman: ledger, anonymous review, verdict. Attribute a claim to the agent that said it ("Claude: …", "Cursor: …"), not to a model family that agent does not run.
-
-### OpenAI and Gemini HTTP APIs
-
-Use this only when the user wants those two APIs and the agent CLIs above are not the seats. The script is `scripts/query_llms.py` in this skill. Run it from the skill directory, the folder that contains this file. It prefers the `codex` and `gemini` CLIs, then falls back to the APIs. It prints JSON with `chatgpt` and `gemini` objects (`model`, `source`, `response`). It imports `requests`. If that import fails, `python3 -m pip install requests` once, then rerun.
-
-```bash
-python3 scripts/query_llms.py "<framed question>"
-```
-
-When the CLIs are absent and the user still wants the HTTP APIs, put this in the working directory as `.env`. Never commit it. Never paste the keys into chat or into the task.
-
-```
-OPENAI_API_KEY=sk-...
-GEMINI_API_KEY=...
-OPENAI_MODEL=gpt-5-nano
-GEMINI_MODEL=gemini-3-flash-preview
-```
-
-Keys: https://platform.openai.com/api-keys and https://aistudio.google.com/app/apikey.
-
-These ladders are API ids only. They are not the model list for Claude, Codex, Cursor, Antigravity, Omniroute, or KisumAI.
-
-OpenAI API, lower capability to higher: `gpt-5-nano`, `gpt-5-mini`, `gpt-5.2`, `gpt-5.2-pro`.
-Gemini API, lower to higher: `gemini-2.5-flash-lite`, `gemini-2.5-flash`, `gemini-3-flash-preview`, `gemini-3-pro-preview`.
-
-Do not invent current prices. If cost matters, check that provider's pricing page before a heavier API model.
-
-A direct test of the script, from the skill directory:
-
-```bash
-python3 scripts/query_llms.py "Test prompt"
-```
-
-Success is JSON with both responses. An error string inside a seat means that seat dropped. If both error, say so and run the lens council on this agent.
-
-## Dashboard — live multi-model council
-
-Use this when the user wants to watch models side by side, vote, or compare. The server is stdlib Python. The UI is vanilla JS. No install step beyond the API key.
-
-From the skill directory:
-
-```bash
-python3 scripts/dashboard/server.py
-```
-
-If something is already bound to the port, stop it or set `COUNCIL_PORT`. A health check after startup:
-
-```bash
-curl -s --max-time 5 http://localhost:8787/health
-```
-
-Open `http://localhost:8787`. Requires `AI_GATEWAY_API_KEY`. Requests go to `https://ai-gateway.happycapy.ai/api/v1` with a Bearer token. Model IDs use dots, not hyphens.
-
-| Model | ID |
+| Mode | Read |
 |---|---|
-| Claude Sonnet 4.5 | `anthropic/claude-sonnet-4.5` |
-| Claude Opus 4.5 | `anthropic/claude-opus-4.5` |
-| GPT-4o | `openai/gpt-4o` |
-| GPT-5.1 | `openai/gpt-5.1` |
-| Gemini 2.5 Flash | `google/gemini-2.5-flash` |
-| Gemini 2.5 Pro | `google/gemini-2.5-pro` |
-| Grok 4 | `x-ai/grok-4` |
-| Kimi K2.5 | `moonshotai/kimi-k2.5` |
-| DeepSeek R1 | `deepseek/deepseek-r1` |
+| Pair consult, or asking Claude, Codex, Gemini, Antigravity, Cursor | `references/agents.md` |
+| Dashboard | `references/dashboard.md` |
+| OpenCode worktrees | `references/opencode.md` |
+| `council run` | `references/cli-council.md` |
 
-| Method | Path | What it does |
-|---|---|---|
-| GET | `/` | Dashboard |
-| GET | `/api/models` | Model list |
-| GET | `/health` | Health |
-| POST | `/api/council/stream` | Parallel query, SSE, one event per model as it finishes, then `{"status":"done"}` |
-| POST | `/api/council` | Same query, batch, no stream |
-| POST | `/api/council/synthesize` | Agreements, divergences, a combined answer, confidence 1–10 |
-| POST | `/api/council/vote` | Anonymous 1–10 scores, SSE |
-
-Voting: each selected model scores every other response on accuracy, helpfulness, and quality, without the author's name. Labels are letters. The highest aggregate wins. The vote stream sends `: keepalive` comments about every 5 seconds so a proxy does not cut the connection (Cloudflare 524s show up when this is missing). The server is a `ThreadingHTTPServer` because the stream and the keepalive have to run together.
-
-Files, all in this skill: `scripts/dashboard/server.py`, `scripts/dashboard/ai_gateway.py`, `scripts/dashboard/static/index.html`, `scripts/dashboard/static/app.js`. The model ids in the table above belong to that dashboard's gateway only. They are not Claude, Cursor, Codex, Antigravity, or Kisum model ids. Static files are served with `Cache-Control: no-store, no-cache`. After editing `app.js`, bump the `?v=` on the script tag in `index.html` or the browser will keep the old client.
-
-The grid is not the verdict. When the user wants a decision, take the completed responses through Stage 2 and Stage 3 and post the chairman's verdict. The synthesis endpoint is a draft the chairman may overrule.
-
-## OpenCode council — models, history, and code
-
-Use this when the user wants specific models through OpenCode, a TUI of the run, conversation history, or independent code proposals in git worktrees. The runner is `opencode/` in this skill. Run the commands below from the skill directory, the folder that contains this file. It needs the OpenCode CLI, Python 3.8+, and a git repository for worktree mode. First run creates a virtualenv at `opencode/.venv`. Manual setup: `python3 opencode/scripts/setup_environment.py`. Check it with `--check`.
-
-Create `opencode/scripts/.env`:
-
-```
-COUNCIL_MODELS=opencode/openai/gpt-4,opencode/anthropic/claude-3-5-sonnet,opencode/google/gemini-pro
-CHAIRMAN_MODEL=opencode/anthropic/claude-3-5-sonnet
-```
-
-`provider/model` is accepted; `opencode/` is the default prefix. Optional: `TITLE_MODEL`, `DASHBOARD_TIMEOUT` (seconds to leave the TUI up after the run), `DASHBOARD_REFRESH_RATE` (Hz). Change members by editing `COUNCIL_MODELS`. Change prompts in `opencode/scripts/prompts/templates.py` only when the user wants the rubric itself changed.
-
-Stage 1 collects an independent answer from each member. In worktree mode each member edits in its own worktree. Stage 2 anonymizes those answers as letters and ranks them. Stage 3 is the chairman model. You still read the result and post the verdict in this session. If the chairman model smoothed a real defect out of the winning diff, say so. Do not pass a weak synthesis through unchallenged.
-
-```bash
-python3 opencode/scripts/run.py council_skill.py "<question>"
-python3 opencode/scripts/run.py cli.py --dashboard "<question>"
-python3 opencode/scripts/run.py council_skill.py --list
-python3 opencode/scripts/run.py council_skill.py --show N
-python3 opencode/scripts/run.py council_skill.py --continue N "<follow-up>"
-python3 opencode/scripts/run.py council_skill.py --setup
-```
-
-| Flag | Effect |
-|---|---|
-| `--dashboard`, `-d` | TUI: stage flow, member status, last log lines, API and error counts |
-| `--worktrees` | One git worktree per member |
-| `--dry-run` | Show the diff. Do not merge. This is the default posture for code. |
-| `--auto-merge` | Merge the top-ranked proposal. Only when the user asked. |
-| `--merge N` | Merge member N. Only when the user asked. |
-| `--confirm` | Ask before the merge |
-| `--no-commit` | Apply the change without staging |
-| `--list` / `--show N` / `--continue N` | History, one session, follow-up |
-
-```bash
-python3 opencode/scripts/run.py council_skill.py --dry-run "Fix the bug in buggy.py"
-python3 opencode/scripts/run.py council_skill.py --auto-merge --confirm "Add error handling"
-python3 opencode/scripts/run.py council_skill.py --merge 2 "Refactor this"
-python3 opencode/scripts/run.py council_skill.py --auto-merge --no-commit "Add tests"
-```
-
-Code seats must say what they changed and why, in the files they touched. Reviewers rank proposals and end on `FINAL RANKING`. "not a git repository" means initialize git or leave worktree mode off. Leftover worktrees: `git worktree prune`. History and logs live under `opencode/scripts/data/`.
-
-Bring the ranking and the verdict back to chat. The user decides what lands in the tree.
-
-## CLI council — the-llm-council
-
-Use this when the working team should be real models instead of sub-agents. The roles are the same ones in `subagents/`. The package runs parallel drafts, adversarial critique, and a validated synthesis. Fold that JSON into the Council Brief, then convene the six seats unless the user asked only for the CLI output. If the JSON is generic, rerun once with a tighter task that includes the discipline, the criteria, and the files.
-
-Install once:
-
-```bash
-pip install "the-llm-council>=0.5.0"
-pip install "the-llm-council[anthropic,openai,google]"
-council doctor
-```
-
-`command not found: council` means the package is not installed. `council doctor` checks providers. `council config` prints the active setup. `council run <subagent> "<task>" --verbose` when a run fails. `--no-artifacts` skips stored artifacts when speed matters.
-
-One key is enough. OpenRouter is the path that reaches every model. Direct provider keys also work. Never put a key in the task text, the skill, or the transcript.
-
-| Variable | Provider |
-|---|---|
-| `OPENROUTER_API_KEY` | All models through one key. Preferred. |
-| `OPENAI_API_KEY` | GPT directly |
-| `ANTHROPIC_API_KEY` | Claude directly |
-| `GOOGLE_API_KEY` or `GEMINI_API_KEY` | Gemini directly |
-
-```bash
-export OPENROUTER_API_KEY="..."
-export COUNCIL_MODELS="anthropic/claude-3.5-sonnet,openai/gpt-4o,google/gemini-pro"
-council run drafter --mode arch "Design a caching layer for this API" \
-  --models "anthropic/claude-3.5-sonnet,openai/gpt-4o,google/gemini-pro" --json
-```
-
-Optional packs: `COUNCIL_MODEL_FAST` for short classifications, `COUNCIL_MODEL_REASONING` for hard analysis, `COUNCIL_MODEL_CODE` for generation, `COUNCIL_MODEL_CRITIC` for the adversarial pass. Optional file `~/.config/llm-council/config.yaml`:
-
-```yaml
-providers:
-  - name: openrouter
-    api_key: ${OPENROUTER_API_KEY}
-    default_model: anthropic/claude-3-opus
-defaults:
-  providers:
-    - openrouter
-  timeout: 120
-  max_retries: 3
-  summary_tier: actions
-```
-
-```bash
-council run <subagent> "<task>" --json
-```
-
-| Flag | Effect |
-|---|---|
-| `--mode` | `impl`, `arch`, or `test` on drafter. `review` or `security` on critic. `plan` or `assess` on planner. |
-| `--json` | Structured JSON. Use it. |
-| `--verbose`, `-v` | Provider and timing log |
-| `--models`, `-m` | Comma-separated model IDs for this run |
-| `--providers`, `-p` | Comma-separated providers |
-| `--no-artifacts` | Do not store artifacts |
-
-If the right subagent is unclear, start with the router. It returns `task_type`, `recommended_subagent`, `complexity` (`simple`, `moderate`, `complex`), `reasoning`, `alternative_subagents`, and `confidence` from 0 to 1.
-
-```bash
-council run router "Should we use Redis or Memcached for this cache?" --json
-```
-
-A `simple` classification with high confidence is a signal to skip the council and just do the work. Honor that.
-
-| Command | What a finished result contains |
-|---|---|
-| `drafter --mode impl` | Production feature, non-trivial bugfix, or refactor. `implementation` (files and changes), `rationale`, `test_plan`, `edge_cases`, `dependencies`, `confidence`. |
-| `drafter --mode arch` | System design. `architecture`, `api_schema`, `data_models`, `technology_choices` with a rationale, `tradeoffs`, `implementation_phases`, `confidence`. |
-| `drafter --mode test` | `test_strategy`, `test_scenarios` with inputs and expected results, `coverage_analysis`, `edge_cases`, `test_implementation_guide`, `confidence`. |
-| `critic --mode review` | Findings first. Each finding has severity, CWE ID when it is a security defect, location, and message. Also `security_summary`, `complexity_flags`, `test_coverage_gaps`, `positive_findings`, `confidence`. |
-| `critic --mode security` | Threat model: actors, attack surface, missing controls, CWE IDs, prioritized fixes, residual risk, `confidence`. Enough detail to fix the system. Not a procedure for exploiting it. |
-| `planner --mode plan` | `phases` with objectives, tasks, and dependencies; `critical_path`; `parallelizable_work`; `risk_mitigation`; `rollback_plan`; `success_criteria`; `confidence`. |
-| `planner --mode assess` | Build vs buy, go / no-go, or a scored vendor choice. `decision_question`, `options` with scores, pros, cons, costs, and risks; `evaluation_criteria` with weights; `recommendation`; `sensitivity_analysis`; `next_steps`; `confidence`. |
-| `researcher` | `executive_summary`, `findings`, `tradeoff_matrix`, `recommendations` with rationale, `citations` with titles and URLs, `confidence`. A citation without a real URL is a defect. Mark it and do not repeat it as fact. |
-| `synthesizer` | Merge and finalize earlier council outputs into one result. |
-| `shipper` | Release notes, version, breaking changes with a migration, deployment notes, rollback, a short stakeholder summary. The v0.5 skill also lists `shipper` as a deprecated alias of `synthesizer`. If the CLI warns and merges instead of writing notes, follow the CLI and tell the user. |
-
-```bash
-council run drafter --mode impl "Add pagination to the users API" --json
-council run critic --mode review "Review the authentication changes" --json
-council run drafter --mode arch "Design a multi-tenant API with row-level security" --json
-council run critic --mode security "Threat-model the OAuth implementation and list the fixes" --json
-council run planner --mode plan "Plan the migration from MongoDB to PostgreSQL" --json
-council run planner --mode assess "Build custom auth or use Auth0?" --json
-council run researcher "Recommend an ORM for this FastAPI service" --json
-council run drafter --mode test "Design tests for cursor-based pagination" --json
-```
-
-Legacy names still run and are scheduled to go away in v1.0. Prefer the current command. The old name is accepted when the user says it: `implementer` → `drafter --mode impl`, `architect` → `drafter --mode arch`, `test-designer` → `drafter --mode test`, `reviewer` → `critic --mode review`, `red-team` → `critic --mode security`, `assessor` → `planner --mode assess`. Field-level examples live in `subagents/`. There is no `synthesizer.md` in the bundle.
-
-```python
-from llm_council import Council
-from llm_council.protocol.types import CouncilConfig
-
-council = Council(config=CouncilConfig(providers=["openrouter"], mode="impl"))
-result = await council.run(task="Build a login page with OAuth", subagent="drafter")
-```
-
-### How to chain a production task
-
-Same waves as the working team. `planner --mode assess` is the assessor. `planner --mode plan` is the planner. `drafter --mode impl` is the implementer, `--mode arch` is the architect, `--mode test` is the test designer. `critic --mode review` is the reviewer. `critic --mode security` is the red team.
-
-1. **Router.** If it says simple, do the work without a council.
-2. **Wave 1.** Researcher, architect, assessor, planner, implementer, test designer. Only the roles the router kept.
-3. **Wave 2.** Reviewer on every implementation. Red team when the plan touches auth, payments, PII, or infrastructure. Shipper only when something is being released. A person reads the red-team output before merge.
-4. **Brief, then the six seats.** `synthesizer` may merge the JSON into one brief. A synthesis that dropped a high-severity finding is not the brief. Put the finding back. Then run the council.
-
-Generated code is a proposal. It does not land because the council was confident. Confidence is a number in the JSON, not permission to merge.
-
-Context is sent to external providers. Do not attach `.env` files, credentials, tokens, or customer data. Threat-model output can describe real holes in a real system. Keep it in the transcript and the chat. Do not repost it into a public place.
+A filled verdict at the density this council owes is `references/worked-verdict.md`.
 
 ## Host members
 
-When this skill is installed in Claude, Codex, Gemini, Antigravity, or Cursor, that host is the chairman. The others are optional seats. Ask them with the commands in "Ask the other agents", each on its own model. A missing CLI is a dropped seat, named in the verdict.
+When this skill is installed in Claude, Codex, Gemini, Antigravity, or Cursor, that host is the chairman. The others are optional seats. Ask them with the commands in `references/agents.md`, each on its own model. A missing CLI is a dropped seat, named in the verdict.
 
 Omniroute is the router in front of those agents. It does not load this `SKILL.md`. The model Omniroute selects is the upstream provider's model, not the OpenAI/Gemini ladder in this file.
 
@@ -906,7 +437,7 @@ If that directory already exists, `git -C "$HOME/.agents/skills/llm-council" pul
 | Host | Where it lands |
 |---|---|
 | Claude Code | `~/.claude/skills/llm-council` |
-| Codex | `~/.codex/skills/llm-council` |
+| Codex | `~/.agents/skills/llm-council` (Codex reads this directory; `~/.codex/skills` is the old location) |
 | Gemini CLI | `~/.gemini/skills/llm-council` |
 | Antigravity | `~/.gemini/config/skills/llm-council` |
 | Cursor | `~/.cursor/skills/llm-council` |

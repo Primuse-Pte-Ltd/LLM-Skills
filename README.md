@@ -31,10 +31,10 @@ python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
 
 `install.py` creates the links below. A link that already points at the clone is left alone. A real directory that is not a link is left in place and reported. Do not delete that directory unless the user asked.
 
-| Host | Link |
+| Host | Where it reads the skill |
 |---|---|
 | Claude Code | `~/.claude/skills/llm-council` |
-| Codex | `~/.codex/skills/llm-council` |
+| Codex | `~/.agents/skills/llm-council` |
 | Gemini CLI | `~/.gemini/skills/llm-council` |
 | Antigravity | `~/.gemini/config/skills/llm-council` |
 | Cursor | `~/.cursor/skills/llm-council` |
@@ -45,7 +45,9 @@ If `gemini` is on `PATH`, register the same clone:
 gemini skills link "$HOME/.agents/skills/llm-council" --consent
 ```
 
-Then tell the user which hosts were linked and which were skipped. The host that is running is the chairman. The others are seats, asked read-only, each with its own model flag. Those commands are in `SKILL.md` under "Ask the other agents".
+Codex reads `~/.agents/skills` itself. `~/.codex/skills` is the old location, so this install does not add a second link there.
+
+Then tell the user which hosts were linked and which were skipped. The host that is running is the chairman. The others are seats, asked read-only, each with its own model flag. Those commands are in `references/agents.md`.
 
 ## Omniroute
 
