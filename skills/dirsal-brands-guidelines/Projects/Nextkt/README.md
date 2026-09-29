@@ -12,6 +12,7 @@ This system was distilled entirely from the storefront codebase (store these for
 - **`uploads/DESIGN-dark.md`:** the "Dark Editorial" featured-zone scope.
 - **Brand assets:**
   - `public/images/logo.svg` (NexTicket lockup) and `public/images/icon.svg` (N mark) are copied into `assets/` as `logo.svg`, `icon.svg` and `logo-icon.svg`.
+  - `assets/textlogo.svg` is the text-only NexTicket wordmark (brand-supplied; not in `public/images/`).
   - `uploads/` also keeps `logo-v1.svg` (the retired lockup) and `app-icon.svg` (the favicon tile from `app/icon.svg`).
 
 ---
@@ -92,6 +93,7 @@ Example copy: *"Sign up for early access to pre-sales and exclusive artist annou
 - **Emoji / unicode:** never used as icons.
 - **Brand marks:**
   - `assets/logo.svg` is the full **NexTicket** lockup: steel `#417292` N, teal `#488790` "ex" and navy `#1D1E4C` "Ticket". Use it at 56px in the desktop header, 40px in the mobile app bar and 36px in footers.
+  - `assets/textlogo.svg` is the text-only **NexTicket** wordmark in navy `#1D1E4C` and teal `#339999`, for tight horizontal slots where the full lockup is too tall. The storefront itself ships only the lockup.
   - `assets/icon.svg` / `assets/logo-icon.svg` is the standalone N mark, single-colour `#3E6F8F`.
   - Knock marks out to white on navy, teal or photos via `filter: brightness(0) invert(1)`.
   - **Never crop the N out of the lockup** (the "e" interlocks with it). **Do not recolor, redraw, or reconstruct these marks.**
@@ -152,7 +154,7 @@ Specimen cards for the Design System tab:
 - `components/{core,forms,data-display,navigation,mobile}/`: primitives (`.jsx` + `.d.ts` + `.prompt.md`) with one showcase card per group.
 - `ui_kits/{storefront,event-checkout,mobile}/`: full-screen product recreations (desktop and mobile).
 - `guidelines/*.card.html`: foundation specimen cards.
-- `assets/`: `logo.svg`, `icon.svg`, `logo-icon.svg`.
+- `assets/`: `logo.svg`, `textlogo.svg`, `icon.svg`, `logo-icon.svg`.
 - `uploads/`: `DESIGN.md`, `DESIGN-light.md`, `DESIGN-dark.md`, and the source SVGs.
 - `_ds_bundle.js` (compiled components), `_ds_manifest.json` (cards, starting points, tokens), `_adherence.oxlintrc.json` (lint rules for generated code).
 - `thumbnail.html` is the homepage tile. `SKILL.md` is the Agent-Skills-compatible entry point.

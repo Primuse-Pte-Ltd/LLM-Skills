@@ -46,7 +46,7 @@ Distinctive signals per project:
   venue hire, VIP tables, NYE events, the venue map.
 - **Nextkt:** `nextkt` / `nextkt.com`, `Nextkt-Frontend`, `Nextkt-Frontend-Admin`,
   `Nextkt-Backend`, `NextktDesignSystem`, "NexTicket" wordmark, teal `#1C6E87` on navy
-  `#1D1E4C`, VIP gold `#D4AF37`, Inter only, `Rp` prices, ticketing storefront, operator admin, box office.
+  `#1D1E4C`, VIP gold `#D4AF37`, Inter only, `SG$` prices, ticketing storefront, operator admin, box office.
   Kisum's docs mention Nextkt, but only to say it's outside the Kisum design system,
   so a Nextkt repo is Nextkt even if Kisum is referenced somewhere in it.
 
@@ -92,7 +92,7 @@ rules, voice, and the non-obvious traps. Then pull in only what the task needs:
 - `components/<group>/<Name>.prompt.md` — usage for each primitive.
 - `ui_kits/{storefront,event-checkout,mobile}/` — full reference screens for web and mobile.
 - `guidelines/*.card.html` — specimen cards (color, type, spacing, logo rules).
-- `assets/*.svg` — NexTicket lockup, N mark, icon.
+- `assets/*.svg` — NexTicket lockup, wordmark, N mark, icon.
 - Scope is the consumer storefront only. For the operator admin, sysadmin console, or
   developer portal, reuse these tokens but match that repo's existing screens.
 

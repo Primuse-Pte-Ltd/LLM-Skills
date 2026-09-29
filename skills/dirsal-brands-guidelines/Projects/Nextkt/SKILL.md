@@ -24,4 +24,4 @@ If the user invokes this skill without any other guidance, ask them what they wa
   - `components/` (window.`NextktDesignSystem_1c6e87`)
   - `ui_kits/` (storefront, event-checkout, mobile)
   - `guidelines/`
-  - `assets/`: lockup, N mark, logo-icon. Never recolor or redraw them.
+  - `assets/`: lockup, text-only wordmark, N mark, logo-icon. Never recolor or redraw them.
