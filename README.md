@@ -12,7 +12,7 @@ Each host runs its own model. Do not reuse an OpenAI model id on Claude, Cursor,
 
 ## Install with a prompt
 
-Paste this prompt into any coding agent. One install covers every host on the machine, so you only need to run it once.
+Paste this prompt into any coding agent. One install covers every agent installed on that computer, so you only need to run it once per computer. Run it from an agent on your own computer, not from a cloud chat: the script checks this and stops if it finds no agents.
 
 ```text
 Install the llm-council skill from https://github.com/Primuse-Pte-Ltd/llm-council.
@@ -20,7 +20,9 @@ Follow the "Install" section of its README.md exactly: clone it to
 ~/.agents/skills/llm-council (or pull if it already exists), then run
 python3 ~/.agents/skills/llm-council/scripts/install.py.
 This writes outside the current project; ask me once to approve, then continue.
-When done, tell me which hosts were linked and which were skipped.
+The script checks where it is running first. If it prints STOP, do not work
+around it: tell me what it found and what I should do.
+When done, tell me which agents were linked and which were skipped.
 ```
 
 | Host | Where to paste it | Notes |
@@ -60,7 +62,17 @@ git -C "$HOME/.agents/skills/llm-council" pull --ff-only
 python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
 ```
 
-`install.py` creates the links below. A link that already points at the clone is left alone. A real directory that is not a link is left in place and reported. Do not delete that directory unless the user asked.
+`install.py` first checks where it is running, then links only the agents it finds:
+
+- It reports the OS and whether this looks like a container, cloud sandbox, CI runner, or SSH session.
+- An agent counts as installed only if its own folder exists in the home folder (`~/.claude`, `~/.codex`, `~/.gemini`, `~/.cursor`, `~/.gemini/antigravity`) or its app is installed. A command on `PATH` alone does not count, because sandboxes often ship a `claude` binary nobody has used.
+- If it finds no agents, it prints `STOP`, links nothing, and exits with code 2. That means the agent is running somewhere other than the user's computer, such as a cloud chat or remote session. Tell the user to run the prompt from a coding agent on their own machine. Do not rerun with `--all` unless the user asks.
+- If the home folder cannot be written, it prints `STOP` and exits with code 3. The agent is sandboxed. Ask the user to approve the command with full access.
+- On Windows without symlink rights, it copies the skill instead of linking it. Run `install.py` again after every update.
+
+Options: `--check` reports without changing anything. `--all` links every host even if it was not found.
+
+For the agents it finds, `install.py` creates the links below. A link that already points at the clone is left alone. A real directory that is not a link is left in place and reported. Do not delete that directory unless the user asked.
 
 | Host | Where it reads the skill |
 |---|---|

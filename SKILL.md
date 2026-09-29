@@ -434,6 +434,8 @@ python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
 
 If that directory already exists, run `git -C "$HOME/.agents/skills/llm-council" remote set-url origin https://github.com/Primuse-Pte-Ltd/llm-council.git`, then `git -C "$HOME/.agents/skills/llm-council" pull --ff-only`, and run `install.py` again. A link that already points at the clone is left alone. A real directory that is not a link is left in place and reported. Do not delete it unless the user asked.
 
+`install.py` checks where it is running first and links only the agents whose folder exists in the home folder. If it prints `STOP` (exit 2: no agents found, so this is a cloud or remote sandbox; exit 3: home folder not writable), do not work around it. Tell the user what it found and ask them to run the install from a coding agent on their own computer, or to approve full access. `--check` reports without changing anything.
+
 | Host | Where it lands |
 |---|---|
 | Claude Code | `~/.claude/skills/llm-council` |
