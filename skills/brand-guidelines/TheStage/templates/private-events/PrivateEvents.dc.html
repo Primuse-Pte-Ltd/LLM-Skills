@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Private events" description="Private events landing page: breadcrumb, headline, intro, and a booking CTA." -->
+<helmet><script src="./ds-base.js"></script><style>body{margin:0;background:#0a140f;color:#f5f3ee;font-family:'Montserrat',-apple-system,sans-serif;line-height:1.6;letter-spacing:.01em;overflow-x:hidden}*{box-sizing:border-box}a{color:var(--color-cream,#f5f3ee);text-decoration:none}a:hover{color:var(--color-muted-gold,#c9a962)}.ts-desktop{display:flex}.ts-burger{display:none}@media (max-width:1023px){.ts-desktop{display:none!important}.ts-burger{display:flex!important}}</style></helmet>
+<div style="background:#0a140f;display:flex;flex-direction:column;min-height:100vh">
+<header style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,20,15,.95);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.35)">
+<nav style="margin:0 auto;max-width:1280px;padding:0 24px;display:flex;height:88px;align-items:center;justify-content:space-between;gap:24px" aria-label="Primary navigation">
+<a href="../home/Home.dc.html" aria-label="The Stage Bali home"><img src="./assets/logoW.svg" alt="The Stage" style="height:40px;width:auto;display:block"></a>
+<ul class="ts-desktop" style="list-style:none;margin:0;padding:0;align-items:center;gap:40px">
+<li><a href="../home/Home.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Home</a></li>
+<li><a href="../events/Events.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Events</a></li>
+<li><a href="../home/Home.dc.html#vip" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Reserve VIP</a></li>
+<li><a href="../gallery/Gallery.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Gallery</a></li>
+<li><a href="../contact/Contact.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Contact</a></li>
+</ul>
+<button type="button" class="ts-burger" aria-label="Open menu" style="background:none;border:0;padding:8px;cursor:pointer;color:var(--color-cream,#f5f3ee)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+</nav>
+</header>
+<main data-screen-label="Private events" style="flex:1;background:linear-gradient(135deg,var(--color-forest,#122019),var(--color-dark-green,#0a140f))">
+<div style="padding:120px 0 24px;background:var(--color-deep-green,#060c09)">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:14px">
+<a href="../home/Home.dc.html" style="color:rgba(245,243,238,.7)">HOME</a>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-taupe,#9a998f)"><path d="m9 18 6-6-6-6"></path></svg>
+<span style="color:var(--color-cream,#f5f3ee);font-weight:500">PRIVATE EVENTS</span>
+</nav>
+</div>
+</div>
+<section id="PrivateEvents" style="padding:72px 0">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px;text-align:center">
+<span style="font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Venue</span>
+<h1 style="margin:24px 0 32px;font-weight:300;font-size:clamp(40px,7vw,72px);color:var(--color-cream,#f5f3ee)">Private Events</h1>
+<p style="max-width:42rem;margin:0 auto;font-size:17px;color:rgba(245,243,238,.8);text-wrap:pretty">Host weddings, brand launches, corporate buyouts and exclusive celebrations at The Stage Bali — Seminyak's most distinctive luxury venue.</p>
+<a href="../venue-hire/VenueHire.dc.html" style="display:inline-block;margin-top:40px;background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f);padding:16px 40px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;font-size:12px;transition:all .4s cubic-bezier(.4,0,.2,1)" style-hover="background:var(--color-gold-light,#d4b978);color:var(--color-dark-green,#0a140f);transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,169,98,.3)">Check dates &amp; request a booking</a>
+</div>
+</section>
+</main>
+<footer style="background:var(--color-deep-green,#060c09);padding:64px 0;border-top:1px solid rgba(201,169,98,.2)">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:48px;margin-bottom:48px">
+<section><img src="./assets/logoW.svg" alt="The Stage" style="height:48px;width:auto;margin-bottom:24px"><p style="margin:0;font-size:14px;line-height:1.7;max-width:24rem;color:rgba(245,243,238,.7)">Asia's premier luxury entertainment venue, where extraordinary experiences are crafted for the most discerning guests.</p></section>
+<nav><h3 style="margin:0 0 24px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Quick Links</h3><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px"><li><a href="../events/Events.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Events</a></li><li><a href="./PrivateEvents.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Private Events</a></li><li><a href="../venue-hire/VenueHire.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Venue Hire</a></li><li><a href="../gallery/Gallery.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Gallery</a></li><li><a href="../faq/Faq.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">FAQ</a></li><li><a href="../contact/Contact.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Contact Us</a></li></ul></nav>
+<section><h4 style="margin:0 0 24px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Private Events:</h4><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px"><li><a href="mailto:events@thestage.net" style="font-size:14px;color:rgba(245,243,238,.7)">events@thestage.net</a></li></ul></section>
+</div>
+<div style="padding-top:32px;border-top:1px solid rgba(201,169,98,.2);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px">
+<p style="margin:0;font-size:12px;color:rgba(245,243,238,.5)">© {{ year }} The Stage Bali. All rights reserved.</p>
+<nav style="display:flex;gap:24px" aria-label="Legal links"><a href="#" style="font-size:12px;color:rgba(245,243,238,.5)">Terms &amp; Conditions</a><a href="#" style="font-size:12px;color:rgba(245,243,238,.5)">Privacy Policy</a></nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { year: new Date().getFullYear() };
+  }
+}
+</script>
+</body>
+</html>

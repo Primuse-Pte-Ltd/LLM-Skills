@@ -1,0 +1,4 @@
+/* Kisum webfonts — Manrope (display/headline) + Inter (body/label/data).
+   No local binaries were provided; loaded from Google Fonts CDN.
+   FLAG: swap these @import lines for self-hosted @font-face if offline use is required. */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');

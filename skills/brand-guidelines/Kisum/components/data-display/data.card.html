@@ -1,0 +1,46 @@
+<!-- @dsCard group="Components" viewport="700x400" name="Data — Stat, Section, Track rows, Table" subtitle="Analyst-density building blocks" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:24px;background:var(--body-bg);font-family:var(--font-body)}
+.blk{margin-bottom:22px}</style>
+</head><body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+const { StatCard, SectionHeader, TrackRow, DataTable, Button, Badge } = window.KisumDesignSystem_ff14fa;
+function App(){return (<div>
+  <div className="blk" style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:16}}>
+    <StatCard label="Total Audience" value="745.9M" caption="Across all platforms" highlight />
+    <StatCard label="Audience Leader" value="273.8M" caption="Top: Instagram" />
+    <StatCard label="Platforms Tracked" value="21" caption="Live metrics" />
+  </div>
+  <div className="blk">
+    <SectionHeader title="Top Songs" count={6} description="All-time top streamed tracks"
+      action={<Button variant="secondary" size="sm">View all</Button>} />
+    <div style={{marginTop:10}}>
+      <TrackRow rank={1} title="Cruel Summer" subtitle="Lover • 2019" metric="3.4B" trend="1.2M" />
+      <TrackRow rank={2} title="Anti-Hero" subtitle="Midnights • 2022" metric="2.0B" trend="398K" />
+      <TrackRow rank={3} title="Blank Space" subtitle="1989 • 2014" metric="2.5B" trend="1.1M" />
+    </div>
+  </div>
+  <div className="blk">
+    <DataTable
+      columns={[
+        {key:'rank',label:'#',align:'right'},
+        {key:'artist',label:'Artist'},
+        {key:'status',label:'Status',render:(r)=><Badge tone={r.tone} dot>{r.status}</Badge>},
+        {key:'audience',label:'Audience',align:'right'},
+      ]}
+      rows={[
+        {id:1,rank:1,artist:'Taylor Swift',status:'Confirmed',tone:'success',audience:'745.9M'},
+        {id:2,rank:2,artist:'Shakira',status:'Pending',tone:'warning',audience:'210.3M'},
+        {id:3,rank:3,artist:'Backstreet Boys',status:'Overdue',tone:'danger',audience:'88.1M'},
+      ]} />
+  </div>
+</div>);}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body></html>

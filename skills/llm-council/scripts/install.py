@@ -37,7 +37,8 @@ HOME = Path.home()
 SKILL = "llm-council"
 EXPECTED_ROOT = HOME / ".agents" / "skills" / SKILL
 
-# Codex scans ~/.agents/skills, which is where the clone lives.
+# Codex scans ~/.agents/skills. Install symlinks this folder there from the
+# LLM-Skills checkout at ~/.agents/LLM-Skills.
 # ~/.codex/skills is the old location and is still scanned, so a second link
 # would load this skill twice.
 CODEX_LEGACY = HOME / ".codex" / "skills" / SKILL

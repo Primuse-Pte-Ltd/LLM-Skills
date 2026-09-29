@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Home page" description="The Stage Bali marketing home: hero, upcoming events, pictures, about, spaces, VIP, FAQ, location." -->
+<helmet><script src="./ds-base.js"></script><style>body{margin:0;background:#0a140f;color:#f5f3ee;font-family:'Montserrat',-apple-system,sans-serif;line-height:1.6;letter-spacing:.01em;overflow-x:hidden}*{box-sizing:border-box}a{color:var(--color-cream,#f5f3ee);text-decoration:none}a:hover{color:var(--color-muted-gold,#c9a962)}@keyframes ts-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}.ts-desktop{display:flex}.ts-burger{display:none}@media (max-width:1023px){.ts-desktop{display:none!important}.ts-burger{display:flex!important}.ts-hide-sm{display:none!important}}@media (min-width:768px){.ts-only-sm{display:none!important}}.ts-rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}.ts-rail::-webkit-scrollbar{display:none}summary::-webkit-details-marker{display:none}details[open] .ts-chev{transform:rotate(180deg)}.ts-rail>*{scroll-snap-align:center;flex:0 0 clamp(240px,72%,320px)}</style></helmet>
+<div style="background:#0a140f">
+<header style="position:fixed;top:0;left:0;right:0;z-index:50">
+<sc-if value="{{ scrolled }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:rgba(10,20,15,.95);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.35)"></div></sc-if>
+<nav style="position:relative;margin:0 auto;max-width:1280px;padding:0 24px" aria-label="Primary navigation">
+<div style="display:flex;height:88px;align-items:center;justify-content:space-between;gap:24px">
+<a href="#home" aria-label="The Stage Bali home" style="display:flex;align-items:center"><img src="./assets/logoW.svg" alt="The Stage" style="height:40px;width:auto"></a>
+<ul class="ts-desktop" style="list-style:none;margin:0;padding:0;align-items:center;gap:40px">
+<li><a href="#home" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em;color:var(--color-cream,#f5f3ee)">Home</a></li>
+<li><a href="../events/Events.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em;color:var(--color-cream,#f5f3ee)">Events</a></li>
+<li><a href="#vip" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em;color:var(--color-cream,#f5f3ee)">Reserve VIP</a></li>
+<li><a href="../gallery/Gallery.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em;color:var(--color-cream,#f5f3ee)">Gallery</a></li>
+<li><a href="../contact/Contact.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em;color:var(--color-cream,#f5f3ee)">Contact</a></li>
+<sc-if value="{{ signedOut }}" hint-placeholder-val="{{ true }}"><li><a href="#" style="display:flex;align-items:center;gap:10px;font-size:13px;text-transform:uppercase;letter-spacing:.2em;color:var(--color-cream,#f5f3ee)"><span style="position:relative;display:inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span style="position:absolute;right:-8px;top:-8px;display:flex;height:16px;min-width:16px;align-items:center;justify-content:center;border-radius:999px;background:var(--color-muted-gold,#c9a962);padding:0 4px;font-size:10px;font-weight:600;line-height:1;color:#000">{{ cartBadge }}</span></span>Cart</a></li></sc-if>
+<sc-if value="{{ signedIn }}" hint-placeholder-val="{{ false }}"><li style="position:relative"><button type="button" onClick="{{ toggleProfile }}" style="display:flex;align-items:center;gap:6px;background:none;border:0;cursor:pointer;font-family:inherit;font-size:13px;text-transform:uppercase;letter-spacing:.2em;color:var(--color-cream,#f5f3ee)">Profile<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="opacity:.8"><path d="m6 9 6 6 6-6"></path></svg></button>
+<sc-if value="{{ profileOpen }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;right:0;top:calc(100% + 12px);min-width:13rem;border:1px solid rgba(201,169,98,.25);background:var(--color-deep-green,#060c09);color:var(--color-cream,#f5f3ee);box-shadow:0 20px 40px rgba(0,0,0,.45);padding:8px 0">
+<div style="padding:10px 14px"><span style="display:block;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--color-muted-gold,#c9a962)">Signed in</span><span style="display:block;margin-top:2px;font-size:14px;font-weight:500">{{ memberName }}</span><span style="display:block;font-size:12px;color:rgba(245,243,238,.5)">{{ memberEmail }}</span></div>
+<div style="height:1px;background:rgba(201,169,98,.2);margin:6px 0"></div>
+<a href="#" style="display:block;padding:9px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.15em" style-hover="background:var(--color-dark-green,#0a140f);color:var(--color-muted-gold,#c9a962)">Cart</a>
+<a href="#" style="display:block;padding:9px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.15em" style-hover="background:var(--color-dark-green,#0a140f);color:var(--color-muted-gold,#c9a962)">My tickets</a>
+<a href="#" style="display:block;padding:9px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.15em" style-hover="background:var(--color-dark-green,#0a140f);color:var(--color-muted-gold,#c9a962)">My points</a>
+<a href="#" style="display:block;padding:9px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.15em" style-hover="background:var(--color-dark-green,#0a140f);color:var(--color-muted-gold,#c9a962)">Change password</a>
+<div style="height:1px;background:rgba(201,169,98,.2);margin:6px 0"></div>
+<a href="#" style="display:block;padding:9px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.15em;color:#fecdd3">Log out</a>
+</div></sc-if></li></sc-if>
+<sc-if value="{{ signedOut }}" hint-placeholder-val="{{ true }}"><li><a href="#" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em;color:var(--color-cream,#f5f3ee)">Login</a></li></sc-if>
+</ul>
+<button type="button" class="ts-burger" onClick="{{ openMenu }}" aria-label="Open menu" style="background:none;border:0;padding:8px;cursor:pointer;color:var(--color-cream,#f5f3ee)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+</div>
+</nav>
+</header>
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}"><div style="position:fixed;inset:0;z-index:100">
+<div onClick="{{ closeMenu }}" style="position:absolute;inset:0;background:rgba(0,0,0,.6)"></div>
+<div role="dialog" aria-modal="true" aria-label="Mobile navigation menu" style="position:absolute;top:0;bottom:0;right:0;width:320px;border-left:1px solid rgba(201,169,98,.2);background:var(--color-dark-green,#0a140f);padding:32px">
+<button type="button" onClick="{{ closeMenu }}" aria-label="Close menu" style="position:absolute;right:24px;top:24px;background:none;border:0;cursor:pointer;color:var(--color-cream,#f5f3ee)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+<ul style="list-style:none;margin:64px 0 0;padding:0;display:flex;flex-direction:column;align-items:flex-start;gap:24px">
+<li><a href="#home" onClick="{{ closeMenu }}" style="font-size:18px;text-transform:uppercase;letter-spacing:.15em">Home</a></li>
+<li><a href="../events/Events.dc.html" onClick="{{ closeMenu }}" style="font-size:18px;text-transform:uppercase;letter-spacing:.15em">Events</a></li>
+<li><a href="#vip" onClick="{{ closeMenu }}" style="font-size:18px;text-transform:uppercase;letter-spacing:.15em">Reserve VIP</a></li>
+<li><a href="../gallery/Gallery.dc.html" onClick="{{ closeMenu }}" style="font-size:18px;text-transform:uppercase;letter-spacing:.15em">Gallery</a></li>
+<li><a href="../contact/Contact.dc.html" onClick="{{ closeMenu }}" style="font-size:18px;text-transform:uppercase;letter-spacing:.15em">Contact</a></li>
+<sc-if value="{{ signedIn }}" hint-placeholder-val="{{ false }}">
+<li style="width:100%;border-top:1px solid rgba(201,169,98,.2);padding-top:24px"><p style="margin:0;font-size:10px;text-transform:uppercase;letter-spacing:.25em;color:var(--color-muted-gold,#c9a962)">Profile</p><p style="margin:4px 0 0;font-size:14px">{{ memberName }}</p></li>
+<li><a href="#" style="font-size:18px;text-transform:uppercase;letter-spacing:.15em">My tickets</a></li>
+<li><a href="#" style="font-size:18px;text-transform:uppercase;letter-spacing:.15em">My points</a></li>
+<li><a href="#" style="font-size:18px;text-transform:uppercase;letter-spacing:.15em;color:#fecdd3">Log out</a></li>
+</sc-if>
+<sc-if value="{{ signedOut }}" hint-placeholder-val="{{ true }}">
+<li><a href="#" style="font-size:18px;text-transform:uppercase;letter-spacing:.15em">Cart</a></li>
+<li><a href="#" style="font-size:18px;text-transform:uppercase;letter-spacing:.15em">Login</a></li>
+</sc-if>
+</ul>
+</div>
+</div></sc-if>
+<main style="overflow-x:hidden">
+<section id="home" data-screen-label="Hero" style="position:relative;height:100vh;min-height:700px;overflow:hidden">
+<video autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><source src="https://files.thestage.net/video/home.mp4" type="video/mp4"></video>
+<div style="position:absolute;inset:0;background:linear-gradient(135deg,var(--color-stone,#e8e4dc),var(--color-champagne,#d4c8b8),var(--color-taupe,#9a998f));z-index:-1"></div>
+<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,15,.6),rgba(10,20,15,.75),#0a140f)"></div>
+<div style="position:relative;z-index:10;display:flex;height:100%;flex-direction:column;align-items:center;justify-content:center;padding:0 24px;text-align:center">
+<div style="display:flex;gap:16px;align-items:center;margin-bottom:32px">
+<div style="width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--color-muted-gold,#c9a962),transparent)"></div>
+<span style="font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--color-cream,#f5f3ee)">Bali's Premier Venue</span>
+<div style="width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--color-muted-gold,#c9a962),transparent)"></div>
+</div>
+<h1 style="margin:0 0 24px"><img src="./assets/logoWH.svg" alt="The Stage Bali — multi-space luxury venue in Seminyak" style="height:80px;width:auto;opacity:.7"></h1>
+<p style="margin:0 0 48px;max-width:36rem;font-size:15px;letter-spacing:.2em;color:var(--color-cream,#f5f3ee)">WHERE EXTRAORDINARY MOMENTS ARE BORN</p>
+<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px">
+<a href="../events/Events.dc.html" style="background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f);padding:16px 40px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;font-size:12px;transition:all .4s cubic-bezier(.4,0,.2,1)" style-hover="background:var(--color-gold-light,#d4b978);color:var(--color-dark-green,#0a140f);transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,169,98,.3)">Explore Events</a>
+<a href="#vip" style="background:transparent;color:var(--color-cream,#f5f3ee);padding:16px 40px;letter-spacing:.15em;text-transform:uppercase;font-size:12px;border:1px solid var(--color-muted-gold,#c9a962);transition:all .4s cubic-bezier(.4,0,.2,1)" style-hover="background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f)">Reserve VIP</a>
+</div>
+</div>
+<div style="position:absolute;bottom:48px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;align-items:center;animation:ts-bob 2s ease-in-out infinite">
+<span style="font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--color-cream,#f5f3ee)">Scroll</span>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-cream,#f5f3ee)"><path d="m6 9 6 6 6-6"></path></svg>
+</div>
+<div style="position:absolute;top:96px;left:32px;width:64px;height:64px;border-left:1px solid rgba(201,169,98,.3);border-top:1px solid rgba(201,169,98,.3)"></div>
+<div style="position:absolute;top:96px;right:32px;width:64px;height:64px;border-right:1px solid rgba(201,169,98,.3);border-top:1px solid rgba(201,169,98,.3)"></div>
+<div style="position:absolute;bottom:96px;left:32px;width:64px;height:64px;border-left:1px solid rgba(201,169,98,.3);border-bottom:1px solid rgba(201,169,98,.3)"></div>
+<div style="position:absolute;bottom:96px;right:32px;width:64px;height:64px;border-right:1px solid rgba(201,169,98,.3);border-bottom:1px solid rgba(201,169,98,.3)"></div>
+</section>
+<section id="upcoming-events" data-screen-label="Upcoming events" style="overflow:hidden;padding:72px 0;background:linear-gradient(180deg,var(--color-deep-green,#060c09),var(--color-dark-green,#0a140f))">
+<div style="max-width:1600px;margin:0 auto">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:0 24px;margin-bottom:32px">
+<h2 style="margin:0;font-weight:300;font-size:clamp(28px,4vw,40px);color:var(--color-cream,#f5f3ee)">Upcoming Events</h2>
+<div style="display:flex;gap:12px;align-items:center">
+<div style="display:flex;gap:4px">
+<button type="button" onClick="{{ railPrev }}" aria-label="Previous" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:0;cursor:pointer;color:var(--color-cream,#f5f3ee)" style-hover="color:var(--color-muted-gold,#c9a962)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg></button>
+<button type="button" onClick="{{ railNext }}" aria-label="Next" style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:0;cursor:pointer;color:var(--color-cream,#f5f3ee)" style-hover="color:var(--color-muted-gold,#c9a962)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></button>
+</div>
+<a href="../events/Events.dc.html" class="ts-hide-sm" style="padding:8px 20px;background:var(--color-charcoal,#0a140f);color:#fff;font-size:13px;letter-spacing:.15em;text-transform:uppercase" style-hover="background:var(--color-graphite,#122019);color:#fff">View All</a>
+</div>
+</div>
+<div style="padding:0 24px"><div class="ts-rail" ref="{{ railRef }}">
+<article style="border-radius:12px;overflow:hidden;background:rgba(26,51,39,.8);backdrop-filter:blur(20px);border:1px solid rgba(201,169,98,.2)">
+<a href="../event-detail/EventDetail.dc.html" style="display:block">
+<div style="position:relative;aspect-ratio:9/11;overflow:hidden;background:var(--color-charcoal,#0a140f)">
+<img src="./assets/nye-2025-v.jpg" alt="Bali NYE 2025 with Tyga" style="width:100%;height:100%;object-fit:cover">
+<div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.7),rgba(0,0,0,.1),transparent)"></div>
+</div>
+<div style="display:flex">
+<div style="flex:0 0 88px;background:var(--color-charcoal,#0a140f);color:#fff;padding:16px;text-align:center">
+<div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.7">Wed</div>
+<div style="font-size:30px;font-weight:800;line-height:1">31</div>
+<div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.7">Dec</div>
+</div>
+<div style="display:flex;flex:1;align-items:center;padding:0 16px"><h3 style="margin:0;font-size:14px;line-height:1.3;text-transform:uppercase;letter-spacing:.03em;color:var(--color-cream,#f5f3ee)">Bali NYE 2025 with Tyga</h3></div>
+</div>
+</a>
+</article>
+<article style="border-radius:12px;overflow:hidden;background:rgba(26,51,39,.8);backdrop-filter:blur(20px);border:1px solid rgba(201,169,98,.2)">
+<a href="../event-detail/EventDetail.dc.html" style="display:block">
+<div style="position:relative;aspect-ratio:9/11;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">EVENT POSTER 9:11</span></div>
+<div style="display:flex">
+<div style="flex:0 0 88px;background:var(--color-charcoal,#0a140f);color:#fff;padding:16px;text-align:center">
+<div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.7">Fri</div>
+<div style="font-size:30px;font-weight:800;line-height:1">00</div>
+<div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.7">Mon</div>
+</div>
+<div style="display:flex;flex:1;align-items:center;padding:0 16px"><h3 style="margin:0;font-size:14px;line-height:1.3;text-transform:uppercase;letter-spacing:.03em;color:var(--color-cream,#f5f3ee)">Event name</h3></div>
+</div>
+</a>
+</article>
+<article style="border-radius:12px;overflow:hidden;background:rgba(26,51,39,.8);backdrop-filter:blur(20px);border:1px solid rgba(201,169,98,.2)">
+<a href="../event-detail/EventDetail.dc.html" style="display:block">
+<div style="position:relative;aspect-ratio:9/11;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">EVENT POSTER 9:11</span></div>
+<div style="display:flex">
+<div style="flex:0 0 88px;background:var(--color-charcoal,#0a140f);color:#fff;padding:16px;text-align:center">
+<div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.7">Sat</div>
+<div style="font-size:30px;font-weight:800;line-height:1">00</div>
+<div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.7">Mon</div>
+</div>
+<div style="display:flex;flex:1;align-items:center;padding:0 16px"><h3 style="margin:0;font-size:14px;line-height:1.3;text-transform:uppercase;letter-spacing:.03em;color:var(--color-cream,#f5f3ee)">Event name</h3></div>
+</div>
+</a>
+</article>
+<article style="border-radius:12px;overflow:hidden;background:rgba(26,51,39,.8);backdrop-filter:blur(20px);border:1px solid rgba(201,169,98,.2)">
+<a href="../event-detail/EventDetail.dc.html" style="display:block">
+<div style="position:relative;aspect-ratio:9/11;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">EVENT POSTER 9:11</span></div>
+<div style="display:flex">
+<div style="flex:0 0 88px;background:var(--color-charcoal,#0a140f);color:#fff;padding:16px;text-align:center">
+<div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.7">Thu</div>
+<div style="font-size:30px;font-weight:800;line-height:1">00</div>
+<div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.7">Mon</div>
+</div>
+<div style="display:flex;flex:1;align-items:center;padding:0 16px"><h3 style="margin:0;font-size:14px;line-height:1.3;text-transform:uppercase;letter-spacing:.03em;color:var(--color-cream,#f5f3ee)">Event name</h3></div>
+</div>
+</a>
+</article>
+</div></div>
+<div class="ts-only-sm" style="justify-content:center;padding:0 24px;margin-top:24px;display:flex"><a href="../events/Events.dc.html" style="padding:10px 24px;background:var(--color-charcoal,#0a140f);color:#fff;font-size:11px;letter-spacing:.15em;text-transform:uppercase">View All Events</a></div>
+</div>
+</section>
+<section id="pictures" data-screen-label="Pictures" style="overflow:hidden;padding:72px 0;background:linear-gradient(135deg,var(--color-forest,#122019),var(--color-dark-green,#0a140f))">
+<div style="max-width:1600px;margin:0 auto;padding:0 24px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:32px">
+<h2 style="margin:0;font-weight:300;font-size:clamp(28px,4vw,40px);color:var(--color-cream,#f5f3ee)">Pictures</h2>
+<a href="https://www.instagram.com/stage.bali" target="_blank" rel="noopener noreferrer" class="ts-hide-sm" style="padding:8px 20px;background:var(--color-charcoal,#0a140f);color:#fff;font-size:13px;letter-spacing:.15em;text-transform:uppercase" style-hover="background:var(--color-graphite,#122019);color:#fff">Follow</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+<div style="aspect-ratio:1;border-radius:12px;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">INSTAGRAM 1:1</span></div>
+<div style="aspect-ratio:1;border-radius:12px;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">INSTAGRAM 1:1</span></div>
+<div style="aspect-ratio:1;border-radius:12px;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">INSTAGRAM 1:1</span></div>
+<div style="aspect-ratio:1;border-radius:12px;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">INSTAGRAM 1:1</span></div>
+</div>
+<div style="display:flex;justify-content:center;align-items:center;margin-top:24px;height:24px"><span style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.6)">Feed synced</span></div>
+</div>
+</section>
+<section data-screen-label="About" style="padding:96px 0;background:linear-gradient(180deg,var(--color-deep-green,#060c09),var(--color-dark-green,#0a140f))">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<div style="margin-bottom:64px;text-align:center">
+<span style="font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Welcome to</span>
+<h2 style="margin:16px 0 0;font-weight:300;font-size:clamp(32px,5vw,60px);color:var(--color-cream,#f5f3ee)">An Unparalleled Experience</h2>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:center">
+<div style="position:relative">
+<div style="position:relative;aspect-ratio:4/5;overflow:hidden;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">VENUE INTERIOR 4:5</span></div>
+<div style="position:absolute;top:-32px;left:-32px;width:128px;height:128px;border:1px solid rgba(201,169,98,.3)"></div>
+</div>
+<div>
+<p style="margin:0 0 32px;font-size:19px;line-height:1.7;font-weight:300;color:rgba(245,243,238,.7);text-wrap:pretty">The Stage is not merely a venue — it is a <strong style="color:var(--color-cream,#f5f3ee);font-weight:500">multi-space, multifunctional destination</strong> where the extraordinary becomes reality. Nestled in the heart of <a href="https://en.wikipedia.org/wiki/Seminyak" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;text-decoration-color:rgba(201,169,98,.4);text-underline-offset:4px">Seminyak, Bali</a>, we have crafted <strong style="color:var(--color-cream,#f5f3ee);font-weight:500">Asia's most exclusive multifunctional luxury venue</strong> — a single destination that hosts world-class concerts, curated cultural events, corporate hire, weddings, private celebrations, and exclusive nightclub nights under one roof.</p>
+<p style="margin:0 0 24px;font-size:16px;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">From <strong style="color:var(--color-cream,#f5f3ee);font-weight:500">world-renowned concerts</strong> to intimate comedy nights, from electrifying club evenings to sophisticated corporate galas and elegant weddings, The Stage transforms every event into an <strong style="color:var(--color-cream,#f5f3ee);font-weight:500">unforgettable moment</strong>. Our commitment to excellence is reflected in every detail — from our state-of-the-art sound system and modular stage design to our impeccable hospitality, chef-led F&amp;B programme, and seasoned event-production team.</p>
+<p style="margin:0 0 48px;font-size:16px;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">Located on Jalan Kayu Aya, minutes from Seminyak Beach and Petitenget, The Stage brings together a <strong style="color:var(--color-cream,#f5f3ee);font-weight:500">premier multi-space venue experience</strong> built around three distinct configurations: a full concert hall for international headliners, an intimate club and lounge floor, and a private events space for weddings, product launches, brand activations, and executive dinners. Every booking is tailored to the guest: bespoke table service, personal concierge, custom menus, and dedicated production support. Follow us on <a href="https://www.instagram.com/stage.bali" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;text-decoration-color:rgba(201,169,98,.4);text-underline-offset:4px">Instagram</a> for the latest lineup, gallery, and behind-the-scenes moments at Bali's premier multifunctional venue.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px;margin-bottom:48px">
+<div style="display:flex;gap:12px;align-items:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-muted-gold,#c9a962);flex:none"><circle cx="18" cy="16" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M9 18V5l12-2v13"></path></svg><span style="font-size:14px;letter-spacing:.03em;color:var(--color-cream,#f5f3ee)">World-Class Sound</span></div>
+<div style="display:flex;gap:12px;align-items:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-muted-gold,#c9a962);flex:none"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"></path></svg><span style="font-size:14px;letter-spacing:.03em;color:var(--color-cream,#f5f3ee)">Premium F&amp;B</span></div>
+<div style="display:flex;gap:12px;align-items:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-muted-gold,#c9a962);flex:none"><path d="M16 21v-2a4 4 0 0 0-8 0v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span style="font-size:14px;letter-spacing:.03em;color:var(--color-cream,#f5f3ee)">VIP Service</span></div>
+<div style="display:flex;gap:12px;align-items:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-muted-gold,#c9a962);flex:none"><path d="m2 8 4 11h12l4-11-6 4-4-7-4 7z"></path></svg><span style="font-size:14px;letter-spacing:.03em;color:var(--color-cream,#f5f3ee)">Dress Code</span></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding-top:32px;border-top:1px solid rgba(201,169,98,.2)">
+<div style="text-align:center"><div style="font-size:28px;color:var(--color-cream,#f5f3ee)">1000+</div><div style="margin-top:4px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.7)">Capacity</div></div>
+<div style="text-align:center"><div style="font-size:28px;color:var(--color-cream,#f5f3ee)">16</div><div style="margin-top:4px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.7)">VIP Tables</div></div>
+<div style="text-align:center"><div style="font-size:28px;color:var(--color-cream,#f5f3ee)">5</div><div style="margin-top:4px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.7)">Luxury Sofas</div></div>
+<div style="text-align:center"><div style="font-size:28px;color:var(--color-cream,#f5f3ee)">∞</div><div style="margin-top:4px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.7)">Memories</div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="spaces" data-screen-label="Spaces" style="padding:96px 0;background:linear-gradient(135deg,var(--color-forest,#122019),var(--color-dark-green,#0a140f))">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<div style="margin-bottom:56px;text-align:center">
+<span style="font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">One Destination</span>
+<h2 style="margin:16px 0 0;font-weight:300;font-size:clamp(32px,5vw,48px);color:var(--color-cream,#f5f3ee)">A Multi-Space Venue in Seminyak</h2>
+<p style="margin:24px auto 0;max-width:42rem;color:rgba(245,243,238,.7);text-wrap:pretty">The Stage is a <strong style="color:var(--color-cream,#f5f3ee);font-weight:500">multifunctional venue</strong> with three distinct configurations under one roof — concerts, club nights, and fully private events — each engineered around a different experience but sharing the same standard of luxury, production quality, and hospitality.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px">
+<article style="overflow:hidden;background:rgba(26,51,39,.8);backdrop-filter:blur(20px);border:1px solid rgba(201,169,98,.2)">
+<div style="position:relative;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">CONCERT HALL 4:3</span></div>
+<div style="padding:24px"><h3 style="margin:0 0 12px;font-weight:400;font-size:26px;color:var(--color-cream,#f5f3ee)">Concert Hall</h3><p style="margin:0;font-size:14px;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">A full-production concert space engineered for international headliners, with modular staging, world-class line-array sound, and full lighting rig. From intimate acoustic showcases to sold-out club shows, the concert hall is built for artists and audiences who expect the best.</p></div>
+</article>
+<article style="overflow:hidden;background:rgba(26,51,39,.8);backdrop-filter:blur(20px);border:1px solid rgba(201,169,98,.2)">
+<div style="position:relative;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">CLUB &amp; LOUNGE 4:3</span></div>
+<div style="padding:24px"><h3 style="margin:0 0 12px;font-weight:400;font-size:26px;color:var(--color-cream,#f5f3ee)">Club &amp; Lounge</h3><p style="margin:0;font-size:14px;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">Our late-night floor pairs an immersive dance environment with an intimate VIP lounge. Resident DJs, guest sets from international selectors, curated bottle service, and premium hospitality make this Seminyak's most refined night out.</p></div>
+</article>
+<article style="overflow:hidden;background:rgba(26,51,39,.8);backdrop-filter:blur(20px);border:1px solid rgba(201,169,98,.2)">
+<div style="position:relative;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">PRIVATE EVENTS 4:3</span></div>
+<div style="padding:24px"><h3 style="margin:0 0 12px;font-weight:400;font-size:26px;color:var(--color-cream,#f5f3ee)">Private Events Space</h3><p style="margin:0;font-size:14px;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">A fully customisable private space for weddings, brand launches, gala dinners, and corporate hire. Dedicated production support, tailored menus, and end-to-end event management make The Stage a turnkey venue for high-profile private occasions.</p></div>
+</article>
+</div>
+</div>
+</section>
+<section id="vip" data-screen-label="VIP" style="padding:96px 0;background:linear-gradient(180deg,var(--color-deep-green,#060c09),var(--color-dark-green,#0a140f))">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<div style="margin-bottom:64px;text-align:center">
+<span style="font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Exclusive</span>
+<h2 style="margin:16px 0 0;font-weight:300;font-size:clamp(32px,5vw,60px);color:var(--color-cream,#f5f3ee)">VIP Reservations</h2>
+<p style="margin:24px auto 0;max-width:42rem;color:rgba(245,243,238,.7);text-wrap:pretty">Elevate any occasion with our <strong style="color:var(--color-cream,#f5f3ee);font-weight:500">exclusive VIP tables, luxury sofa packages, and private-space hire</strong> in the heart of Seminyak. Every reservation at The Stage Bali includes dedicated table service, premium bottle service, priority entry, and a personal concierge — designed around guests who expect a truly multifunctional venue experience. Whether you are planning a birthday, an anniversary, a wedding after-party, a product launch, a corporate gala, or a headline concert night, our team crafts every detail around your event.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;margin-bottom:64px">
+<div style="padding:32px;text-align:center;background:rgba(26,51,39,.8);backdrop-filter:blur(20px);border:1px solid rgba(201,169,98,.2)">
+<div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:999px;background:var(--color-forest,#122019);color:var(--color-muted-gold,#c9a962);margin-bottom:24px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 22h8M12 15v7M5 3h14l-1 6a6 6 0 0 1-12 0z"></path></svg></div>
+<h3 style="margin:0 0 8px;font-weight:400;font-size:26px;color:var(--color-cream,#f5f3ee)">VIP Table</h3>
+<p style="margin:0 0 24px;font-size:14px;color:rgba(245,243,238,.7)">Up to 8 guests</p>
+<ul style="list-style:none;margin:0 0 32px;padding:0;display:flex;flex-direction:column;gap:12px">
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Premium table location</li>
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Dedicated server</li>
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Complimentary champagne</li>
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Priority entry</li>
+</ul>
+<a href="#" style="display:block;text-align:center;background:transparent;color:var(--color-cream,#f5f3ee);padding:16px 40px;letter-spacing:.15em;text-transform:uppercase;font-size:12px;border:1px solid var(--color-muted-gold,#c9a962);transition:all .4s cubic-bezier(.4,0,.2,1)" style-hover="background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f)">Reserve Now</a>
+</div>
+<div style="padding:32px;text-align:center;background:rgba(26,51,39,.8);backdrop-filter:blur(20px);border:1px solid rgba(201,169,98,.2)">
+<div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:999px;background:var(--color-forest,#122019);color:var(--color-muted-gold,#c9a962);margin-bottom:24px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m2 18 3-10 4 4 3-8 3 8 4-4 3 10z"></path></svg></div>
+<h3 style="margin:0 0 8px;font-weight:400;font-size:26px;color:var(--color-cream,#f5f3ee)">Royal Sofa</h3>
+<p style="margin:0 0 24px;font-size:14px;color:rgba(245,243,238,.7)">Up to 12 guests</p>
+<ul style="list-style:none;margin:0 0 32px;padding:0;display:flex;flex-direction:column;gap:12px">
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Exclusive sofa seating</li>
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Private area</li>
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Premium bottle service</li>
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Personal concierge</li>
+</ul>
+<a href="#" style="display:block;text-align:center;background:transparent;color:var(--color-cream,#f5f3ee);padding:16px 40px;letter-spacing:.15em;text-transform:uppercase;font-size:12px;border:1px solid var(--color-muted-gold,#c9a962);transition:all .4s cubic-bezier(.4,0,.2,1)" style-hover="background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f)">Reserve Now</a>
+</div>
+<div style="padding:32px;text-align:center;background:rgba(26,51,39,.8);backdrop-filter:blur(20px);border:1px solid rgba(201,169,98,.2)">
+<div style="display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:999px;background:var(--color-forest,#122019);color:var(--color-muted-gold,#c9a962);margin-bottom:24px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m12 3 2.9 5.9 6.1.9-4.5 4.3 1.1 6-5.6-3-5.6 3 1.1-6L3 9.8l6.1-.9z"></path></svg></div>
+<h3 style="margin:0 0 8px;font-weight:400;font-size:26px;color:var(--color-cream,#f5f3ee)">Private Experience</h3>
+<p style="margin:0 0 24px;font-size:14px;color:rgba(245,243,238,.7)">Custom capacity</p>
+<ul style="list-style:none;margin:0 0 32px;padding:0;display:flex;flex-direction:column;gap:12px">
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Private venue section</li>
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Custom menu</li>
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Dedicated staff team</li>
+<li style="font-size:14px;color:rgba(245,243,238,.7);display:flex;align-items:center;justify-content:center;gap:8px"><span style="width:6px;height:6px;border-radius:999px;background:var(--color-muted-gold,#c9a962)"></span>Personalized experience</li>
+</ul>
+<a href="#" style="display:block;text-align:center;background:transparent;color:var(--color-cream,#f5f3ee);padding:16px 40px;letter-spacing:.15em;text-transform:uppercase;font-size:12px;border:1px solid var(--color-muted-gold,#c9a962);transition:all .4s cubic-bezier(.4,0,.2,1)" style-hover="background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f)">Reserve Now</a>
+</div>
+</div>
+<div style="text-align:center;background:var(--color-forest,#122019);padding:64px 32px">
+<h3 style="margin:0 0 16px;font-weight:300;font-size:clamp(26px,3.5vw,34px);color:var(--color-cream,#f5f3ee)">Planning Something Special?</h3>
+<p style="margin:0 auto 32px;max-width:36rem;color:rgba(245,243,238,.7)">Contact our VIP concierge team for bespoke event planning and exclusive venue hire inquiries.</p>
+<a href="mailto:vip@thestage.net" style="display:inline-flex;gap:8px;align-items:center;background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f);padding:16px 40px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;font-size:12px;transition:all .4s cubic-bezier(.4,0,.2,1)" style-hover="background:var(--color-gold-light,#d4b978);color:var(--color-dark-green,#0a140f);transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,169,98,.3)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg>Contact VIP Concierge</a>
+</div>
+</div>
+</section>
+<section id="faq" data-screen-label="FAQ" style="padding:96px 0;background:linear-gradient(180deg,var(--color-deep-green,#060c09),var(--color-dark-green,#0a140f))">
+<div style="max-width:896px;margin:0 auto;padding:0 24px">
+<div style="margin-bottom:56px;text-align:center">
+<span style="font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Frequently Asked</span>
+<h2 style="margin:16px 0 0;font-weight:300;font-size:clamp(32px,5vw,48px);color:var(--color-cream,#f5f3ee)">About The Stage Bali</h2>
+<p style="margin:24px auto 0;max-width:42rem;color:rgba(245,243,238,.7);text-wrap:pretty">Everything you need to know about visiting <strong style="color:var(--color-cream,#f5f3ee);font-weight:500">Bali's premier luxury nightclub and concert venue</strong>, from opening hours in Seminyak to VIP table reservations and private event hire.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:32px">
+<details style="padding-bottom:20px;border-bottom:1px solid rgba(201,169,98,.15)"><summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none"><h3 style="margin:0;font-weight:400;font-size:21px;color:var(--color-cream,#f5f3ee)">What is The Stage Bali?</h3><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary><p style="margin:12px 0 0;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">The Stage Bali is a premier multi-space, multifunctional luxury venue in Seminyak. Under one roof it operates as a concert hall for international artists, a private events space for weddings, corporate hire, and brand activations, and a club and lounge floor for exclusive nightlife.</p></details>
+<details style="padding-bottom:20px;border-bottom:1px solid rgba(201,169,98,.15)"><summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none"><h3 style="margin:0;font-weight:400;font-size:21px;color:var(--color-cream,#f5f3ee)">Where is The Stage Bali located?</h3><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary><p style="margin:12px 0 0;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">The Stage Bali is located at Jl. Kayu Aya No.7, Seminyak, Kuta Utara, Badung, Bali 80361, Indonesia — minutes from Seminyak Beach and Petitenget.</p></details>
+<details style="padding-bottom:20px;border-bottom:1px solid rgba(201,169,98,.15)"><summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none"><h3 style="margin:0;font-weight:400;font-size:21px;color:var(--color-cream,#f5f3ee)">What kinds of events does The Stage Bali host?</h3><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary><p style="margin:12px 0 0;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">The Stage Bali hosts world-class concerts and live-music showcases, corporate galas, weddings, product launches, brand activations, comedy nights, and exclusive club evenings. As a multifunctional venue, each space is configured to match the event.</p></details>
+<details style="padding-bottom:20px;border-bottom:1px solid rgba(201,169,98,.15)"><summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none"><h3 style="margin:0;font-weight:400;font-size:21px;color:var(--color-cream,#f5f3ee)">Can I hire The Stage Bali for a private or corporate event?</h3><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary><p style="margin:12px 0 0;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">Yes. The Stage Bali's private events space is available for weddings, corporate parties, gala dinners, product launches, and brand activations, with dedicated event production and custom F&amp;B. Contact our VIP concierge at vip@thestage.net for bespoke event planning and exclusive venue-hire inquiries.</p></details>
+<details style="padding-bottom:20px;border-bottom:1px solid rgba(201,169,98,.15)"><summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none"><h3 style="margin:0;font-weight:400;font-size:21px;color:var(--color-cream,#f5f3ee)">How do I book a VIP table or luxury sofa at The Stage Bali?</h3><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary><p style="margin:12px 0 0;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">You can reserve VIP tables and luxury sofa packages online through the Reserve VIP page, or contact our concierge on WhatsApp at +62 811 3831 4177. Every VIP reservation includes dedicated table service, priority entry, and a personal host.</p></details>
+<details style="padding-bottom:20px;border-bottom:1px solid rgba(201,169,98,.15)"><summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none"><h3 style="margin:0;font-weight:400;font-size:21px;color:var(--color-cream,#f5f3ee)">What are The Stage Bali's opening hours?</h3><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary><p style="margin:12px 0 0;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">The club and lounge floor opens Thursday, Friday, and Saturday from 10:00 PM to 4:00 AM local time (WITA). Concert and private-event hours vary by booking — check the events schedule or contact our team.</p></details>
+<details style="padding-bottom:20px;border-bottom:1px solid rgba(201,169,98,.15)"><summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none"><h3 style="margin:0;font-weight:400;font-size:21px;color:var(--color-cream,#f5f3ee)">Is there a dress code at The Stage Bali?</h3><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary><p style="margin:12px 0 0;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">Yes — smart elegant attire is required. Sportswear, flip-flops, and casual beach wear are not permitted. Management reserves the right to refuse entry.</p></details>
+</div>
+</div>
+</section>
+<section id="location" data-screen-label="Location" style="padding:96px 0;background:linear-gradient(135deg,var(--color-forest,#122019),var(--color-dark-green,#0a140f))">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:center">
+<div style="position:relative;aspect-ratio:4/3;background:var(--color-taupe,#9a998f);overflow:hidden">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15777.13701753922!2d115.15334239999999!3d-8.664493649999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd2470e2c747cbd%3A0x742995635bafe78!2sThe%20Stage%20Bali!5e0!3m2!1sen!2sid!4v1764338814364!5m2!1sen!2sid" width="100%" height="100%" style="border:0;filter:grayscale(1)" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="The Stage Bali on Google Maps"></iframe>
+</div>
+<div>
+<span style="font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Find Us</span>
+<h2 style="margin:16px 0 32px;font-weight:300;font-size:clamp(32px,5vw,48px);color:var(--color-cream,#f5f3ee)">Location</h2>
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;gap:16px;align-items:flex-start">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-muted-gold,#c9a962);margin-top:4px;flex:none"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<div><h3 style="margin:0 0 4px;font-size:16px;font-weight:500;color:var(--color-cream,#f5f3ee)">Address</h3><p style="margin:0;color:rgba(245,243,238,.7)"><a href="https://maps.app.goo.gl/gpNZceEURaypRQtz6" target="_blank" rel="noopener noreferrer" style="color:rgba(245,243,238,.7)">The Stage Bali, Jl. Kayu Aya No.7,<br>Seminyak, Kuta Utara, Badung<br>Bali 80361, Indonesia</a></p></div>
+</div>
+<div style="display:flex;gap:16px;align-items:flex-start">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-muted-gold,#c9a962);margin-top:4px;flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+<div><h3 style="margin:0 0 4px;font-size:16px;font-weight:500;color:var(--color-cream,#f5f3ee)">Hours</h3><p style="margin:0;color:rgba(245,243,238,.7)">Thursday - Saturday<br>10:00 PM - 4:00 AM</p></div>
+</div>
+<div style="display:flex;gap:16px;align-items:flex-start">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-muted-gold,#c9a962);margin-top:4px;flex:none"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path></svg>
+<div><h3 style="margin:0 0 4px;font-size:16px;font-weight:500;color:var(--color-cream,#f5f3ee)">Contact</h3>
+<p style="margin:0;color:rgba(245,243,238,.7)">
+<a href="https://wa.me/6282341883870" target="_blank" rel="noopener noreferrer" style="font-size:14px;color:rgba(245,243,238,.7)"><img src="./assets/whatsapp.svg" alt="WhatsApp" style="width:16px;height:16px;display:inline-block;margin-right:8px;vertical-align:-2px"><span style="font-weight:700">+62 823 4188 3870</span></a> (General Enquiries)<br>
+<a href="https://wa.me/6281138314177" target="_blank" rel="noopener noreferrer" style="font-size:14px;color:rgba(245,243,238,.7)"><img src="./assets/whatsapp.svg" alt="WhatsApp" style="width:16px;height:16px;display:inline-block;margin-right:8px;vertical-align:-2px"><span style="font-weight:700">+62 811 3831 4177</span></a> (Reservations)<br>
+<a href="mailto:reservations@thestage.net" style="font-size:14px;color:rgba(245,243,238,.7)"><img src="./assets/email.svg" alt="Email" style="width:16px;height:16px;display:inline-block;margin-right:8px;vertical-align:-2px">reservations@thestage.net</a>
+</p></div>
+</div>
+</div>
+<div style="margin-top:40px;padding:24px;border:1px solid rgba(201,169,98,.3)">
+<h3 style="margin:0 0 8px;font-weight:400;font-size:20px;color:var(--color-cream,#f5f3ee)">Dress Code</h3>
+<p style="margin:0;font-size:14px;color:rgba(245,243,238,.7);text-wrap:pretty">Smart elegant attire required. No sportswear, flip-flops, or casual beach wear. Management reserves the right to refuse entry.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer style="background:var(--color-deep-green,#060c09);color:var(--color-cream,#f5f3ee);padding:72px 0;border-top:1px solid rgba(201,169,98,.2)">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:48px;margin-bottom:64px">
+<section style="grid-column:span 2 / span 2;min-width:0">
+<div style="display:flex;gap:12px;align-items:center;margin-bottom:24px"><img src="./assets/logoW.svg" alt="The Stage" style="height:48px;width:auto"></div>
+<p style="margin:0;font-size:14px;line-height:1.7;max-width:24rem;color:rgba(245,243,238,.7)">Asia's premier luxury entertainment venue, where extraordinary experiences are crafted for the most discerning guests.</p>
+<div style="display:flex;gap:16px;margin-top:16px">
+<a href="https://www.instagram.com/stage.bali" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="width:40px;height:40px;border:1px solid rgba(201,169,98,.5);display:flex;align-items:center;justify-content:center;color:var(--color-cream,#f5f3ee)" style-hover="border-color:var(--color-muted-gold,#c9a962);color:var(--color-muted-gold,#c9a962)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg></a>
+<a href="mailto:info@thestage.net" aria-label="Email" style="width:40px;height:40px;border:1px solid rgba(201,169,98,.5);display:flex;align-items:center;justify-content:center;color:var(--color-cream,#f5f3ee)" style-hover="border-color:var(--color-muted-gold,#c9a962);color:var(--color-muted-gold,#c9a962)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg></a>
+</div>
+<address style="display:block;font-size:14px;line-height:1.7;max-width:24rem;margin-top:16px;font-style:normal;color:rgba(245,243,238,.7)"><a href="https://maps.app.goo.gl/gpNZceEURaypRQtz6" target="_blank" rel="noopener noreferrer" style="color:rgba(245,243,238,.7)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="display:inline-block;margin-right:8px;vertical-align:-3px"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>The Stage Bali, Jl. Kayu Aya No.7,<br><span style="padding-left:24px">Seminyak, Kuta Utara, Badung</span><br><span style="padding-left:24px">Bali 80361, Indonesia</span></a></address>
+</section>
+<nav>
+<h3 style="margin:0 0 24px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Quick Links</h3>
+<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px">
+<li><a href="../events/Events.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Events</a></li>
+<li><a href="../private-events/PrivateEvents.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Private Events</a></li>
+<li><a href="../venue-hire/VenueHire.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Venue Hire</a></li>
+<li><a href="../gallery/Gallery.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Gallery</a></li>
+<li><a href="../faq/Faq.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">FAQ</a></li>
+<li><a href="../contact/Contact.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Contact Us</a></li>
+</ul>
+</nav>
+<section>
+<h4 style="margin:0 0 24px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Reservations:</h4>
+<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px">
+<li><a href="https://wa.me/6281138314177" target="_blank" rel="noopener noreferrer" style="font-size:14px;color:rgba(245,243,238,.7)"><img src="./assets/whatsapp.svg" alt="WhatsApp" style="width:16px;height:16px;display:inline-block;margin-right:8px;vertical-align:-2px"><span style="font-weight:700">+62 811 3831 4177</span></a></li>
+<li><a href="mailto:reservations@thestage.net" style="font-size:14px;color:rgba(245,243,238,.7)"><img src="./assets/email.svg" alt="Email" style="width:16px;height:16px;display:inline-block;margin-right:8px;vertical-align:-2px">reservations@thestage.net</a></li>
+</ul>
+<h4 style="margin:40px 0 24px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">General Enquiries:</h4>
+<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px">
+<li><a href="https://wa.me/6281138314731" target="_blank" rel="noopener noreferrer" style="font-size:14px;color:rgba(245,243,238,.7)"><img src="./assets/whatsapp.svg" alt="WhatsApp" style="width:16px;height:16px;display:inline-block;margin-right:8px;vertical-align:-2px"><span style="font-weight:700">+62 811 3831 4731</span></a></li>
+<li><a href="mailto:info@thestage.net" style="font-size:14px;color:rgba(245,243,238,.7)"><img src="./assets/email.svg" alt="Email" style="width:16px;height:16px;display:inline-block;margin-right:8px;vertical-align:-2px">info@thestage.net</a></li>
+</ul>
+</section>
+</div>
+<div style="padding-top:32px;border-top:1px solid rgba(201,169,98,.2);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px">
+<p style="margin:0;font-size:12px;color:rgba(245,243,238,.5)">© {{ year }} The Stage Bali. All rights reserved.</p>
+<nav style="display:flex;gap:24px" aria-label="Legal links">
+<a href="#" style="font-size:12px;color:rgba(245,243,238,.5)">Terms &amp; Conditions</a>
+<a href="#" style="font-size:12px;color:rgba(245,243,238,.5)">Privacy Policy</a>
+</nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;signedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Auth state&quot;},&quot;cartCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:2,&quot;min&quot;:0,&quot;max&quot;:20,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Auth state&quot;},&quot;memberName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Member&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Auth state&quot;},&quot;memberEmail&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;member@example.com&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Auth state&quot;}}">
+class Component extends DCLogic {
+  state = { scrolled: false, menuOpen: false, profileOpen: false };
+  rail = null;
+
+  componentDidMount() {
+    this.onScroll = () => {
+      const s = window.scrollY > 50;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    this.onScroll();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.onScroll);
+  }
+
+  scrollRail(dir) {
+    const el = this.rail;
+    if (!el) return;
+    const step = el.clientWidth * 0.8;
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  }
+
+  renderVals() {
+    const signedIn = this.props.signedIn === true;
+    const count = Number(this.props.cartCount ?? 2);
+    return {
+      scrolled: this.state.scrolled,
+      signedIn,
+      signedOut: !signedIn,
+      menuOpen: this.state.menuOpen,
+      profileOpen: this.state.profileOpen,
+      cartBadge: count > 9 ? "9+" : String(count),
+      memberName: this.props.memberName ?? "Member",
+      memberEmail: this.props.memberEmail ?? "member@example.com",
+      year: new Date().getFullYear(),
+      railRef: (el) => { this.rail = el; },
+      railPrev: () => this.scrollRail(-1),
+      railNext: () => this.scrollRail(1),
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      toggleProfile: () => this.setState((s) => ({ profileOpen: !s.profileOpen })),
+    };
+  }
+}
+</script>
+</body>
+</html>

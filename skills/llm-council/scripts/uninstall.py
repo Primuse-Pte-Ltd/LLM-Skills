@@ -6,7 +6,11 @@ It undoes what install.py did:
   and the old ~/.codex/skills
 - removes the Antigravity folder in ~/.gemini/config/skills and its entry in
   Antigravity's skills manifest
-- removes the clone in ~/.agents/skills/llm-council (that is what Codex reads)
+- removes the link in ~/.agents/skills/llm-council (that is what Codex reads)
+
+The LLM-Skills checkout at ~/.agents/LLM-Skills is left in place. A symlink is
+unlinked. A real directory left over from the old standalone repo is removed
+only when its SKILL.md says `name: llm-council`.
 
 It only deletes things that belong to this skill: a link that points at an
 llm-council folder, or a folder whose SKILL.md says `name: llm-council`.

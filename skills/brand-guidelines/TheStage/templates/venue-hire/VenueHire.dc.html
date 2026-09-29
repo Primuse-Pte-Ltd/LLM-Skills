@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Venue hire" description="Venue hire page: spaces catalogue, house rules, and a three-step booking request panel." -->
+<helmet><script src="./ds-base.js"></script><style>body{margin:0;background:#0a140f;color:#f5f3ee;font-family:'Montserrat',-apple-system,sans-serif;line-height:1.6;letter-spacing:.01em;overflow-x:hidden}*{box-sizing:border-box}a{color:var(--color-cream,#f5f3ee);text-decoration:none}a:hover{color:var(--color-muted-gold,#c9a962)}.ts-desktop{display:flex}.ts-burger{display:none}@media (max-width:1023px){.ts-desktop{display:none!important}.ts-burger{display:flex!important}}summary::-webkit-details-marker{display:none}details[open] .ts-chev{transform:rotate(180deg)}</style></helmet>
+<div style="background:#0a140f">
+<header style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,20,15,.95);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.35)">
+<nav style="margin:0 auto;max-width:1280px;padding:0 24px;display:flex;height:88px;align-items:center;justify-content:space-between;gap:24px" aria-label="Primary navigation">
+<a href="../home/Home.dc.html" aria-label="The Stage Bali home"><img src="./assets/logoW.svg" alt="The Stage" style="height:40px;width:auto;display:block"></a>
+<ul class="ts-desktop" style="list-style:none;margin:0;padding:0;align-items:center;gap:40px">
+<li><a href="../home/Home.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Home</a></li>
+<li><a href="../events/Events.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Events</a></li>
+<li><a href="../home/Home.dc.html#vip" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Reserve VIP</a></li>
+<li><a href="../gallery/Gallery.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Gallery</a></li>
+<li><a href="../contact/Contact.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Contact</a></li>
+</ul>
+<button type="button" class="ts-burger" aria-label="Open menu" style="background:none;border:0;padding:8px;cursor:pointer;color:var(--color-cream,#f5f3ee)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+</nav>
+</header>
+<main data-screen-label="Venue hire" style="min-height:100vh;background:linear-gradient(135deg,var(--color-forest,#122019),var(--color-dark-green,#0a140f))">
+<div style="padding:120px 0 24px;background:var(--color-deep-green,#060c09)">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:14px">
+<a href="../home/Home.dc.html" style="color:rgba(245,243,238,.7)">HOME</a>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-taupe,#9a998f)"><path d="m9 18 6-6-6-6"></path></svg>
+<span style="color:var(--color-cream,#f5f3ee);font-weight:500">VENUE HIRE</span>
+</nav>
+</div>
+</div>
+<section style="padding:72px 0 56px">
+<div style="max-width:896px;margin:0 auto;padding:0 24px;text-align:center">
+<span style="font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Venue Hire</span>
+<h1 style="margin:24px 0 32px;font-weight:300;font-size:clamp(40px,7vw,72px);color:var(--color-cream,#f5f3ee)">Host Your Event at The Stage</h1>
+<p style="margin:0;font-size:17px;color:rgba(245,243,238,.8);text-wrap:pretty">Concerts, brand launches, corporate nights and private celebrations. Choose a space, pick a date and package, and send a booking request. Our events team reviews every request and contacts you directly.</p>
+<div style="margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px">
+<a href="#book" style="background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f);padding:16px 40px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;font-size:12px;transition:all .4s cubic-bezier(.4,0,.2,1)" style-hover="background:var(--color-gold-light,#d4b978);color:var(--color-dark-green,#0a140f);transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,169,98,.3)">Check availability</a>
+<button type="button" onClick="{{ openPhotos }}" style="background:transparent;color:var(--color-cream,#f5f3ee);padding:16px 40px;font-family:inherit;letter-spacing:.15em;text-transform:uppercase;font-size:12px;border:1px solid var(--color-muted-gold,#c9a962);cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1)" style-hover="background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f)">View photos</button>
+</div>
+</div>
+</section>
+<section id="space" style="padding:0 0 56px">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;align-items:start">
+<div id="venue-photos">
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"><button type="button" onClick="{{ openPhotos }}" aria-label="Open venue photos" style="height:120px;display:flex;align-items:center;justify-content:center;border:0;padding:0;cursor:pointer;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px);transition:opacity .3s" style-hover="opacity:.75"><span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;color:rgba(245,243,238,.45)">PHOTO</span></button><button type="button" onClick="{{ openPhotos }}" aria-label="Open venue photos" style="height:120px;display:flex;align-items:center;justify-content:center;border:0;padding:0;cursor:pointer;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px);transition:opacity .3s" style-hover="opacity:.75"><span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;color:rgba(245,243,238,.45)">PHOTO</span></button><button type="button" onClick="{{ openPhotos }}" aria-label="Open venue photos" style="height:120px;display:flex;align-items:center;justify-content:center;border:0;padding:0;cursor:pointer;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px);transition:opacity .3s" style-hover="opacity:.75"><span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;color:rgba(245,243,238,.45)">PHOTO</span></button><button type="button" onClick="{{ openPhotos }}" aria-label="Open venue photos" style="height:120px;display:flex;align-items:center;justify-content:center;border:0;padding:0;cursor:pointer;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px);transition:opacity .3s" style-hover="opacity:.75"><span style="font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.2em;color:rgba(245,243,238,.45)">PHOTO</span></button></div>
+
+</div>
+<div>
+<span style="font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">The space</span>
+<h2 style="margin:12px 0 0;font-weight:300;font-size:clamp(28px,4vw,40px);color:var(--color-cream,#f5f3ee)">Concert Hall</h2>
+<p style="margin:8px 0 0;color:var(--color-muted-gold,#c9a962)">Full-production room for international headliners</p>
+<ul style="list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 24px;font-size:14px;color:rgba(245,243,238,.8)">
+<li style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="color:var(--color-muted-gold,#c9a962);flex:none"><path d="M16 21v-2a4 4 0 0 0-8 0v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Up to 1,000 guests</li>
+<li style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="color:var(--color-muted-gold,#c9a962);flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Curfew 04:00</li>
+<li style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="color:var(--color-muted-gold,#c9a962);flex:none"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"></path></svg>21+ with valid ID</li>
+</ul>
+<p style="margin:20px 0 0;color:rgba(245,243,238,.75);text-wrap:pretty">Modular staging, line-array sound and a full lighting rig, with backstage facilities and load-in access for full production builds.</p>
+<details style="margin-top:20px">
+<summary style="display:flex;align-items:center;gap:8px;cursor:pointer;list-style:none;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Layouts &amp; capacities<svg class="ts-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<dl style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;margin:16px 0 0">
+<div style="border:1px solid rgba(201,169,98,.15);padding:8px 12px"><dt style="margin:0;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(245,243,238,.55)">Standing</dt><dd style="margin:0;font-size:18px;color:var(--color-cream,#f5f3ee)">1,000</dd></div>
+<div style="border:1px solid rgba(201,169,98,.15);padding:8px 12px"><dt style="margin:0;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(245,243,238,.55)">Seated</dt><dd style="margin:0;font-size:18px;color:var(--color-cream,#f5f3ee)">450</dd></div>
+<div style="border:1px solid rgba(201,169,98,.15);padding:8px 12px"><dt style="margin:0;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(245,243,238,.55)">Banquet</dt><dd style="margin:0;font-size:18px;color:var(--color-cream,#f5f3ee)">320</dd></div>
+<div style="border:1px solid rgba(201,169,98,.15);padding:8px 12px"><dt style="margin:0;font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:rgba(245,243,238,.55)">Theatre</dt><dd style="margin:0;font-size:18px;color:var(--color-cream,#f5f3ee)">450</dd></div>
+</dl>
+<ul style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0">
+<li style="padding:4px 12px;font-size:12px;border:1px solid rgba(201,169,98,.25);color:rgba(245,243,238,.8)">Stage &amp; rigging</li>
+<li style="padding:4px 12px;font-size:12px;border:1px solid rgba(201,169,98,.25);color:rgba(245,243,238,.8)">Line-array PA</li>
+<li style="padding:4px 12px;font-size:12px;border:1px solid rgba(201,169,98,.25);color:rgba(245,243,238,.8)">Dressing rooms</li>
+<li style="padding:4px 12px;font-size:12px;border:1px solid rgba(201,169,98,.25);color:rgba(245,243,238,.8)">Bar service</li>
+</ul>
+</details>
+<a href="#book" style="display:inline-block;margin-top:28px;background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f);padding:16px 40px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;font-size:12px;transition:all .4s cubic-bezier(.4,0,.2,1)" style-hover="background:var(--color-gold-light,#d4b978);color:var(--color-dark-green,#0a140f);transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,169,98,.3)">Check availability</a>
+</div>
+</div>
+</div>
+</section>
+<section aria-labelledby="house-rules-heading" style="padding:0 0 72px">
+<div style="max-width:896px;margin:0 auto;padding:0 24px">
+<h2 id="house-rules-heading" style="margin:0 0 32px;font-weight:300;font-size:clamp(28px,4vw,36px);text-align:center;color:var(--color-cream,#f5f3ee)">House rules</h2>
+<ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px">
+<li style="border:1px solid rgba(201,169,98,.2);background:rgba(18,32,25,.6);padding:20px"><p style="margin:0;color:var(--color-cream,#f5f3ee)">Dress code enforced</p><p style="margin:8px 0 0;font-size:14px;color:rgba(245,243,238,.7)">Smart elegant attire. No sportswear, flip-flops, or beach wear.</p></li>
+<li style="border:1px solid rgba(201,169,98,.2);background:rgba(18,32,25,.6);padding:20px"><p style="margin:0;color:var(--color-cream,#f5f3ee)">Curfew 04:00</p><p style="margin:8px 0 0;font-size:14px;color:rgba(245,243,238,.7)">All amplified sound ends at curfew. Extensions by written agreement only.</p></li>
+<li style="border:1px solid rgba(201,169,98,.2);background:rgba(18,32,25,.6);padding:20px"><p style="margin:0;color:var(--color-cream,#f5f3ee)">21+ with valid ID</p><p style="margin:8px 0 0;font-size:14px;color:rgba(245,243,238,.7)">Door policy strictly enforced for every guest.</p></li>
+<li style="border:1px solid rgba(201,169,98,.2);background:rgba(18,32,25,.6);padding:20px"><p style="margin:0;color:var(--color-cream,#f5f3ee)">No outside F&amp;B</p><p style="margin:8px 0 0;font-size:14px;color:rgba(245,243,238,.7)">All food and beverage is supplied by the venue's chef-led team.</p></li>
+</ul>
+</div>
+</section>
+<section id="book" aria-labelledby="book-heading" style="padding:0 0 96px">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<div style="text-align:center;margin-bottom:40px">
+<span style="font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Booking request</span>
+<h2 id="book-heading" style="margin:16px 0 0;font-weight:300;font-size:clamp(32px,5vw,48px);color:var(--color-cream,#f5f3ee)">Check dates &amp; request a booking</h2>
+<p style="max-width:42rem;margin:16px auto 0;color:rgba(245,243,238,.7);text-wrap:pretty">Sending a request holds your date while our team reviews it. It is not a confirmed booking and no payment is taken now.</p>
+</div>
+
+<div style="border:1px solid rgba(201,169,98,.2);background:rgba(18,32,25,.6);padding:32px;margin-bottom:32px">
+<div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px">
+<h3 style="margin:0;display:flex;align-items:center;gap:12px;font-weight:300;font-size:24px;color:var(--color-cream,#f5f3ee)"><span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;border:1px solid var(--color-muted-gold,#c9a962);font-size:14px;color:var(--color-muted-gold,#c9a962)">1</span>Pick a date</h3>
+<div style="display:flex;align-items:center;gap:8px">
+<button type="button" onClick="{{ prevMonth }}" aria-label="Previous month" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:none;border:1px solid rgba(201,169,98,.25);cursor:pointer;color:var(--color-cream,#f5f3ee)" style-hover="border-color:var(--color-muted-gold,#c9a962);color:var(--color-muted-gold,#c9a962)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m15 18-6-6 6-6"></path></svg></button>
+<span style="min-width:190px;text-align:center;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--color-cream,#f5f3ee)">{{ monthLabel }}</span>
+<button type="button" onClick="{{ nextMonth }}" aria-label="Next month" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:none;border:1px solid rgba(201,169,98,.25);cursor:pointer;color:var(--color-cream,#f5f3ee)" style-hover="border-color:var(--color-muted-gold,#c9a962);color:var(--color-muted-gold,#c9a962)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m9 18 6-6-6-6"></path></svg></button>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-bottom:8px">
+<span style="text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.45)">Mon</span>
+<span style="text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.45)">Tue</span>
+<span style="text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.45)">Wed</span>
+<span style="text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.45)">Thu</span>
+<span style="text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.45)">Fri</span>
+<span style="text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.45)">Sat</span>
+<span style="text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,243,238,.45)">Sun</span>
+</div>
+<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px">
+<sc-for list="{{ days }}" as="d" hint-placeholder-count="35">
+<span><sc-if value="{{ d.blank }}" hint-placeholder-val="{{ false }}"><span style="display:block;height:56px"></span></sc-if><sc-if value="{{ d.selected }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ d.select }}" style="height:56px;width:100%;display:flex;align-items:center;justify-content:center;font-family:inherit;font-size:15px;cursor:pointer;border:1px solid var(--color-muted-gold,#c9a962);background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f)">{{ d.day }}</button></sc-if><sc-if value="{{ d.free }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ d.select }}" style="height:56px;width:100%;display:flex;align-items:center;justify-content:center;font-family:inherit;font-size:15px;cursor:pointer;border:1px solid rgba(201,169,98,.45);background:rgba(201,169,98,.08);color:var(--color-muted-gold,#c9a962)" style-hover="background:rgba(201,169,98,.2);color:var(--color-muted-gold,#c9a962)">{{ d.day }}</button></sc-if><sc-if value="{{ d.busy }}" hint-placeholder-val="{{ false }}"><span style="height:56px;width:100%;display:flex;align-items:center;justify-content:center;font-size:15px;border:1px solid rgba(201,169,98,.1);color:rgba(245,243,238,.3)">{{ d.day }}</span></sc-if></span>
+</sc-for>
+</div>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:20px;font-size:13px;color:rgba(245,243,238,.7)">
+<span style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:14px;border:1px solid rgba(201,169,98,.45);background:rgba(201,169,98,.08)"></span>Free slots</span>
+<span style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:14px;border:1px solid rgba(201,169,98,.1)"></span>Unavailable</span>
+<span>Gold-marked dates have at least one free time slot.</span>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px;align-items:start">
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="border:1px solid rgba(201,169,98,.2);background:rgba(18,32,25,.6);padding:32px">
+<h3 style="margin:0 0 8px;display:flex;align-items:center;gap:12px;font-weight:300;font-size:24px;color:var(--color-cream,#f5f3ee)"><span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;border:1px solid var(--color-muted-gold,#c9a962);font-size:14px;color:var(--color-muted-gold,#c9a962)">2</span>Choose a time slot and package</h3>
+<p style="margin:0 0 24px;font-size:14px;color:rgba(245,243,238,.7)">Times are local venue time</p>
+<p style="margin:0 0 12px;font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:var(--color-muted-gold,#c9a962)">Evening · 18:00–04:00</p>
+<label style="display:block;cursor:pointer;border:1px solid var(--color-muted-gold,#c9a962);background:rgba(201,169,98,.1);padding:20px;margin-bottom:12px">
+<input type="radio" name="package" checked style="position:absolute;opacity:0;width:0;height:0">
+<span style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:18px;color:var(--color-cream,#f5f3ee)">Full venue buyout</span><span style="text-align:right"><span style="display:block;color:var(--color-cream,#f5f3ee)">IDR 000,000,000</span><span style="display:block;font-size:12px;color:rgba(245,243,238,.55)">IDR 000,000,000 before tax</span></span></span>
+<span style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:16px;font-size:14px"><span><span style="display:block;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:rgba(245,243,238,.55)">Venue includes</span><span style="display:block;color:rgba(245,243,238,.8)"><span style="display:block">· Sound &amp; lighting</span><span style="display:block">· Security &amp; stewarding</span><span style="display:block">· Bar staff</span></span></span><span><span style="display:block;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:rgba(245,243,238,.55)">You provide</span><span style="display:block;color:rgba(245,243,238,.8)"><span style="display:block">· Artist fees</span><span style="display:block">· Marketing</span><span style="display:block">· Special production</span></span></span></span>
+</label>
+<label style="display:block;cursor:pointer;border:1px solid rgba(201,169,98,.2);padding:20px" style-hover="border-color:rgba(201,169,98,.6)">
+<input type="radio" name="package" style="position:absolute;opacity:0;width:0;height:0">
+<span style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px"><span style="font-size:18px;color:var(--color-cream,#f5f3ee)">Club floor only</span><span style="text-align:right"><span style="display:block;color:var(--color-cream,#f5f3ee)">IDR 000,000,000</span><span style="display:block;font-size:12px;color:rgba(245,243,238,.55)">IDR 000,000,000 before tax</span></span></span>
+</label>
+</div>
+<form style="border:1px solid rgba(201,169,98,.2);background:rgba(18,32,25,.6);padding:32px">
+<h3 style="margin:0 0 24px;display:flex;align-items:center;gap:12px;font-weight:300;font-size:24px;color:var(--color-cream,#f5f3ee)"><span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;border:1px solid var(--color-muted-gold,#c9a962);font-size:14px;color:var(--color-muted-gold,#c9a962)">3</span>Your details</h3>
+<sc-if value="{{ signedIn }}" hint-placeholder-val="{{ true }}"><p style="margin:0 0 20px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 16px;border:1px solid rgba(201,169,98,.25);background:rgba(201,169,98,.08);font-size:13px;color:rgba(245,243,238,.8)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" style="color:var(--color-muted-gold,#c9a962);flex:none"><path d="M16 21v-2a4 4 0 0 0-8 0v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Prefilled from your account · <a href="#" style="color:var(--color-muted-gold,#c9a962)">use different details</a></p></sc-if><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px">
+<div><label for="vh-name" style="display:block;margin-bottom:8px;font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:rgba(245,243,238,.55)">Full name *</label><input id="vh-name" name="name" required value="{{ name }}" onChange="{{ onName }}" style="width:100%;padding:12px 14px;background:var(--color-deep-green,#060c09);border:1px solid rgba(201,169,98,.25);color:var(--color-cream,#f5f3ee);font-family:inherit;font-size:14px"></div>
+<div><label for="vh-email" style="display:block;margin-bottom:8px;font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:rgba(245,243,238,.55)">Email *</label><input id="vh-email" name="email" type="email" required value="{{ email }}" onChange="{{ onEmail }}" style="width:100%;padding:12px 14px;background:var(--color-deep-green,#060c09);border:1px solid rgba(201,169,98,.25);color:var(--color-cream,#f5f3ee);font-family:inherit;font-size:14px"></div>
+<div><label for="vh-phone" style="display:block;margin-bottom:8px;font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:rgba(245,243,238,.55)">Phone / WhatsApp</label><input id="vh-phone" name="phone" type="tel" placeholder="+62 XXX XXX XXXX" value="{{ phone }}" onChange="{{ onPhone }}" style="width:100%;padding:12px 14px;background:var(--color-deep-green,#060c09);border:1px solid rgba(201,169,98,.25);color:var(--color-cream,#f5f3ee);font-family:inherit;font-size:14px"></div>
+<div><label for="vh-company" style="display:block;margin-bottom:8px;font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:rgba(245,243,238,.55)">Company</label><input id="vh-company" name="company" value="{{ company }}" onChange="{{ onCompany }}" style="width:100%;padding:12px 14px;background:var(--color-deep-green,#060c09);border:1px solid rgba(201,169,98,.25);color:var(--color-cream,#f5f3ee);font-family:inherit;font-size:14px"></div>
+</div>
+<div style="margin-top:24px"><label for="vh-message" style="display:block;margin-bottom:8px;font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:rgba(245,243,238,.55)">About your event</label><textarea id="vh-message" name="message" rows="5" placeholder="Type of event, expected guests, artists, production needs…" style="width:100%;padding:12px 14px;background:var(--color-deep-green,#060c09);border:1px solid rgba(201,169,98,.25);color:var(--color-cream,#f5f3ee);font-family:inherit;font-size:14px;resize:none"></textarea></div>
+<button type="submit" style="margin-top:24px;width:100%;display:flex;align-items:center;justify-content:center;gap:12px;background:var(--color-muted-gold,#c9a962);color:var(--color-dark-green,#0a140f);padding:16px 40px;font-family:inherit;font-weight:500;letter-spacing:.15em;text-transform:uppercase;font-size:12px;border:0;cursor:pointer;transition:all .4s cubic-bezier(.4,0,.2,1)" style-hover="background:var(--color-gold-light,#d4b978);color:var(--color-dark-green,#0a140f);transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,169,98,.3)">Send booking request</button>
+</form>
+</div>
+<aside style="border:1px solid rgba(201,169,98,.2);background:rgba(18,32,25,.6);padding:32px">
+<h3 style="margin:0 0 24px;font-weight:300;font-size:24px;color:var(--color-cream,#f5f3ee)">Summary</h3>
+<dl style="margin:0;display:flex;flex-direction:column;gap:12px;font-size:14px">
+<div style="display:flex;justify-content:space-between;gap:16px"><dt style="color:rgba(245,243,238,.55)">Space</dt><dd style="margin:0;color:var(--color-cream,#f5f3ee)">Concert Hall</dd></div>
+<div style="display:flex;justify-content:space-between;gap:16px"><dt style="color:rgba(245,243,238,.55)">Date</dt><dd style="margin:0;color:var(--color-cream,#f5f3ee)">Not selected</dd></div>
+<div style="display:flex;justify-content:space-between;gap:16px"><dt style="color:rgba(245,243,238,.55)">Time</dt><dd style="margin:0;color:var(--color-cream,#f5f3ee)">18:00–04:00</dd></div>
+<div style="display:flex;justify-content:space-between;gap:16px"><dt style="color:rgba(245,243,238,.55)">Package</dt><dd style="margin:0;color:var(--color-cream,#f5f3ee)">Full venue buyout</dd></div>
+<div style="display:flex;justify-content:space-between;gap:16px;padding-top:12px;border-top:1px solid rgba(201,169,98,.2)"><dt style="color:var(--color-cream,#f5f3ee)">Total</dt><dd style="margin:0;color:var(--color-muted-gold,#c9a962)">IDR 000,000,000</dd></div>
+</dl>
+</aside>
+</div>
+</div>
+</section>
+</main>
+<sc-if value="{{ photosOpen }}" hint-placeholder-val="{{ false }}"><div role="dialog" aria-modal="true" aria-label="Venue photos" style="position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.95);display:flex;flex-direction:column">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid rgba(201,169,98,.2)">
+<p style="margin:0;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Concert Hall · 4 photos</p>
+<button type="button" onClick="{{ closePhotos }}" aria-label="Close photos" style="background:none;border:0;padding:8px;cursor:pointer;color:rgba(255,255,255,.7)" style-hover="color:#fff"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+</div>
+<div style="flex:1;overflow-y:auto;padding:24px">
+<div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+<div style="aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">PHOTO 1</span></div>
+<div style="aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">PHOTO 2</span></div>
+<div style="aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">PHOTO 3</span></div>
+<div style="aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#122019,#122019 8px,#0f1b14 8px,#0f1b14 16px)"><span style="font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.2em;color:rgba(245,243,238,.45)">PHOTO 4</span></div>
+</div>
+</div>
+</div></sc-if>
+<footer style="background:var(--color-deep-green,#060c09);padding:64px 0;border-top:1px solid rgba(201,169,98,.2)">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:48px;margin-bottom:48px">
+<section><img src="./assets/logoW.svg" alt="The Stage" style="height:48px;width:auto;margin-bottom:24px"><p style="margin:0;font-size:14px;line-height:1.7;max-width:24rem;color:rgba(245,243,238,.7)">Asia's premier luxury entertainment venue, where extraordinary experiences are crafted for the most discerning guests.</p></section>
+<nav><h3 style="margin:0 0 24px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Quick Links</h3><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px"><li><a href="../events/Events.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Events</a></li><li><a href="../private-events/PrivateEvents.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Private Events</a></li><li><a href="./VenueHire.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Venue Hire</a></li><li><a href="../gallery/Gallery.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Gallery</a></li><li><a href="../faq/Faq.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">FAQ</a></li><li><a href="../contact/Contact.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Contact Us</a></li></ul></nav>
+<section><h4 style="margin:0 0 24px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Private Events:</h4><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px"><li><a href="mailto:events@thestage.net" style="font-size:14px;color:rgba(245,243,238,.7)">events@thestage.net</a></li></ul></section>
+</div>
+<div style="padding-top:32px;border-top:1px solid rgba(201,169,98,.2);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px">
+<p style="margin:0;font-size:12px;color:rgba(245,243,238,.5)">© {{ year }} The Stage Bali. All rights reserved.</p>
+<nav style="display:flex;gap:24px" aria-label="Legal links"><a href="#" style="font-size:12px;color:rgba(245,243,238,.5)">Terms &amp; Conditions</a><a href="#" style="font-size:12px;color:rgba(245,243,238,.5)">Privacy Policy</a></nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;signedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Account&quot;},&quot;userName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Marco Rios&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Account&quot;},&quot;userEmail&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;marco@thestage.net&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Account&quot;},&quot;userPhone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;+62 811 3831 4177&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Account&quot;},&quot;userCompany&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;The Stage Bali&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Account&quot;}}">
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+class Component extends DCLogic {
+  state = (() => {
+    const now = new Date();
+    return { photosOpen: false, month: now.getMonth(), year: now.getFullYear(), picked: null, guest: null };
+  })();
+
+  guestValues() {
+    const p = this.props;
+    const fromAccount = {
+      name: p.userName ?? "Marco Rios",
+      email: p.userEmail ?? "marco@thestage.net",
+      phone: p.userPhone ?? "+62 811 3831 4177",
+      company: p.userCompany ?? "The Stage Bali",
+    };
+    return this.state.guest ?? fromAccount;
+  }
+
+  setGuest(key, value) {
+    const next = { ...this.guestValues(), [key]: value };
+    this.setState({ guest: next });
+  }
+
+  buildDays() {
+    const { month, year, picked } = this.state;
+    const first = new Date(year, month, 1);
+    const lead = (first.getDay() + 6) % 7;
+    const total = new Date(year, month + 1, 0).getDate();
+    const cells = [];
+    for (let i = 0; i < lead; i++) cells.push({ blank: true, day: "" });
+    for (let day = 1; day <= total; day++) {
+      const weekday = new Date(year, month, day).getDay();
+      // Thu/Fri/Sat carry free slots, matching the venue's operating nights
+      const free = weekday === 4 || weekday === 5 || weekday === 6;
+      const selected = picked === day;
+      cells.push({
+        day,
+        blank: false,
+        selected,
+        free: free && !selected,
+        busy: !free && !selected,
+        select: () => this.setState({ picked: day }),
+      });
+    }
+    return cells;
+  }
+
+  componentDidMount() {
+    this.onKey = (e) => {
+      if (e.key === "Escape" && this.state.photosOpen) this.setState({ photosOpen: false });
+    };
+    window.addEventListener("keydown", this.onKey);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("keydown", this.onKey);
+  }
+
+  renderVals() {
+    const g = this.guestValues();
+    return {
+      year: new Date().getFullYear(),
+      signedIn: this.props.signedIn !== false,
+      name: g.name,
+      email: g.email,
+      phone: g.phone,
+      company: g.company,
+      onName: (e) => this.setGuest("name", e.target.value),
+      onEmail: (e) => this.setGuest("email", e.target.value),
+      onPhone: (e) => this.setGuest("phone", e.target.value),
+      onCompany: (e) => this.setGuest("company", e.target.value),
+      days: this.buildDays(),
+      monthLabel: MONTHS[this.state.month] + " " + this.state.year,
+      prevMonth: () => this.setState((s) => {
+        const m = s.month - 1;
+        return m < 0 ? { month: 11, year: s.year - 1, picked: null } : { month: m, picked: null };
+      }),
+      nextMonth: () => this.setState((s) => {
+        const m = s.month + 1;
+        return m > 11 ? { month: 0, year: s.year + 1, picked: null } : { month: m, picked: null };
+      }),
+      photosOpen: this.state.photosOpen,
+      openPhotos: () => this.setState({ photosOpen: true }),
+      closePhotos: () => this.setState({ photosOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

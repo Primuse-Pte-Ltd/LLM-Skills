@@ -38,7 +38,8 @@ SKILL = "llm-coding-council"
 LEGACY = "llm-council"
 EXPECTED_ROOT = HOME / ".agents" / "skills" / SKILL
 
-# Codex scans ~/.agents/skills, which is where the clone lives.
+# Codex scans ~/.agents/skills. Install symlinks this folder there from the
+# LLM-Skills checkout at ~/.agents/LLM-Skills.
 # ~/.codex/skills is the old location and is still scanned, so a second link
 # would load this skill twice.
 CODEX_LEGACY = HOME / ".codex" / "skills" / SKILL
@@ -223,8 +224,23 @@ def link_antigravity(dest: Path) -> str:
     return f"antigravity: {dest} (real SKILL.md, {linked} links into {ROOT})"
 
 
+def declared_name(path: Path) -> str | None:
+    """The `name:` in a skill folder's SKILL.md, if this folder is one."""
+    try:
+        head = (path / "SKILL.md").read_text(errors="ignore")[:800]
+    except OSError:
+        return None
+    for line in head.splitlines():
+        if line.startswith("name:"):
+            return line.split(":", 1)[1].strip().strip("'\"")
+    return None
+
+
 def cleanup_legacy() -> None:
-    """Drop the previous skill name when it is this same clone."""
+    """Drop a leftover link that still points this skill at the old folder name.
+
+    llm-council is a different skill in the same repository. Leave it alone.
+    """
     legacy_links = [
         HOME / ".claude" / "skills" / LEGACY,
         HOME / ".gemini" / "skills" / LEGACY,
@@ -235,7 +251,8 @@ def cleanup_legacy() -> None:
         if path.is_symlink() and path.resolve() == ROOT:
             path.unlink()
             print(f"legacy: removed {path}")
-    if MANIFEST.is_file():
+    legacy_antigravity = HOME / ".gemini" / "config" / "skills" / LEGACY
+    if MANIFEST.is_file() and declared_name(legacy_antigravity) == SKILL:
         try:
             manifest = json.loads(MANIFEST.read_text())
         except (OSError, json.JSONDecodeError):
@@ -246,8 +263,8 @@ def cleanup_legacy() -> None:
             MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n")
             print("legacy: removed the old Antigravity manifest entry")
     old_clone = HOME / ".agents" / "skills" / LEGACY
-    if old_clone.exists() and old_clone.resolve() != ROOT.resolve():
-        print(f"legacy: {old_clone} is still installed. Move it to {EXPECTED_ROOT} or remove it, or Codex will load both.")
+    if old_clone.exists() and declared_name(old_clone) == SKILL and old_clone.resolve() != ROOT.resolve():
+        print(f"legacy: {old_clone} is still this skill under the old folder name. Remove that folder so Codex does not load it twice.")
 
 
 def codex_status() -> str:

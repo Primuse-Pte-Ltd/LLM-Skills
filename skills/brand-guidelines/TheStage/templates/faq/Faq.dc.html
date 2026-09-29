@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="FAQ" description="FAQ page: breadcrumb, intro, and a collapsible list of questions." -->
+<helmet><script src="./ds-base.js"></script><style>body{margin:0;background:#0a140f;color:#f5f3ee;font-family:'Montserrat',-apple-system,sans-serif;line-height:1.6;letter-spacing:.01em;overflow-x:hidden}*{box-sizing:border-box}a{color:var(--color-cream,#f5f3ee);text-decoration:none}a:hover{color:var(--color-muted-gold,#c9a962)}.ts-desktop{display:flex}.ts-burger{display:none}@media (max-width:1023px){.ts-desktop{display:none!important}.ts-burger{display:flex!important}}summary::-webkit-details-marker{display:none}details[open] .ts-chev{transform:rotate(180deg)}details[open]{border-color:rgba(201,169,98,.45)!important}</style></helmet>
+<div style="background:#0a140f">
+<header style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,20,15,.95);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.35)">
+<nav style="margin:0 auto;max-width:1280px;padding:0 24px;display:flex;height:88px;align-items:center;justify-content:space-between;gap:24px" aria-label="Primary navigation">
+<a href="../home/Home.dc.html" aria-label="The Stage Bali home"><img src="./assets/logoW.svg" alt="The Stage" style="height:40px;width:auto;display:block"></a>
+<ul class="ts-desktop" style="list-style:none;margin:0;padding:0;align-items:center;gap:40px">
+<li><a href="../home/Home.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Home</a></li>
+<li><a href="../events/Events.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Events</a></li>
+<li><a href="../home/Home.dc.html#vip" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Reserve VIP</a></li>
+<li><a href="../gallery/Gallery.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Gallery</a></li>
+<li><a href="../contact/Contact.dc.html" style="font-size:13px;text-transform:uppercase;letter-spacing:.2em">Contact</a></li>
+</ul>
+<button type="button" class="ts-burger" aria-label="Open menu" style="background:none;border:0;padding:8px;cursor:pointer;color:var(--color-cream,#f5f3ee)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+</nav>
+</header>
+<main data-screen-label="FAQ" style="background:var(--color-dark-green,#0a140f)">
+<div style="padding:120px 0 24px;background:var(--color-deep-green,#060c09)">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:14px">
+<a href="../home/Home.dc.html" style="color:rgba(245,243,238,.7)">HOME</a>
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="color:var(--color-taupe,#9a998f)"><path d="m9 18 6-6-6-6"></path></svg>
+<span style="color:var(--color-cream,#f5f3ee);font-weight:500">FAQ</span>
+</nav>
+</div>
+</div>
+<section style="padding:72px 0 96px;background:linear-gradient(135deg,var(--color-forest,#122019),var(--color-dark-green,#0a140f))">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<div style="text-align:center;margin-bottom:56px">
+<span style="font-size:12px;letter-spacing:.4em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Help</span>
+<h1 style="margin:24px 0 32px;font-weight:300;font-size:clamp(40px,7vw,72px);color:var(--color-cream,#f5f3ee)">Frequently asked questions</h1>
+<div style="width:60px;height:1px;margin:0 auto;background:linear-gradient(90deg,transparent,var(--color-muted-gold,#c9a962),transparent)"></div>
+<p style="max-width:42rem;margin:24px auto 0;line-height:1.7;color:rgba(245,243,238,.7);text-wrap:pretty">Quick answers about nights at The Stage Bali. For anything specific to your booking, our team is a message away on the <a href="../contact/Contact.dc.html" style="color:var(--color-muted-gold,#c9a962);font-weight:500">Contact</a> page.</p>
+</div>
+<div style="max-width:896px;margin:0 auto;display:flex;flex-direction:column;gap:4px">
+<details style="border:1px solid rgba(201,169,98,.25);border-radius:2px;background:rgba(6,12,9,.4);padding:0 16px">
+<summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;cursor:pointer;list-style:none"><span style="font-size:16px;color:var(--color-cream,#f5f3ee)">What is The Stage Bali?</span><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<p style="margin:0;padding-bottom:20px;color:rgba(245,243,238,.75);text-wrap:pretty">The Stage Bali is a premier multi-space, multifunctional luxury venue in Seminyak. Under one roof it operates as a concert hall for international artists, a private events space for weddings, corporate hire, and brand activations, and a club and lounge floor for exclusive nightlife.</p>
+</details>
+<details style="border:1px solid rgba(201,169,98,.25);border-radius:2px;background:rgba(6,12,9,.4);padding:0 16px">
+<summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;cursor:pointer;list-style:none"><span style="font-size:16px;color:var(--color-cream,#f5f3ee)">Where is The Stage Bali located?</span><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<p style="margin:0;padding-bottom:20px;color:rgba(245,243,238,.75);text-wrap:pretty">The Stage Bali is located at Jl. Kayu Aya No.7, Seminyak, Kuta Utara, Badung, Bali 80361, Indonesia — minutes from Seminyak Beach and Petitenget.</p>
+</details>
+<details style="border:1px solid rgba(201,169,98,.25);border-radius:2px;background:rgba(6,12,9,.4);padding:0 16px">
+<summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;cursor:pointer;list-style:none"><span style="font-size:16px;color:var(--color-cream,#f5f3ee)">What kinds of events does The Stage Bali host?</span><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<p style="margin:0;padding-bottom:20px;color:rgba(245,243,238,.75);text-wrap:pretty">The Stage Bali hosts world-class concerts and live-music showcases, corporate galas, weddings, product launches, brand activations, comedy nights, and exclusive club evenings. As a multifunctional venue, each space is configured to match the event.</p>
+</details>
+<details style="border:1px solid rgba(201,169,98,.25);border-radius:2px;background:rgba(6,12,9,.4);padding:0 16px">
+<summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;cursor:pointer;list-style:none"><span style="font-size:16px;color:var(--color-cream,#f5f3ee)">Can I hire The Stage Bali for a private or corporate event?</span><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<p style="margin:0;padding-bottom:20px;color:rgba(245,243,238,.75);text-wrap:pretty">Yes. The Stage Bali's private events space is available for weddings, corporate parties, gala dinners, product launches, and brand activations, with dedicated event production and custom F&amp;B. Contact our VIP concierge at vip@thestage.net for bespoke event planning and exclusive venue-hire inquiries.</p>
+</details>
+<details style="border:1px solid rgba(201,169,98,.25);border-radius:2px;background:rgba(6,12,9,.4);padding:0 16px">
+<summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;cursor:pointer;list-style:none"><span style="font-size:16px;color:var(--color-cream,#f5f3ee)">How do I book a VIP table or luxury sofa at The Stage Bali?</span><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<p style="margin:0;padding-bottom:20px;color:rgba(245,243,238,.75);text-wrap:pretty">You can reserve VIP tables and luxury sofa packages online through the Reserve VIP page, or contact our concierge on WhatsApp at +62 811 3831 4177. Every VIP reservation includes dedicated table service, priority entry, and a personal host.</p>
+</details>
+<details style="border:1px solid rgba(201,169,98,.25);border-radius:2px;background:rgba(6,12,9,.4);padding:0 16px">
+<summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;cursor:pointer;list-style:none"><span style="font-size:16px;color:var(--color-cream,#f5f3ee)">What are The Stage Bali's opening hours?</span><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<p style="margin:0;padding-bottom:20px;color:rgba(245,243,238,.75);text-wrap:pretty">The club and lounge floor opens Thursday, Friday, and Saturday from 10:00 PM to 4:00 AM local time (WITA). Concert and private-event hours vary by booking — check the events schedule or contact our team.</p>
+</details>
+<details style="border:1px solid rgba(201,169,98,.25);border-radius:2px;background:rgba(6,12,9,.4);padding:0 16px">
+<summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;cursor:pointer;list-style:none"><span style="font-size:16px;color:var(--color-cream,#f5f3ee)">Is there a dress code at The Stage Bali?</span><svg class="ts-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="flex:none;color:var(--color-muted-gold,#c9a962);transition:transform .3s"><path d="m6 9 6 6 6-6"></path></svg></summary>
+<p style="margin:0;padding-bottom:20px;color:rgba(245,243,238,.75);text-wrap:pretty">Yes — smart elegant attire is required. Sportswear, flip-flops, and casual beach wear are not permitted. Management reserves the right to refuse entry.</p>
+</details>
+</div>
+</div>
+</section>
+</main>
+<footer style="background:var(--color-deep-green,#060c09);padding:64px 0;border-top:1px solid rgba(201,169,98,.2)">
+<div style="max-width:1280px;margin:0 auto;padding:0 24px">
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:48px;margin-bottom:48px">
+<section><img src="./assets/logoW.svg" alt="The Stage" style="height:48px;width:auto;margin-bottom:24px"><p style="margin:0;font-size:14px;line-height:1.7;max-width:24rem;color:rgba(245,243,238,.7)">Asia's premier luxury entertainment venue, where extraordinary experiences are crafted for the most discerning guests.</p></section>
+<nav><h3 style="margin:0 0 24px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">Quick Links</h3><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px"><li><a href="../events/Events.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Events</a></li><li><a href="../private-events/PrivateEvents.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Private Events</a></li><li><a href="../venue-hire/VenueHire.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Venue Hire</a></li><li><a href="../gallery/Gallery.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Gallery</a></li><li><a href="./Faq.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">FAQ</a></li><li><a href="../contact/Contact.dc.html" style="font-size:14px;color:rgba(245,243,238,.7)">Contact Us</a></li></ul></nav>
+<section><h4 style="margin:0 0 24px;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--color-muted-gold,#c9a962)">General Enquiries:</h4><ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px"><li><a href="mailto:info@thestage.net" style="font-size:14px;color:rgba(245,243,238,.7)">info@thestage.net</a></li></ul></section>
+</div>
+<div style="padding-top:32px;border-top:1px solid rgba(201,169,98,.2);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px">
+<p style="margin:0;font-size:12px;color:rgba(245,243,238,.5)">© {{ year }} The Stage Bali. All rights reserved.</p>
+<nav style="display:flex;gap:24px" aria-label="Legal links"><a href="#" style="font-size:12px;color:rgba(245,243,238,.5)">Terms &amp; Conditions</a><a href="#" style="font-size:12px;color:rgba(245,243,238,.5)">Privacy Policy</a></nav>
+</div>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { year: new Date().getFullYear() };
+  }
+}
+</script>
+</body>
+</html>

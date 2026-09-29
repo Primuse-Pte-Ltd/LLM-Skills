@@ -1,0 +1,98 @@
+/* Kisum color system — purple-centric, cool-neutral shell.
+   Primary brand accent is Kisum Purple #8466AC. Purple Budget Rule: purple on <=10% of a screen. */
+:root {
+  /* --- Brand purple scale (anchor: 600 = #8466AC) --- */
+  --kisum-50: #F3EEF8;   /* Kisum Tint — pills, chips, soft washes (never full-page bg) */
+  --kisum-100: #E9DEF3;
+  --kisum-200: #D8B9FF;  /* primary-fixed-dim */
+  --kisum-300: #C3A6DE;
+  --kisum-400: #9A7AFF;  /* Kisum Accent — highlight, hover, chart emphasis */
+  --kisum-500: #8F73BE;
+  --kisum-600: #8466AC;  /* Primary — ranks, badges, primary CTA fills */
+  --kisum-700: #74579A;  /* Primary hover */
+  --kisum-800: #6A4D91;  /* Deep primary / md-primary */
+  --kisum-900: #55397B;
+
+  /* --- Neutrals (cool zinc/gray) --- */
+  --ink: #18181B;            /* zinc-950 — primary text on light surfaces */
+  --muted: #71717A;          /* zinc-500 — secondary labels, metadata */
+  --white: #FFFFFF;
+  --surface: #FFFFFF;        /* card & row background */
+  --shell: #F4F4F5;          /* zinc-100 — app chrome */
+  --body-bg: #F9FAFB;        /* gray-50 — page canvas (never white/cream) */
+  --sidebar-bg: #FCFCFD;     /* lab(98.26% 0 0) — cool near-white sidebar */
+  --border-subtle: #F3F4F6;  /* gray-100 — row/tile border at rest */
+  --border: #E5E7EB;         /* gray-200 — inputs, hover borders, hairlines */
+  --border-hover: #E4E4E7;
+
+  /* --- Semantic --- */
+  --danger: #D34848;
+  --danger-hover: #B53030;
+  --danger-tint: #FFF1F1;
+  --success: #16A34A;
+  --success-tint: #ECFDF3;
+  --warning: #B45309;
+  --warning-tint: #FEF6EE;
+
+  /* --- Semantic aliases (prefer these in components) --- */
+  --text-strong: var(--ink);
+  --text-body: #27272A;      /* zinc-800 — body prose */
+  --text-muted: var(--muted);
+  --text-on-accent: #FFFFFF;
+  --accent: var(--kisum-600);
+  --accent-hover: var(--kisum-700);
+  --accent-soft: var(--kisum-400);
+  --accent-tint: var(--kisum-50);
+  --surface-card: var(--surface);
+  --surface-shell: var(--shell);
+  --surface-page: var(--body-bg);
+  --surface-sidebar: var(--sidebar-bg);
+  --surface-muted: #FAFAFA;
+  --link: var(--kisum-700);
+  --link-hover: var(--kisum-800);
+}
+
+/* --- Dark theme (charcoal base, from the Kisum mobile app) ---
+   Add class="dark" to <html>/<body>. Accent fills stay #8466ac (white text stays
+   legible); purple used as TEXT/badges lifts to a lighter tint for contrast. */
+.dark {
+  /* Brand purple remap for dark surfaces */
+  --kisum-50: #2A2440;   /* dark brand tint — pills/chips background */
+  --kisum-100: #332C4A;
+  --kisum-600: #CDB4F0;  /* light purple — ranks, counts, text accents on dark */
+  --kisum-700: #B79AE0;
+  --kisum-800: #A98FD6;
+
+  /* Neutrals — charcoal/zinc */
+  --ink: #E4E1E9;
+  --muted: #9D99A6;
+  --surface: #1E1E24;        /* card / container */
+  --shell: #151518;          /* dense header/table tint */
+  --body-bg: #0E0E11;        /* page canvas */
+  --sidebar-bg: #0E0E11;
+  --border-subtle: #26262D;  /* hairline on cards */
+  --border: #3A3A42;
+  --border-hover: #4A454F;
+
+  /* Semantic (softened for dark) */
+  --danger: #FFB4AB;   --danger-tint: #2A1614;
+  --success: #7EE0A0;  --success-tint: #142519;
+  --warning: #F0C47A;  --warning-tint: #2A2214;
+
+  /* Aliases */
+  --text-strong: var(--ink);
+  --text-body: #C9C5D0;
+  --text-muted: var(--muted);
+  --text-on-accent: #FFFFFF;
+  --accent: #8466AC;         /* solid fills keep white-text contrast */
+  --accent-hover: #9477BD;
+  --accent-soft: var(--kisum-700);
+  --accent-tint: var(--kisum-50);
+  --surface-card: var(--surface);
+  --surface-shell: var(--shell);
+  --surface-page: var(--body-bg);
+  --surface-sidebar: var(--sidebar-bg);
+  --surface-muted: #24242A;
+  --link: var(--kisum-700);
+  --link-hover: var(--kisum-600);
+}

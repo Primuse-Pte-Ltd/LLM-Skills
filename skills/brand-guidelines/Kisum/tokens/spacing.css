@@ -1,0 +1,24 @@
+/* Kisum spacing — 4px base unit; fixed-grid management layout. */
+:root {
+  --space-0: 0;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 80px;      /* major section gap */
+
+  /* Vertical rhythm */
+  --stack-sm: 8px;        /* label/control pairs */
+  --stack-md: 16px;       /* card internals */
+  --stack-lg: 32px;       /* major section breaks */
+
+  /* Layout */
+  --container-max: 1280px;
+  --page-max: 80rem;      /* max-w-7xl — page main section */
+  --gutter: 24px;
+  --margin-mobile: 16px;
+  --margin-desktop: 40px;
+  --sidebar-width: 288px; /* w-72 app sidebar */
+}

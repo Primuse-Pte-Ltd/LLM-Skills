@@ -1,0 +1,11 @@
+/* Kisum corner radii. Buttons = md (6px); cards/rows = xl (12px); pills = full. */
+:root {
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-btn: 6px;    /* default ShadCN button */
+  --radius-md: 12px;    /* cards, overview rows */
+  --radius-card: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+}

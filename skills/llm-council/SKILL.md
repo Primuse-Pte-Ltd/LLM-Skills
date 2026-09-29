@@ -306,15 +306,29 @@ The user sees the HTML report. The transcript is there if they want to dig deepe
 
 ## Install
 
-The agent does this. Do not ask the user to run the script. The install writes outside the current project (`~/.agents`, `~/.claude`, `~/.gemini`, `~/.cursor`). If the host asks for permission, ask the user once to approve those writes, then run the commands. Needs only `python3`. See `README.md` for the prompt, the host table, Omniroute, and KisumAI.
+The agent does this. Do not ask the user to run the script. The install writes outside the current project (`~/.agents`, `~/.claude`, `~/.gemini`, `~/.cursor`). If the host asks for permission, ask the user once to approve those writes, then run the commands. Needs `git` and `python3`. The repository is public, so no GitHub login is required. This skill does not have its own repository. It is `skills/llm-council` inside:
+
+```
+https://github.com/Primuse-Pte-Ltd/LLM-Skills
+```
+
+Clone that repository once, outside the current project, then symlink this folder. See `README.md` for the prompt, the host table, Omniroute, and KisumAI.
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
-git clone https://github.com/Primuse-Pte-Ltd/llm-council.git "$HOME/.agents/skills/llm-council"
+if [ ! -d "$HOME/.agents/LLM-Skills/.git" ]; then
+  git clone https://github.com/Primuse-Pte-Ltd/LLM-Skills.git "$HOME/.agents/LLM-Skills"
+else
+  git -C "$HOME/.agents/LLM-Skills" pull --ff-only
+fi
+if [ -e "$HOME/.agents/skills/llm-council" ] && [ ! -L "$HOME/.agents/skills/llm-council" ]; then
+  mv "$HOME/.agents/skills/llm-council" "$HOME/.agents/skills/llm-council.old-repo"
+fi
+ln -sfn "$HOME/.agents/LLM-Skills/skills/llm-council" "$HOME/.agents/skills/llm-council"
 python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
 ```
 
-If that directory already exists, run `git -C "$HOME/.agents/skills/llm-council" pull --ff-only`, then run `install.py` again. A link that already points at the folder is left alone. A real directory that is not a link is left in place and reported. Do not delete it unless the user asked. Do not link or remove `llm-coding-council`. That is a different skill.
+Do not clone the repository into `~/.agents/skills/llm-council`. Do not pull inside an old standalone checkout, and do not point that checkout at the old GitHub URL. A link that already points at the folder is left alone. The `mv` only runs when that path is a real directory left from the old standalone repo. Tell the user when it was moved to `llm-council.old-repo`. Do not link or remove `llm-coding-council`. That is a different skill.
 
 `install.py` checks where it is running first and links only the agents whose folder exists in the home folder. If it prints `STOP` (exit 2: no agents found, so this is a cloud or remote sandbox; exit 3: home folder not writable), do not work around it. Tell the user what it found and ask them to run the install from an agent on their own computer, or to approve full access. `--check` reports without changing anything.
 
@@ -326,7 +340,7 @@ If that directory already exists, run `git -C "$HOME/.agents/skills/llm-council"
 | Antigravity | `~/.gemini/config/skills/llm-council` |
 | Cursor | `~/.cursor/skills/llm-council` |
 
-The links point at the folder, so a later update is what every host reads. Do not copy a second `SKILL.md` into those folders. If `gemini` is on `PATH`, also run `gemini skills link "$HOME/.agents/skills/llm-council" --consent`.
+The links point at the skill folder inside `~/.agents/LLM-Skills`, so a later `git -C "$HOME/.agents/LLM-Skills" pull --ff-only` is what every host reads. Do not copy a second `SKILL.md` into those folders. If `gemini` is on `PATH`, also run `gemini skills link "$HOME/.agents/skills/llm-council" --consent`.
 
 To remove the skill, run `python3 "$HOME/.agents/skills/llm-council/scripts/uninstall.py" --check`, show the user what it would remove, and run it without `--check` after they approve.
 

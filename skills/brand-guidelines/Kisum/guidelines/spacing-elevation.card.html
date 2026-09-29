@@ -1,0 +1,12 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Elevation" subtitle="Flat by default — shadow signals interaction" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:28px;background:var(--body-bg);font-family:var(--font-body);display:flex;gap:24px;align-items:center}
+.item{display:flex;flex-direction:column;align-items:center;gap:10px}
+.box{width:120px;height:64px;background:var(--surface);border:1px solid var(--border-subtle);border-radius:var(--radius-card)}
+.n{font-size:11px;font-weight:700;color:var(--ink)}.h{font-size:10px;color:var(--muted);text-align:center}</style>
+</head><body>
+<div class="item"><div class="box"></div><span class="n">Rest</span><span class="h">border only</span></div>
+<div class="item"><div class="box" style="box-shadow:var(--shadow-lifted);transform:translateY(-2px)"></div><span class="n">Hover lift</span><span class="h">0 10px 40px /.04</span></div>
+<div class="item"><div class="box" style="box-shadow:var(--shadow-modal)"></div><span class="n">Modal</span><span class="h">0 4px 12px /.08</span></div>
+<div class="item"><div class="box" style="box-shadow:var(--shadow-accent);background:var(--kisum-600)"></div><span class="n">Primary CTA</span><span class="h">purple glow</span></div>
+</body></html>

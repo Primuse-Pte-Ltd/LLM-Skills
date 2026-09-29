@@ -16,10 +16,16 @@ The council uses what the user said. It does not open project files.
 Paste this prompt into any agent. One install covers every agent installed on that computer, so you only need to run it once per computer. Run it from an agent on your own computer, not from a cloud chat: the script checks this and stops if it finds no agents.
 
 ```text
-Install the llm-council skill from https://github.com/Primuse-Pte-Ltd/llm-council.
-Follow the "Install" section of its README.md exactly: clone it to
-~/.agents/skills/llm-council (or pull if it already exists), then run
-python3 ~/.agents/skills/llm-council/scripts/install.py.
+Install the llm-council skill from https://github.com/Primuse-Pte-Ltd/LLM-Skills
+(folder skills/llm-council). It does not have its own repository.
+Follow the "Install" section of skills/llm-council/README.md exactly:
+clone https://github.com/Primuse-Pte-Ltd/LLM-Skills.git to ~/.agents/LLM-Skills
+(or pull if that checkout already exists), symlink
+~/.agents/LLM-Skills/skills/llm-council to ~/.agents/skills/llm-council,
+then run python3 ~/.agents/skills/llm-council/scripts/install.py.
+If ~/.agents/skills/llm-council is a real directory from the old standalone
+repo, move it to ~/.agents/skills/llm-council.old-repo before the symlink.
+Do not rename it onto llm-coding-council, and do not delete ~/.agents/LLM-Skills.
 This writes outside the current project; ask me once to approve, then continue.
 The script checks where it is running first. If it prints STOP, do not work
 around it: tell me what it found and what I should do.
@@ -43,25 +49,27 @@ To check it worked, ask the agent: "Do you have the llm-council skill? Council t
 
 The agent does this. Do not ask the user to change directory or run the script.
 
-The install writes outside the current project (`~/.agents`, `~/.claude`, `~/.gemini`, `~/.cursor`). If the host asks for permission, ask the user once to approve those writes, then run the commands. Needs only `git` and `python3`; the repository is public, so no GitHub login is required.
+The install writes outside the current project (`~/.agents`, `~/.claude`, `~/.gemini`, `~/.cursor`). If the host asks for permission, ask the user once to approve those writes, then run the commands. Needs only `git` and `python3`. The repository is public, so no GitHub login is required.
 
-Clone outside the current project, then link that clone into every agent:
+This skill lives in [LLM-Skills](https://github.com/Primuse-Pte-Ltd/LLM-Skills), at `skills/llm-council`. Clone that repository once, outside the current project, then symlink this folder into `~/.agents/skills`. One checkout serves every skill in the repo, including `llm-coding-council`.
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
-git clone https://github.com/Primuse-Pte-Ltd/llm-council.git "$HOME/.agents/skills/llm-council"
+if [ ! -d "$HOME/.agents/LLM-Skills/.git" ]; then
+  git clone https://github.com/Primuse-Pte-Ltd/LLM-Skills.git "$HOME/.agents/LLM-Skills"
+else
+  git -C "$HOME/.agents/LLM-Skills" pull --ff-only
+fi
+if [ -e "$HOME/.agents/skills/llm-council" ] && [ ! -L "$HOME/.agents/skills/llm-council" ]; then
+  mv "$HOME/.agents/skills/llm-council" "$HOME/.agents/skills/llm-council.old-repo"
+fi
+ln -sfn "$HOME/.agents/LLM-Skills/skills/llm-council" "$HOME/.agents/skills/llm-council"
 python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
 ```
 
-If `$HOME/.agents/skills/llm-council` already exists, update it and link again:
+Do not clone this repository into `~/.agents/skills/llm-council`. That path has to be the skill folder, and the repository root is not a skill. Do not point a leftover standalone checkout at the old `llm-council` GitHub URL. Do not link or remove `llm-coding-council`.
 
-```bash
-git -C "$HOME/.agents/skills/llm-council" remote set-url origin https://github.com/Primuse-Pte-Ltd/llm-council.git
-git -C "$HOME/.agents/skills/llm-council" pull --ff-only
-python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
-```
-
-A link that already points at the clone is left alone. A real directory that is not a link is left in place and reported. Do not delete that directory unless the user asked. Do not link or remove `llm-coding-council`.
+A link that already points at this folder is left alone. The `mv` above only runs when `~/.agents/skills/llm-council` is a real directory left from the old standalone repo. Tell the user when that directory was moved to `llm-council.old-repo`.
 
 `install.py` first checks where it is running, then links only the agents it finds:
 
@@ -110,7 +118,7 @@ python3 "$HOME/.agents/skills/llm-council/scripts/uninstall.py" --check   # prev
 python3 "$HOME/.agents/skills/llm-council/scripts/uninstall.py"           # remove
 ```
 
-`uninstall.py` removes the links in `~/.claude/skills`, `~/.gemini/skills`, `~/.cursor/skills` and the old `~/.codex/skills`, the Antigravity folder and its manifest entry, and last the clone in `~/.agents/skills/llm-council` (which is what Codex reads). It only deletes a link that points at an `llm-council` folder, or a folder whose `SKILL.md` says `name: llm-council` on its own line. `name: llm-coding-council` is left in place. Use `--keep-clone` to remove the links but keep the folder. Restart each agent afterwards.
+`uninstall.py` removes the links in `~/.claude/skills`, `~/.gemini/skills`, `~/.cursor/skills` and the old `~/.codex/skills`, the Antigravity folder and its manifest entry, and last the symlink in `~/.agents/skills/llm-council` (which is what Codex reads). It only deletes a link that points at an `llm-council` folder, or a folder whose `SKILL.md` says `name: llm-council` on its own line. `name: llm-coding-council` is left in place. It does not delete `~/.agents/LLM-Skills`. Use `--keep-clone` to remove the links but keep the symlink. Restart each agent afterwards.
 
 If you ran `gemini skills link` before, check `gemini skills list` and remove the entry there too. A skill uploaded to the Claude app is removed in the app's Skills settings.
 

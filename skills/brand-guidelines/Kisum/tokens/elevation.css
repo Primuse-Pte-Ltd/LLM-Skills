@@ -1,0 +1,18 @@
+/* Kisum elevation — flat by default. Depth from borders + tonal layering.
+   Shadows signal interactivity (hover), not decoration. */
+:root {
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);       /* button rest / hover lift */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.04);      /* soft card at rest (use sparingly) */
+  --shadow-lifted: 0 10px 40px rgb(0 0 0 / 0.04);    /* hovered interactive tile */
+  --shadow-modal: 0 4px 12px rgb(17 24 39 / 0.08);   /* dialog / popover */
+  --shadow-accent: 0 8px 24px rgb(132 102 172 / 0.20); /* primary CTA emphasis */
+
+  /* Interaction */
+  --focus-ring: 0 0 0 3px rgb(132 102 172 / 0.35);
+  --focus-ring-danger: 0 0 0 3px rgb(211 72 72 / 0.25);
+  --lift-hover: -2px;   /* translateY on hover of interactive rows */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --duration: 200ms; /* @kind other */
+}
