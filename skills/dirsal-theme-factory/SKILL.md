@@ -1,6 +1,6 @@
 ---
 name: dirsal-theme-factory
-description: Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly. For work on our internal Dirsal projects (Kisum, The Stage, Nextkt), it first loads the dirsal-brands-guidelines skill and uses that brand instead of a preset theme. Pairs with dirsal-frontend-design for layout and design craft.
+description: Toolkit for styling artifacts with a theme. These artifacts can be slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes with colors/fonts that you can apply to any artifact that has been creating, or can generate a new theme on-the-fly. It also has brand themes for our internal Dirsal projects (Kisum, The Stage, Nextkt). For those projects it first loads the dirsal-brands-guidelines skill and applies that brand's theme instead of a preset. Pairs with dirsal-frontend-design for layout and design craft.
 license: Complete terms in LICENSE.txt
 ---
 
@@ -15,15 +15,18 @@ A Dirsal brand is already a theme. Before showing the showcase or offering any
 preset, read the `dirsal-brands-guidelines` skill (`../dirsal-brands-guidelines/SKILL.md`
 next to this one) and follow its Step 1 to identify the project. It will either:
 
-- **identify a brand** (Kisum, The Stage, Nextkt): don't offer or apply any of the
-  themes below, and don't create a custom one. Take colors, fonts, and logos from
-  that project's guidelines and apply them with the Application Process at the end
-  of this skill. Say which brand you're applying instead of asking the user to pick a theme;
+- **identify a brand** (Kisum, The Stage, Nextkt): use that brand's theme from
+  Brand Themes below. Don't show the showcase, don't offer the 10 preset themes, and
+  don't create a custom one. The brand theme is a quick reference for color and
+  type. The project's guidelines stay the source of truth for logos, components,
+  voice, and anything the theme file doesn't cover. Say which brand you're applying
+  instead of asking the user to pick a theme;
 - **not be able to tell**: its Default project asks the user which project this is.
   Wait for the answer before showing themes;
 - **be told it's none of ours**: continue with this skill as written.
 
-Never mix a preset theme with a brand's palette or fonts. One brand or one theme per artifact.
+Never mix a preset theme with a brand's palette or fonts, and never use a brand
+theme for work that isn't that brand's. One brand or one theme per artifact.
 
 ## Pairing with dirsal-frontend-design
 
@@ -64,6 +67,16 @@ The following 10 themes are available, each showcased in `theme-showcase.pdf`:
 9. **Botanical Garden** - Fresh and organic garden colors
 10. **Midnight Galaxy** - Dramatic and cosmic deep tones
 
+## Brand Themes
+
+One theme per Dirsal project. Use them only for that project's work, after
+`dirsal-brands-guidelines` has identified it. They are not in `theme-showcase.pdf`
+and are never offered as options for other work.
+
+- **Kisum** (`themes/kisum.md`) - Cool neutrals with a single Kisum Purple accent; Manrope and Inter
+- **The Stage** (`themes/thestage.md`) - Dark green with a muted gold accent; Cormorant Garamond and Montserrat
+- **Nextkt** (`themes/nextkt.md`) - Light surface with the logo's teal and navy; Inter. Provisional until Nextkt's design system is added: say so when applying it
+
 ## Theme Details
 
 Each theme is defined in the `themes/` directory with complete specifications including:
@@ -74,7 +87,7 @@ Each theme is defined in the `themes/` directory with complete specifications in
 ## Application Process
 
 After a preferred theme is selected, or a Dirsal brand was identified:
-1. Read the corresponding theme file from the `themes/` directory, or for a brand, the project's guidelines named in `dirsal-brands-guidelines` Step 2
+1. Read the corresponding theme file from the `themes/` directory. For a brand, also read the project's entry file named in `dirsal-brands-guidelines` Step 2
 2. Apply the specified colors and fonts consistently throughout the deck
 3. Ensure proper contrast and readability
 4. Maintain the theme's visual identity across all slides

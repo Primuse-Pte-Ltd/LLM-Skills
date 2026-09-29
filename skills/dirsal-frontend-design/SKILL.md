@@ -39,7 +39,9 @@ own words always win" (see below) covers it. That changes how to read this skill
 When no brand applies and the user wants to pick a ready-made look, or asks for a
 "theme", use the `dirsal-theme-factory` skill (`../dirsal-theme-factory/SKILL.md`). The
 theme they choose supplies the Color and Type of your design plan, the same way a
-brand's tokens would. Never apply one of its preset themes to Dirsal brand work.
+brand's tokens would. Its 10 generic preset themes never go on Dirsal brand work. For
+our brands it has brand themes (`themes/kisum.md`, `themes/thestage.md`, `themes/nextkt.md`),
+which match the brand tokens and are fine to use as a quick color and type reference.
 
 Everything else here still applies to branded work: grounding in the subject matter,
 choosing the right hero, structure as information, restraint with motion, the

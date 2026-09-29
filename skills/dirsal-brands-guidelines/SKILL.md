@@ -112,9 +112,14 @@ Reference them from HTML if you need them at runtime.
   Use it for layout, hero choice, the plan → build → critique process, the
   accessibility floor, and writing. Where it conflicts with the brand (it discourages
   uppercase labels and some palettes that are core to our brands), the brand wins.
-- **No preset themes on branded work.** `dirsal-theme-factory` (`../dirsal-theme-factory/SKILL.md`)
-  is for artifacts outside our brands. When a project is identified here, its palette
-  and fonts are the theme. Don't apply, blend in, or generate a theme-factory theme.
+- **Posters and art pieces go through `dirsal-canvas-design`** (`../dirsal-canvas-design/SKILL.md`)
+  with this brand's colors, fonts, and logos. It keeps its philosophy-first process, but
+  the brand supplies the palette and type.
+- **Brand themes, not preset themes.** `dirsal-theme-factory` (`../dirsal-theme-factory/SKILL.md`)
+  has a quick-reference theme for each project: `themes/kisum.md`, `themes/thestage.md`,
+  `themes/nextkt.md`. Use the identified project's theme for color and type on slides,
+  docs, and other styled artifacts. The project folder here stays the source of truth.
+  Never apply, blend in, or generate one of its 10 generic preset themes for branded work.
 
 ## Adding a new project
 

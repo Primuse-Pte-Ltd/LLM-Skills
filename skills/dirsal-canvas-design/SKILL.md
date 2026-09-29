@@ -1,6 +1,6 @@
 ---
 name: dirsal-canvas-design
-description: Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations.
+description: Create beautiful visual art in .png and .pdf documents using design philosophy. You should use this skill when the user asks to create a poster, piece of art, design, or other static piece. Create original visual designs, never copying existing artists' work to avoid copyright violations. For work on our internal Dirsal projects (Kisum, The Stage, Nextkt), it first loads the dirsal-brands-guidelines skill and creates the piece inside that brand's palette, fonts, and logo rules.
 license: Complete terms in LICENSE.txt
 ---
 
@@ -9,6 +9,44 @@ These are instructions for creating design philosophies - aesthetic movements th
 Complete this in two steps:
 1. Design Philosophy Creation (.md file)
 2. Express by creating it on a canvas (.pdf file or .png file)
+
+## First: check whether this is one of our brands
+
+Many posters and static pieces are for an internal Dirsal project that already has a
+brand (Kisum, The Stage, Nextkt). Before writing the philosophy, read the
+`dirsal-brands-guidelines` skill (`../dirsal-brands-guidelines/SKILL.md` next to this
+one) and follow its Step 1 to identify the project. It will either:
+
+- **identify a brand**: load that project's guidelines and create the piece inside them;
+- **not be able to tell**: its Default project asks the user which project this is.
+  Wait for the answer before writing the philosophy;
+- **be told it's none of ours**: skip the rest of this section and use this skill as written.
+
+When a brand applies, the brand is the fixed material the art is made from. Everything
+below still happens: the philosophy, the subtle reference, the canvas, and the
+refinement pass. What changes:
+
+- **Color comes from the brand.** Build the "limited color palette" from the brand's
+  own colors only. `dirsal-theme-factory` has a quick reference per brand
+  (`../dirsal-theme-factory/themes/kisum.md`, `thestage.md`, `nextkt.md`), and the
+  project folder has the full tokens. Keep the brand's proportions, e.g. Kisum's purple
+  stays a small accent and The Stage's gold stays the single accent on dark green.
+- **Type comes from the brand.** Use the brand's typefaces (Kisum: Manrope and Inter;
+  The Stage: Cormorant Garamond and Montserrat; Nextkt: Inter) instead of picking from
+  `./canvas-fonts`. They are not in that folder: download the TTFs from Google Fonts.
+  Follow the brand's type rules over the "font should be thin" default below, such as
+  The Stage's light, never-bold display serif and its tracked uppercase labels.
+- **Logos are used, never drawn.** If the piece shows a logo, copy the SVG from the
+  project folder and place it untouched: no redrawing, recoloring, distorting, or
+  turning it into a pattern.
+- **The philosophy works within the brand.** Name and write the movement as usual, but
+  make its color and type choices the brand's. The creative freedom goes into form,
+  composition, pattern, scale, and rhythm.
+- **Brand rules win over this skill's taste rules.** Where they conflict, follow the brand.
+- **Nextkt is provisional.** Its design system isn't added yet. Use
+  `../dirsal-theme-factory/themes/nextkt.md` and say the palette is provisional.
+
+One brand per piece. Never mix palettes, fonts, or logos across projects.
 
 First, undertake this task:
 
@@ -105,7 +143,7 @@ With both the philosophy and the conceptual framework established, express it on
 
 To create museum or magazine quality work, use the design philosophy as the foundation. Create one single page, highly visual, design-forward PDF or PNG output (unless asked for more pages). Generally use repeating patterns and perfect shapes. Treat the abstract philosophical design as if it were a scientific bible, borrowing the visual language of systematic observation—dense accumulation of marks, repeated elements, or layered patterns that build meaning through patient repetition and reward sustained viewing. Add sparse, clinical typography and systematic reference markers that suggest this could be a diagram from an imaginary discipline, treating the invisible subject with the same reverence typically reserved for documenting observable phenomena. Anchor the piece with simple phrase(s) or details positioned subtly, using a limited color palette that feels intentional and cohesive. Embrace the paradox of using analytical visual language to express ideas about human experience: the result should feel like an artifact that proves something ephemeral can be studied, mapped, and understood through careful attention. This is true art. 
 
-**Text as a contextual element**: Text is always minimal and visual-first, but let context guide whether that means whisper-quiet labels or bold typographic gestures. A punk venue poster might have larger, more aggressive type than a minimalist ceramics studio identity. Most of the time, font should be thin. All use of fonts must be design-forward and prioritize visual communication. Regardless of text scale, nothing falls off the page and nothing overlaps. Every element must be contained within the canvas boundaries with proper margins. Check carefully that all text, graphics, and visual elements have breathing room and clear separation. This is non-negotiable for professional execution. **IMPORTANT: Use different fonts if writing text. Search the `./canvas-fonts` directory. Regardless of approach, sophistication is non-negotiable.**
+**Text as a contextual element**: Text is always minimal and visual-first, but let context guide whether that means whisper-quiet labels or bold typographic gestures. A punk venue poster might have larger, more aggressive type than a minimalist ceramics studio identity. Most of the time, font should be thin. All use of fonts must be design-forward and prioritize visual communication. Regardless of text scale, nothing falls off the page and nothing overlaps. Every element must be contained within the canvas boundaries with proper margins. Check carefully that all text, graphics, and visual elements have breathing room and clear separation. This is non-negotiable for professional execution. **IMPORTANT: Use different fonts if writing text. Search the `./canvas-fonts` directory. For a Dirsal brand, use the brand's fonts instead (see the brand section at the top). Regardless of approach, sophistication is non-negotiable.**
 
 Download and use whatever fonts are needed to make this a reality. Get creative by making the typography actually part of the art itself -- if the art is abstract, bring the font onto the canvas, not typeset digitally.
 

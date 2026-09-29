@@ -17,6 +17,9 @@ added to this folder yet.** This placeholder is replaced when they arrive.
    available reference: reuse its current theme tokens, Tailwind config, components,
    and logo files rather than introducing new colors or fonts. Say that's what
    you're doing.
-4. **If there's no Nextkt code to reference**, ask the user for references (logo,
+   A provisional color and type summary taken from the storefront code
+   (`Nextkt-Frontend/tailwind.config.ts`) is in `dirsal-theme-factory/themes/nextkt.md`.
+   Use it when you're outside the repo, and say it's provisional.
+4. **If there's no Nextkt code or theme file to reference**, ask the user for references (logo,
    colors, fonts, screenshots of the current storefront/admin) before doing visual
    design. Non-visual work can continue.
