@@ -3,7 +3,7 @@ const Icon = window.Icon;
 
 /* ---------------- Data ---------------- */
 const STAGE = "radial-gradient(120% 90% at 30% 15%, #488790 0%, #1D1E4C 58%, #06222B 100%)";
-const money = (n) => "Rp " + Math.round(n).toLocaleString("id-ID");
+const money = (cents) => "SG$ " + (Math.round(cents) / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const EVENT = {
   title: "Midnight Echoes",
   status: "ON SALE",
@@ -24,11 +24,11 @@ const EVENT = {
   ],
 };
 const TIERS = [
-  { id: "ga", badge: "GA", tone: "ga", name: "General Admission", price: 450000, subtitle: "Standing floor", available: 214 },
-  { id: "vip", badge: "VIP", tone: "vip", name: "VIP", price: 1250000, subtitle: "Fast lane + lounge access", available: 12 },
-  { id: "tables", badge: "TABLES", tone: "tables", name: "Table for 8", price: 8000000, subtitle: "Seats 8 · bottle service", available: 0, soldOut: true },
+  { id: "ga", badge: "GA", tone: "ga", name: "General Admission", price: 12800, subtitle: "Standing floor", available: 214 },
+  { id: "vip", badge: "VIP", tone: "vip", name: "VIP", price: 34800, subtitle: "Fast lane + lounge access", available: 12 },
+  { id: "tables", badge: "TABLES", tone: "tables", name: "Table for 8", price: 240000, subtitle: "Seats 8 · bottle service", available: 0, soldOut: true },
 ];
-const POINTS = { balance: 2450, value: 10 };
+const POINTS = { balance: 2450, value: 1 };
 const HOLD_SECONDS = 600;
 
 const wrap = { maxWidth: "var(--container-max)", margin: "0 auto", padding: "0 var(--margin-desktop)" };
@@ -194,7 +194,7 @@ function EventDetail({ qty, setQty, points, setPoints, onAdd, adding }) {
                 <span style={{ fontSize: "var(--text-headline-md)", fontWeight: 700, color: "var(--primary)" }}>{money(total - savings)}</span>
               </span>
             </div>
-            {total ? <p style={{ margin: "8px 0 0", display: "flex", alignItems: "center", gap: 6, fontSize: "var(--text-label-sm)", color: "var(--status-on-sale)" }}><Icon name="redeem" size={16} />Earn ~{Math.round((total - savings) / 1000).toLocaleString()} points with this purchase</p> : null}
+            {total ? <p style={{ margin: "8px 0 0", display: "flex", alignItems: "center", gap: 6, fontSize: "var(--text-label-sm)", color: "var(--status-on-sale)" }}><Icon name="redeem" size={16} />Earn ~{Math.round((total - savings) / 100).toLocaleString()} points with this purchase</p> : null}
           </div>
           <Button variant="container" size="cta" full disabled={!count || adding} onClick={onAdd} iconRight={<Icon name="confirmation_number" />}>{adding ? "Adding…" : "Add to Cart"}</Button>
           <p style={{ margin: "16px 0 0", textAlign: "center", fontSize: "var(--text-label-sm)", color: "var(--secondary)" }}><Icon name="lock" size={14} style={{ verticalAlign: "middle", marginRight: 4 }} />Secure Checkout</p>
@@ -204,9 +204,9 @@ function EventDetail({ qty, setQty, points, setPoints, onAdd, adding }) {
       <section style={{ ...wrap, borderTop: "1px solid var(--outline-variant)", paddingTop: "var(--stack-lg)", paddingBottom: "var(--stack-lg)" }}>
         <h2 style={{ margin: "0 0 var(--stack-lg)", fontSize: "var(--text-headline-lg)", fontWeight: 600, letterSpacing: "var(--tracking-headline)" }}>You Might Also Like</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--gutter)" }}>
-          <EventCard variant="directory" title="Velvet Jazz Nights" venue="Motion Blue" month="NOV" day="02" price="From Rp 350.000" image="radial-gradient(100% 80% at 70% 10%, #A7D8E4 0%, #1C6E87 38%, #1D1E4C 85%)" />
-          <EventCard variant="directory" title="Neon Pulse Festival" venue="Beach City Stadium" month="NOV" day="08" price="From Rp 750.000" image="linear-gradient(160deg, #417292 0%, #2A5566 45%, #06222B 100%)" />
-          <EventCard variant="directory" title="Solar Drift" venue="Sabuga, Bandung" month="NOV" day="22" price="From Rp 300.000" image="linear-gradient(200deg, #488790 0%, #1D1E4C 70%)" />
+          <EventCard variant="directory" title="Velvet Jazz Nights" venue="Motion Blue" month="NOV" day="02" price="From SG$ 98.00" image="radial-gradient(100% 80% at 70% 10%, #A7D8E4 0%, #1C6E87 38%, #1D1E4C 85%)" />
+          <EventCard variant="directory" title="Neon Pulse Festival" venue="Beach City Stadium" month="NOV" day="08" price="From SG$ 188.00" image="linear-gradient(160deg, #417292 0%, #2A5566 45%, #06222B 100%)" />
+          <EventCard variant="directory" title="Solar Drift" venue="Sabuga, Bandung" month="NOV" day="22" price="From SG$ 78.00" image="linear-gradient(200deg, #488790 0%, #1D1E4C 70%)" />
         </div>
       </section>
     </main>
@@ -216,7 +216,7 @@ function EventDetail({ qty, setQty, points, setPoints, onAdd, adding }) {
 function Summary({ lines, savings, cta, onCta, disabled }) {
   const subtotal = lines.reduce((s, l) => s + l.price * l.qty, 0);
   const service = Math.round(subtotal * 0.05);
-  const platform = lines.length ? 10000 : 0;
+  const platform = lines.length ? 100 : 0;
   const total = subtotal + service + platform - savings;
   return (
     <aside style={{ position: "sticky", top: 112, height: "fit-content", borderRadius: "var(--radius-card)", border: "1px solid var(--outline-soft)", background: "var(--surface-container-lowest)", padding: "var(--stack-lg)" }}>
@@ -228,7 +228,7 @@ function Summary({ lines, savings, cta, onCta, disabled }) {
         {savings ? <Row label={`Points (${(savings / POINTS.value).toLocaleString()})`} value={"−" + money(savings)} tone="var(--status-on-sale)" /> : null}
         <div style={{ marginTop: 4, paddingTop: 12, borderTop: "1px solid var(--outline-variant)" }}><Row label="Total" value={money(total)} strong /></div>
       </div>
-      <p style={{ margin: "var(--stack-md) 0 0", display: "flex", alignItems: "center", gap: 6, fontSize: "var(--text-label-sm)", color: "var(--status-on-sale)" }}><Icon name="redeem" size={16} />Earn ~{Math.round(total / 1000).toLocaleString()} points with this purchase</p>
+      <p style={{ margin: "var(--stack-md) 0 0", display: "flex", alignItems: "center", gap: 6, fontSize: "var(--text-label-sm)", color: "var(--status-on-sale)" }}><Icon name="redeem" size={16} />Earn ~{Math.round(total / 100).toLocaleString()} points with this purchase</p>
       <Button full size="lg" style={{ marginTop: "var(--stack-md)" }} onClick={onCta} disabled={disabled} iconRight={<Icon name="arrow_forward" size={20} />}>{cta}</Button>
       <p style={{ margin: "12px 0 0", textAlign: "center", fontSize: "var(--text-label-sm)", color: "var(--on-surface-variant)" }}><Icon name="lock" size={14} style={{ verticalAlign: "middle", marginRight: 4 }} />Secure checkout</p>
     </aside>

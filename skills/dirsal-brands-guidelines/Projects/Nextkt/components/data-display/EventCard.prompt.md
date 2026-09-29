@@ -3,11 +3,11 @@ One-line: the storefront event card in its four real treatments — featured, di
 ```jsx
 <EventCard variant="featured" title="Midnight Echoes" eyebrow="OCT 24 • JAKARTA"
   summary="Live at Istora Senayan, Jakarta. Mobile entry and live availability."
-  price="From Rp 450.000" />
+  price="From SG$ 128.00" />
 <EventCard variant="discovery" title="Velvet Jazz Nights" venue="Motion Blue" city="Jakarta"
-  month="NOV" day="02" price="From Rp 350.000" stock="On Sale" />
+  month="NOV" day="02" price="From SG$ 98.00" stock="On Sale" />
 <EventCard variant="directory" title="Neon Pulse" venue="Beach City International Stadium"
-  month="DEC" day="12" price="From Rp 750.000" />
+  month="DEC" day="12" price="From SG$ 188.00" />
 <EventCard variant="poster" title="Ethereal World Tour" eyebrow="JAN 18 • SINGAPORE" venue="Singapore Indoor Stadium" badge="On Sale" />
 ```
 
@@ -16,4 +16,4 @@ One-line: the storefront event card in its four real treatments — featured, di
 - **directory** — `/events` grid, 3-up, infinite scroll. 16:10 image with glass date chip, `location_on` line, "Book Now".
 - **poster** — mobile horizontal rail, 280px min width, 3:4 image with glass badge.
 
-`image` takes a URL or a gradient placeholder (this system ships no photography). Prices are pre-formatted strings from `lib/format` (IDR = `Rp 450.000`).
+`image` takes a URL or a gradient placeholder (this system ships no photography). Prices are pre-formatted strings from `lib/format` (written `SG$ 128.00`).

@@ -11,14 +11,14 @@ const G = {
   deep: "radial-gradient(120% 100% at 0% 0%, #1C6E87 0%, #06222B 70%)",
 };
 const EVENTS = [
-  { id: 1, title: "Midnight Echoes", venue: "Istora Senayan", city: "Jakarta", m: "OCT", d: "24", price: "From Rp 450.000", img: G.stage, cat: "Concerts" },
-  { id: 2, title: "Velvet Jazz Nights", venue: "Motion Blue", city: "Jakarta", m: "NOV", d: "02", price: "From Rp 350.000", img: G.haze, cat: "Concerts" },
-  { id: 3, title: "Neon Pulse Festival", venue: "Beach City Stadium", city: "Jakarta", m: "NOV", d: "08", price: "From Rp 750.000", img: G.steel, cat: "Festivals" },
-  { id: 4, title: "Comedy Underground", venue: "Kuningan City Hall", city: "Jakarta", m: "NOV", d: "15", price: "From Rp 200.000", img: G.night, cat: "Comedy" },
-  { id: 5, title: "Solar Drift", venue: "Sabuga", city: "Bandung", m: "NOV", d: "22", price: "From Rp 300.000", img: G.dusk, cat: "Concerts" },
-  { id: 6, title: "Island Sound", venue: "GWK Cultural Park", city: "Bali", m: "DEC", d: "06", price: "From Rp 950.000", img: G.deep, cat: "Festivals" },
-  { id: 7, title: "The Last Act", venue: "Ciputra Artpreneur", city: "Jakarta", m: "DEC", d: "12", price: "From Rp 400.000", img: G.stage, cat: "Theatre" },
-  { id: 8, title: "Harbour Lights", venue: "Grand City Hall", city: "Surabaya", m: "DEC", d: "19", price: "From Rp 250.000", img: G.haze, cat: "Concerts" },
+  { id: 1, title: "Midnight Echoes", venue: "Istora Senayan", city: "Jakarta", m: "OCT", d: "24", price: "From SG$ 128.00", img: G.stage, cat: "Concerts" },
+  { id: 2, title: "Velvet Jazz Nights", venue: "Motion Blue", city: "Jakarta", m: "NOV", d: "02", price: "From SG$ 98.00", img: G.haze, cat: "Concerts" },
+  { id: 3, title: "Neon Pulse Festival", venue: "Beach City Stadium", city: "Jakarta", m: "NOV", d: "08", price: "From SG$ 188.00", img: G.steel, cat: "Festivals" },
+  { id: 4, title: "Comedy Underground", venue: "Kuningan City Hall", city: "Jakarta", m: "NOV", d: "15", price: "From SG$ 58.00", img: G.night, cat: "Comedy" },
+  { id: 5, title: "Solar Drift", venue: "Sabuga", city: "Bandung", m: "NOV", d: "22", price: "From SG$ 78.00", img: G.dusk, cat: "Concerts" },
+  { id: 6, title: "Island Sound", venue: "GWK Cultural Park", city: "Bali", m: "DEC", d: "06", price: "From SG$ 238.00", img: G.deep, cat: "Festivals" },
+  { id: 7, title: "The Last Act", venue: "Ciputra Artpreneur", city: "Jakarta", m: "DEC", d: "12", price: "From SG$ 108.00", img: G.stage, cat: "Theatre" },
+  { id: 8, title: "Harbour Lights", venue: "Grand City Hall", city: "Surabaya", m: "DEC", d: "19", price: "From SG$ 68.00", img: G.haze, cat: "Concerts" },
 ];
 const CATEGORIES = ["All Events", "Concerts", "Festivals", "Comedy", "Theatre"];
 const NAV = ["Home", "Events", "Venues", "Artists", "Loyalty", "Partners"];
@@ -49,8 +49,8 @@ function Header({ page, setPage, cart }) {
 
 function Hero({ onBook }) {
   const slides = [
-    { kicker: "ON SALE NOW", title: EVENTS[0].title, desc: "Istora Senayan, Jakarta. Tickets from Rp 450.000.", img: G.stage, secondary: "Tour Dates" },
-    { kicker: "FEATURED EVENT", title: EVENTS[2].title, desc: "Beach City Stadium, Jakarta. Tickets from Rp 750.000.", img: G.haze },
+    { kicker: "ON SALE NOW", title: EVENTS[0].title, desc: "Istora Senayan, Jakarta. Tickets from SG$ 128.00.", img: G.stage, secondary: "Tour Dates" },
+    { kicker: "FEATURED EVENT", title: EVENTS[2].title, desc: "Beach City Stadium, Jakarta. Tickets from SG$ 188.00.", img: G.haze },
   ];
   const [i, setI] = React.useState(0);
   const move = (d) => setI((p) => (p + d + slides.length) % slides.length);

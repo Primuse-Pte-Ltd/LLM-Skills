@@ -233,7 +233,7 @@ The palette comes from the logo: a steel-blue N (`#417292`), teal "ex" (`#488790
 
 ### Named Rules
 - **Kicker-Is-Wide.** Hero kickers ("ON SALE NOW") use `label-caps` with `tracking-[0.2em]` in `primary-fixed`. Everywhere else, caps use the tighter 0.05em.
-- **Tabular-Money.** Prices use tabular numerals and `id-ID` grouping: `Rp 450.000`, `From Rp 350.000`.
+- **Tabular-Money.** Prices use tabular numerals and Singapore dollars with two decimals: `SG$ 128.00`, `From SG$ 98.00`, `SG$ 1,250.00`.
 
 ## 4. Elevation
 

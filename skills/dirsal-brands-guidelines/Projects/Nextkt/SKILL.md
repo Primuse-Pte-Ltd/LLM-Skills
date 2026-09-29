@@ -13,7 +13,7 @@ If the user invokes this skill without any other guidance, ask them what they wa
 - **Action colour:** Teal `#1C6E87` for CTAs, links, active nav, prices, eyebrows, the focus ring and the cart badge. Steel `#417292` is its hover, the 60px Add to Cart fill, and the GA tier. **Teal-Is-Action**: never use it decoratively.
 - **Ink & neutrals (cool, never cream):** text is navy `#1D1E4C`, body `#4A5560`, meta `#5F5E5E`. The page is `#F8F9FA`, cards `#FFFFFF`, hairlines `#C3C7CC`.
 - **Status & tiers:** On Sale `#10B981`, Sold Out `#6B7280`, GA `#417292`, **VIP gold `#D4AF37` (Gold-Is-Earned: VIP only)**, Tables navy, error `#BA1A1A`.
-- **Type:** **Inter only.** Display 48/700/−0.02em, headlines 32 and 24 at 600, body 18/16, label-caps 12/700/0.05em uppercase (hero kickers use 0.2em). Money is formatted `Rp 450.000`.
+- **Type:** **Inter only.** Display 48/700/−0.02em, headlines 32 and 24 at 600, body 18/16, label-caps 12/700/0.05em uppercase (hero kickers use 0.2em). Money is formatted `SG$ 128.00` (Singapore dollars, two decimals).
 - **Shape (Radius Trap):** button 4px · card 8px · pill/stepper/icon button 12px · modal 16px. Tailwind is remapped, so `rounded-full` = 12px and `rounded-xl` = 8px. Write `9999px` for circles.
 - **Depth:** hairline borders at rest, `shadow-md` plus a 1.05 image zoom on hover. Glass over photos: `glass-overlay` (white/10, blur 12) and `glass-badge` (white/15, blur 8), with a black/80 bottom scrim.
 - **Layouts:** desktop and mobile are separate compositions split at **`lg`**. Desktop has a sticky 96px header; mobile has a 60px glass app bar and a 96px bottom tab bar (Discover · Tickets · Venues · Profile).

@@ -8,16 +8,16 @@ const G = {
   steel: "linear-gradient(160deg, #417292 0%, #2A5566 45%, #06222B 100%)",
   night: "radial-gradient(90% 70% at 50% 100%, #2F6D84 0%, #1D1E4C 55%, #0B0C24 100%)",
 };
-const money = (n) => "Rp " + n.toLocaleString("id-ID");
+const money = (cents) => "SG$ " + (cents / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const PREMIERE = [
   { title: "Midnight Echoes", eyebrow: "OCT 24 • JAKARTA", venue: "Istora Senayan", img: G.stage },
   { title: "Neon Pulse Festival", eyebrow: "NOV 08 • JAKARTA", venue: "Beach City Stadium", img: G.haze },
   { title: "Island Sound", eyebrow: "DEC 06 • BALI", venue: "GWK Cultural Park", img: G.steel },
 ];
 const UPCOMING = [
-  { m: "NOV", d: "02", title: "Velvet Jazz Nights", venue: "Motion Blue", city: "Jakarta", price: "From Rp 350.000" },
-  { m: "NOV", d: "15", title: "Comedy Underground", venue: "Kuningan City Hall", city: "Jakarta", price: "From Rp 200.000" },
-  { m: "NOV", d: "22", title: "Solar Drift", venue: "Sabuga", city: "Bandung", price: "From Rp 300.000" },
+  { m: "NOV", d: "02", title: "Velvet Jazz Nights", venue: "Motion Blue", city: "Jakarta", price: "From SG$ 98.00" },
+  { m: "NOV", d: "15", title: "Comedy Underground", venue: "Kuningan City Hall", city: "Jakarta", price: "From SG$ 58.00" },
+  { m: "NOV", d: "22", title: "Solar Drift", venue: "Sabuga", city: "Bandung", price: "From SG$ 78.00" },
 ];
 const TICKETS = [
   { id: "A1F3C09B", event: "Midnight Echoes", label: "Fri, Oct 24 · Doors 8:00 PM", section: "GA Floor", qty: 2, code: "NK7Q-2K9D-X4", img: G.stage },
@@ -46,7 +46,7 @@ function Discover({ openEvent }) {
         <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "var(--margin-mobile)", display: "flex", flexDirection: "column", gap: 8, color: "#fff" }}>
           <Badge variant="glass" size="md" style={{ alignSelf: "flex-start", letterSpacing: "var(--tracking-widest)" }}>Featured</Badge>
           <h2 style={{ margin: 0, fontSize: "var(--text-headline-md)", fontWeight: 700, lineHeight: 1.2, letterSpacing: "var(--tracking-display)" }}>Midnight Echoes</h2>
-          <p style={{ margin: 0, color: "rgb(255 255 255 / .9)" }}>Istora Senayan, Jakarta. Tickets from Rp 450.000.</p>
+          <p style={{ margin: 0, color: "rgb(255 255 255 / .9)" }}>Istora Senayan, Jakarta. Tickets from SG$ 128.00.</p>
           <div style={{ marginTop: 16 }}><Button onClick={openEvent}>Book Now</Button></div>
         </div>
       </section>
@@ -85,7 +85,7 @@ function Discover({ openEvent }) {
 function EventScreen({ back, onAdd }) {
   const [ga, setGa] = React.useState(1);
   const [vip, setVip] = React.useState(0);
-  const total = ga * 450000 + vip * 1250000;
+  const total = ga * 12800 + vip * 34800;
   return (
     <div style={{ paddingBottom: 96 }}>
       <section style={{ position: "relative", aspectRatio: "4 / 5", overflow: "hidden" }}>
@@ -105,9 +105,9 @@ function EventScreen({ back, onAdd }) {
       <section style={{ ...pad, paddingTop: "var(--stack-lg)" }}>
         <h3 style={{ ...caps, margin: "0 0 12px", color: "var(--secondary)" }}>Select Tickets</h3>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <TicketTier badge="GA" tone="ga" price="Rp 450.000" subtitle="Standing floor" available={214} qty={ga} onChange={setGa} />
-          <TicketTier badge="VIP" tone="vip" price="Rp 1.250.000" subtitle="Fast lane + lounge access" available={12} qty={vip} onChange={setVip} />
-          <TicketTier badge="TABLES" tone="tables" price="Rp 8.000.000" subtitle="Seats 8" soldOut />
+          <TicketTier badge="GA" tone="ga" price="SG$ 128.00" subtitle="Standing floor" available={214} qty={ga} onChange={setGa} />
+          <TicketTier badge="VIP" tone="vip" price="SG$ 348.00" subtitle="Fast lane + lounge access" available={12} qty={vip} onChange={setVip} />
+          <TicketTier badge="TABLES" tone="tables" price="SG$ 2,400.00" subtitle="Seats 8" soldOut />
         </div>
       </section>
       <section style={{ ...pad, paddingTop: "var(--stack-lg)" }}>

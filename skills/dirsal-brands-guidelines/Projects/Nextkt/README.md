@@ -26,7 +26,35 @@ How Nextkt writes.
   - **Title Case** for CTAs and section titles: Book Now, Get Tickets, Add to Cart, View Full Calendar, Premiere Events, Upcoming Events.
   - **Sentence case** for status, help and error text: "Hold expired", "Your cart is empty", "Continue to payment".
   - **UPPERCASE** for badges, eyebrows and filters: ON SALE, FEATURED, OCT 24 • JAKARTA, ALL EVENTS.
-- **Money:** Indonesian Rupiah with `id-ID` grouping: `Rp 450.000`, `From Rp 350.000`, `Rp 1.250.000`. Use tabular numerals.
+- **Money:** Singapore dollars written `SG# Nextkt Design System
+
+**Every show. One place.** Nextkt is a standalone ticketing platform. Its consumer storefront is where fans discover concerts, festivals, comedy and theatre, pick GA/VIP/table tickets, and check out against a 10-minute hold. This design system governs that storefront (`3- Nextkt/modules/Nextkt-Frontend`, Next.js 16 + Tailwind v3) on both its **desktop** and **mobile** layouts.
+
+> **Creative North Star — "House Lights Down":** a calm, well-lit lobby that opens onto a stage. The chrome is quiet (navy ink on `#F8F9FA`, white cards, hairline borders) so that full-bleed artist photography, glass and a black scrim provide the drama. It is editorial and premium, and every action is teal.
+
+## Sources
+This system was distilled entirely from the storefront codebase (store these for reference; do not assume the reader has access):
+- **`Nextkt-Frontend/` codebase:** `tailwind.config.ts` (the M3 token set, the remapped radius scale, the type ramp), `app/globals.css` (glass utilities, hero scrim, carousel easing, remapped `h-13`…`h-16`), `app/layout.tsx`, and every storefront page and component (`page.tsx`, `events/`, `events/[slug]/`, `cart`, `checkout`, `account/`, `site-header`, `hero-carousel`, `ga-ticket-box`, `cart-view`, `hold-countdown`, `mobile-app-bar`, `mobile-bottom-nav`, `tickets-view`, the footers).
+- **`uploads/DESIGN.md`:** the canonical spec, reconciled against the code (§10 lists where the upstream file is stale).
+- **`uploads/DESIGN-light.md`:** the upstream `Nextkt-Frontend/DESIGN.md`, verbatim (codename "Artist Tickets").
+- **`uploads/DESIGN-dark.md`:** the "Dark Editorial" featured-zone scope.
+- **Brand assets:**
+  - `public/images/logo.svg` (NexTicket lockup) and `public/images/icon.svg` (N mark) are copied into `assets/` as `logo.svg`, `icon.svg` and `logo-icon.svg`.
+  - `assets/textlogo.svg` is the text-only NexTicket wordmark (brand-supplied; not in `public/images/`).
+  - `uploads/` also keeps `logo-v1.svg` (the retired lockup) and `app-icon.svg` (the favicon tile from `app/icon.svg`).
+
+---
+
+## CONTENT FUNDAMENTALS
+How Nextkt writes.
+
+- **Voice:** premium, inviting and brief. It sounds like a good box office rather than a hype machine: "Never Miss a Show", "Discover live experiences happening near you soon."
+- **Person:** addresses the fan as **you** ("Your journey to the stage starts here", "Tickets will be sent to your account email.").
+- **Casing:**
+  - **Title Case** for CTAs and section titles: Book Now, Get Tickets, Add to Cart, View Full Calendar, Premiere Events, Upcoming Events.
+  - **Sentence case** for status, help and error text: "Hold expired", "Your cart is empty", "Continue to payment".
+  - **UPPERCASE** for badges, eyebrows and filters: ON SALE, FEATURED, OCT 24 • JAKARTA, ALL EVENTS.
+ with `en` grouping and two decimals: `SG$ 128.00`, `From SG$ 98.00`, `SG$ 1,250.00`. Use tabular numerals.
 - **Dates & times:** "Friday, October 24, 2026", "Doors 8:00 PM". Chips show a caps month over a 2-digit day (`NOV` / `02`).
 - **Eyebrows** join date and city with a bullet: `OCT 24 • JAKARTA`. Venue lines join with a comma ("Istora Senayan, Jakarta") or a bullet on compact cards.
 - **Urgency** is factual, never shouty: "Selling fast", "12 available", "10:00 left to pay", "Your hold has expired — please re-add your tickets."

@@ -11,7 +11,7 @@ export interface TicketTierProps {
   tone?: "ga" | "vip" | "tables";
   /** Used in the stepper aria-labels. */
   name?: string;
-  /** Pre-formatted face price, e.g. "Rp 450.000". */
+  /** Pre-formatted face price, e.g. "SG$ 128.00". */
   price: string;
   subtitle?: string;
   available?: number;

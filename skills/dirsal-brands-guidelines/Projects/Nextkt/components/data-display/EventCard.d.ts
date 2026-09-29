@@ -18,7 +18,7 @@ export interface EventCardProps {
   summary?: string;
   venue?: string;
   city?: string;
-  /** Pre-formatted, e.g. "From Rp 450.000" (lib/format fromPrice). */
+  /** Pre-formatted, e.g. "From SG$ 128.00" (lib/format fromPrice). */
   price?: string;
   month?: string;
   day?: string;
