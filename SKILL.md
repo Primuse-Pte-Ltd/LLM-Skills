@@ -382,16 +382,23 @@ On a pair consult, the Recommendation also carries a contribution line for each 
 
 Save `council-transcript-YYYYMMDD-HHMM.md` when the user asks, or when the decision is worth reopening later (a bet, an architecture, a production change, a security finding). Include the raw question, the framed question, the discipline and criteria, the router crew, the Council Brief, the Decision Ledger, every seat including dropped ones, the letter mapping, every review, and the verdict. If an `active/` directory exists, save there. Otherwise save in the working directory.
 
-Write `council-report-YYYYMMDD-HHMM.html` only when the user asks for a report or a visual. One self-contained file, inline CSS, system font stack, white background, subtle borders, no decoration. Contents, in order:
+Write the report as two files with the same timestamp, only when the user asks for a report or a visual:
+
+- `council-report-YYYYMMDD-HHMM.md`
+- `council-report-YYYYMMDD-HHMM.html`
+
+Same contents in both. The markdown file is the source. The HTML file is one self-contained page of that same report: inline CSS, system font stack, white background, subtle borders, no decoration. If an `active/` directory exists, save both there. Otherwise save both in the working directory. A report that exists in only one of the two formats is not delivered.
+
+Contents, in order:
 
 1. The question and the discipline.
 2. The chairman's verdict, placed so it can be read without scrolling through seats.
 3. A plain agreement / clash breakdown: which seats aligned, which diverged, on which claim.
-4. Each seat's full answer in a section collapsed by default.
-5. Peer-review highlights in a section collapsed by default.
+4. Each seat's full answer. In the HTML file, this section is collapsed by default.
+5. Peer-review highlights. In the HTML file, this section is collapsed by default.
 6. A footer with the timestamp and the question.
 
-Open the file after writing it.
+Open the HTML file after writing both.
 
 ## Other instruments
 
