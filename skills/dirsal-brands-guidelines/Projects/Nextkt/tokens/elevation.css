@@ -1,0 +1,28 @@
+/* Nextkt elevation — tonal layering + glass, not stacked shadows.
+   Cards rest flat on 1px outline-variant borders; shadow-md appears on hover of interactive cards.
+   Tailwind shadow values (the storefront uses stock shadow-sm/md/lg/xl/2xl). */
+:root {
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);                                        /* ticket box, active chip, auth card */
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);     /* hover lift, floating back button */
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);   /* toast, ticket page, avatar tile */
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);  /* seated upsell card hover */
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);                                 /* cookie banner */
+
+  /* Glass (globals.css) */
+  --blur-glass: 12px;    /* glass-overlay, glass-blur, glass-panel, sticky header */
+  --blur-badge: 8px;     /* glass-badge */
+
+  /* Interaction */
+  --focus-ring: 0 0 0 2px #1C6E87;             /* focus:ring-2 ring-primary */
+  --focus-ring-danger: 0 0 0 2px #BA1A1A;
+  --press-scale: 0.95;                          /* active:scale-95 on buttons */
+  --press-scale-cta: 0.98;                      /* big "Add to Cart" */
+  --hover-zoom: 1.05;                           /* event imagery group-hover:scale-105 */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1); /* @kind other */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */
+  --duration: 150ms; /* @kind other */
+  --duration-image: 500ms; /* @kind other */
+  --duration-carousel: 700ms; /* @kind other */
+}

@@ -1,0 +1,70 @@
+<!-- @dsCard group="Components" viewport="700x1720" name="Data — Event cards, Tiers, Stats, Rows" subtitle="Storefront building blocks" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:24px;background:var(--background);font-family:var(--font-body);color:var(--on-surface)}
+.lbl{font-size:var(--text-micro);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--secondary);margin:0 0 10px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:var(--gutter)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+section{margin-bottom:28px}</style>
+</head><body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+const { EventCard, EventRow, TicketTier, StatCard, SectionHeader, DateChip } = window.NextktDesignSystem_1c6e87;
+const M = ({ n }) => <span className="ms">{n}</span>;
+const G1 = "radial-gradient(120% 90% at 30% 15%, #488790 0%, #1D1E4C 58%, #06222B 100%)";
+const G2 = "radial-gradient(100% 80% at 70% 10%, #A7D8E4 0%, #1C6E87 38%, #1D1E4C 85%)";
+const G3 = "linear-gradient(160deg, #417292 0%, #2A5566 45%, #06222B 100%)";
+function App(){
+  const [a,setA]=React.useState(1); const [b,setB]=React.useState(0);
+  return (<div>
+  <section>
+    <SectionHeader title="Premiere Events" action="View Full Calendar" style={{marginBottom:16}}/>
+    <div style={{display:'grid',gridTemplateColumns:'1.45fr 1fr',gap:'var(--gutter)'}}>
+      <EventCard variant="featured" image={G1} title="Midnight Echoes" eyebrow="OCT 24 • JAKARTA"
+        summary="Live at Istora Senayan, Jakarta. Mobile entry and live availability." price="From Rp 450.000"/>
+      <EventCard variant="discovery" image={G2} title="Velvet Jazz Nights" venue="Motion Blue" city="Jakarta" month="NOV" day="02" price="From Rp 350.000" stock="Selling fast"/>
+    </div>
+  </section>
+  <section>
+    <p className="lbl">directory · poster</p>
+    <div style={{display:'grid',gridTemplateColumns:'1.45fr 1fr',gap:'var(--gutter)'}}>
+      <EventCard variant="directory" image={G3} title="Neon Pulse" venue="Beach City Stadium" city="Jakarta" month="DEC" day="12" price="From Rp 750.000"/>
+      <EventCard variant="poster" image={G1} title="Solar Drift" venue="GBK Madya" month="JAN" day="18" badge="Presale" badgeTone="primary"/>
+    </div>
+  </section>
+  <section className="g2">
+    <div>
+      <p className="lbl">TicketTier</p>
+      <div style={{display:'flex',flexDirection:'column',gap:8}}>
+        <TicketTier badge="GA" tone="ga" name="General Admission" price="Rp 450.000" subtitle="Standing floor" available={214} qty={a} onChange={setA}/>
+        <TicketTier badge="VIP" tone="vip" name="VIP" price="Rp 1.250.000" subtitle="Fast lane + lounge access" available={12} qty={b} onChange={setB}/>
+        <TicketTier badge="TABLES" tone="tables" price="Rp 8.000.000" subtitle="Seats 8" available={0} soldOut/>
+      </div>
+    </div>
+    <div>
+      <p className="lbl">EventRow · DateChip</p>
+      <div style={{display:'flex',flexDirection:'column',gap:16,marginBottom:20}}>
+        <EventRow month="NOV" day="02" title="Velvet Jazz Nights" venue="Motion Blue" city="Jakarta" price="From Rp 350.000"/>
+        <EventRow month="NOV" day="15" title="Comedy Underground" venue="Kuningan City" city="Jakarta" price="From Rp 200.000" favorite last/>
+      </div>
+      <div style={{display:'flex',gap:12,alignItems:'center',padding:12,borderRadius:'var(--radius-card)',background:G1}}>
+        <DateChip month="OCT" day="24"/><DateChip month="OCT" day="24" variant="glass"/>
+      </div>
+    </div>
+  </section>
+  <section>
+    <p className="lbl">StatCard</p>
+    <div className="g3">
+      <StatCard icon={<M n="confirmation_number"/>} value="6" label="Upcoming tickets" sub="Next: Midnight Echoes"/>
+      <StatCard icon={<M n="stars"/>} value="2,450" label="Reward points" sub="≈ Rp 24.500 to spend"/>
+      <StatCard icon={<M n="favorite"/>} value="14" label="Saved events" sub="3 on sale this week"/>
+    </div>
+  </section>
+</div>);}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body></html>

@@ -7,7 +7,8 @@ is to stop you from guessing and get a clear answer from the user.
 ## Why this exists
 
 Every internal brand looks deliberately different (Kisum is purple-on-cool-gray
-analytics; The Stage is dark green and gold luxury hospitality). Applying the wrong
+analytics; The Stage is dark green and gold luxury hospitality; Nextkt is a light,
+teal-and-navy, photo-first ticketing storefront). Applying the wrong
 one produces work that has to be thrown away, and inventing a "neutral" style is
 just as wrong — it isn't anyone's brand. Asking costs one message; guessing wrong
 costs the whole artifact.

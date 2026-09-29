@@ -1,0 +1,135 @@
+/* Nextkt color system — Material-3 token set keyed to the logo (teal / steel-blue / deep navy).
+   Names mirror Nextkt-Frontend/tailwind.config.ts 1:1, so `bg-primary` in production = var(--primary) here.
+   Teal-Is-Action Rule: teal marks actions, prices, active states and eyebrow metadata. Navy is for text. */
+:root {
+  /* --- Logo colors (public/images/logo.svg) — reference only, never UI fills --- */
+  --brand-teal: #488790;       /* "ex" + the i-dot in the wordmark */
+  --brand-steel: #417292;      /* the N in the lockup */
+  --brand-navy: #1D1E4C;       /* "Ticket" in the wordmark */
+  --brand-mark: #3E6F8F;       /* standalone N mark (public/images/icon.svg) */
+
+  /* --- Primary (teal) --- */
+  --primary: #1C6E87;                   /* buttons, links, prices, active nav, eyebrows */
+  --on-primary: #FFFFFF;
+  --primary-container: #417292;         /* steel blue — primary hover, big "Add to Cart", GA tier */
+  --on-primary-container: #F4FBFD;
+  --primary-fixed: #CDEAF2;             /* selection, help card, hero kicker on photos */
+  --primary-fixed-dim: #A7D8E4;
+  --on-primary-fixed: #06222B;
+  --on-primary-fixed-variant: #2A5566;
+  --surface-tint: #2F6D84;
+  --inverse-primary: #A7D8E4;
+
+  /* --- Neutral surfaces (cool grey ladder) --- */
+  --background: #F8F9FA;                /* page canvas */
+  --surface: #F8F9FA;                   /* header/app bar base (at 80–90% + blur) */
+  --surface-bright: #F8F9FA;
+  --surface-dim: #D9DADB;
+  --surface-container-lowest: #FFFFFF;  /* cards, panels, ticket box */
+  --surface-container-low: #F3F4F5;     /* tier rows, featured card body */
+  --surface-container: #EDEEEF;         /* footer, date leaf, segmented track */
+  --surface-container-high: #E7E8E9;    /* nav hover */
+  --surface-container-highest: #E1E3E4; /* qty stepper, sold-out pill */
+  --surface-variant: #E1E3E4;
+  --inverse-surface: #2E3132;
+  --inverse-on-surface: #F0F1F2;
+
+  /* --- Text --- */
+  --on-background: #1D1E4C;             /* headings + primary text = deep navy */
+  --on-surface: #1D1E4C;
+  --on-surface-variant: #4A5560;        /* body copy, metadata */
+  --secondary: #5F5E5E;                 /* nav links, footer copy, captions */
+  --on-secondary: #FFFFFF;
+  --secondary-container: #E2DFDF;       /* neutral stock chip */
+  --on-secondary-container: #636262;
+  --secondary-fixed: #E5E2E1;
+  --secondary-fixed-dim: #C8C6C6;
+
+  /* --- Lines --- */
+  --outline: #74787E;                   /* input leading icons */
+  --outline-variant: #C3C7CC;           /* every hairline border (often at /30 on cards) */
+  --outline-soft: rgb(195 199 204 / 0.3);
+
+  /* --- Tertiary (gold family — rewards/notice only) --- */
+  --tertiary: #735C00;
+  --on-tertiary: #FFFFFF;
+  --tertiary-container: #CBA72F;
+  --on-tertiary-container: #4E3D00;
+  --tertiary-fixed: #FFE088;
+  --tertiary-fixed-dim: #E9C349;
+  --on-tertiary-fixed: #241A00;
+  --on-tertiary-fixed-variant: #574500;
+
+  /* --- Ticketing semantics --- */
+  --status-on-sale: #10B981;            /* ON SALE, points earned, savings */
+  --status-sold-out: #6B7280;
+  --tier-ga: #417292;                   /* General admission */
+  --tier-vip: #D4AF37;                  /* VIP only — Gold-Is-Earned Rule */
+  --tier-tables: #1D1E4C;               /* Tables / exclusive zones; "Held in your cart" */
+
+  /* --- Error --- */
+  --error: #BA1A1A;                     /* scarcity, favorite active, sign out, validation */
+  --on-error: #FFFFFF;
+  --error-container: #FFDAD6;
+  --on-error-container: #93000A;
+
+  /* --- Scrims & glass (from globals.css) --- */
+  --scrim-hero: linear-gradient(0deg, rgb(0 0 0 / 0.8) 0%, rgb(0 0 0 / 0) 60%); /* @kind other */
+  --glass-overlay: rgb(255 255 255 / 0.10);  /* hero buttons/badges over photos */
+  --glass-badge: rgb(255 255 255 / 0.15);
+  --glass-panel: rgb(255 255 255 / 0.80);    /* QR modal */
+  --glass-border: rgb(255 255 255 / 0.30);
+  --modal-scrim: rgb(0 0 0 / 0.60);
+
+  /* --- Semantic aliases (prefer these in components) --- */
+  --text-strong: var(--on-surface);
+  --text-body: var(--on-surface-variant);
+  --text-muted: var(--secondary);
+  --text-on-accent: var(--on-primary);
+  --accent: var(--primary);
+  --accent-hover: var(--primary-container);
+  --accent-tint: rgb(28 110 135 / 0.10); /* bg-primary/10 — icon discs */
+  --surface-page: var(--background);
+  --surface-card: var(--surface-container-lowest);
+  --surface-muted: var(--surface-container-low);
+  --border: var(--outline-variant);
+  --link: var(--primary);
+  --link-hover: var(--primary-container);
+}
+
+/* --- Dark Editorial scope ---
+   The storefront has NO global dark mode (tailwind darkMode:"class" is set but zero `dark:` classes
+   ship). This scope captures the dark featured zones — hero carousel, over-photo panels, loyalty CTA —
+   using the M3 inverse tokens + DESIGN.md's dark base #191c1d. Add class="dark" to a featured block,
+   never to the whole page. Primary fills stay #1c6e87; teal used as TEXT lifts to #a7d8e4. */
+.dark {
+  --background: #191C1D;
+  --surface: #191C1D;
+  --surface-container-lowest: #2E3132;
+  --surface-container-low: #24282A;
+  --surface-container: #2E3132;
+  --surface-container-high: #393D3F;
+  --surface-container-highest: #44484A;
+
+  --on-background: #F0F1F2;
+  --on-surface: #F0F1F2;
+  --on-surface-variant: #C3C7CC;
+  --secondary: #C8C6C6;
+  --outline-variant: rgb(255 255 255 / 0.20);
+  --outline-soft: rgb(255 255 255 / 0.12);
+
+  --primary-fixed: #CDEAF2;
+
+  --text-strong: var(--on-surface);
+  --text-body: var(--on-surface-variant);
+  --text-muted: var(--secondary);
+  --accent: #1C6E87;            /* fills keep white-text contrast */
+  --accent-hover: #417292;
+  --accent-tint: rgb(167 216 228 / 0.14);
+  --surface-page: var(--background);
+  --surface-card: var(--surface-container-lowest);
+  --surface-muted: var(--surface-container-low);
+  --border: var(--outline-variant);
+  --link: #A7D8E4;              /* inverse-primary — teal as text on dark */
+  --link-hover: #CDEAF2;
+}

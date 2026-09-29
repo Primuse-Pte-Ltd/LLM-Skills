@@ -1,0 +1,20 @@
+<!-- @dsCard group="Spacing" viewport="700x230" name="Corner Radii" subtitle="Button 4 · card 8 · pill 12 — the Radius Trap" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:20px;background:var(--background);font-family:var(--font-body);color:var(--on-surface)}
+.row{display:flex;gap:14px}
+.r{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.sh{width:64px;height:48px;background:var(--surface-card);border:2px solid var(--primary)}
+.n{font-size:10px;font-weight:700}.v{font-size:10px;color:var(--secondary);text-align:center;line-height:1.3}
+.trap{margin-top:14px;padding:10px 12px;border-radius:var(--radius-card);background:var(--error-container);color:var(--on-error-container);font-size:11px;line-height:1.45}</style>
+</head><body>
+<div class="row">
+<div class="r"><div class="sh" style="border-radius:var(--radius-xs)"></div><span class="n">xs · 2</span><span class="v">rounded / -sm<br>chips, badges</span></div>
+<div class="r"><div class="sh" style="border-radius:var(--radius-btn)"></div><span class="n">btn · 4</span><span class="v">rounded-lg<br>buttons, inputs</span></div>
+<div class="r"><div class="sh" style="border-radius:var(--radius-md)"></div><span class="n">md · 6</span><span class="v">rounded-md<br>default</span></div>
+<div class="r"><div class="sh" style="border-radius:var(--radius-card)"></div><span class="n">card · 8</span><span class="v">rounded-xl<br>cards, images</span></div>
+<div class="r"><div class="sh" style="border-radius:var(--radius-pill)"></div><span class="n">pill · 12</span><span class="v">rounded-full<br>steppers, icon btns</span></div>
+<div class="r"><div class="sh" style="border-radius:var(--radius-modal)"></div><span class="n">modal · 16</span><span class="v">rounded-2xl<br>sheets, QR modal</span></div>
+<div class="r"><div class="sh" style="width:48px;border-radius:var(--radius-circle)"></div><span class="n">circle</span><span class="v">avatars<br>(explicit only)</span></div>
+</div>
+<div class="trap"><b>The Radius Trap:</b> tailwind.config remaps the scale, so <code>rounded-full</code> = 12px, not a circle, and <code>rounded-xl</code> = 8px. Use a literal 9999px for true circles.</div>
+</body></html>

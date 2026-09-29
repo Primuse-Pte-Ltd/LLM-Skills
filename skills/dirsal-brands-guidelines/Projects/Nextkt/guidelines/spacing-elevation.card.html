@@ -1,0 +1,16 @@
+<!-- @dsCard group="Spacing" viewport="700x180" name="Elevation & Glass" subtitle="Hairline borders at rest; shadow on hover; glass over photos" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:20px;background:var(--background);font-family:var(--font-body);color:var(--on-surface);display:flex;gap:14px}
+.c{flex:1;height:110px;border-radius:var(--radius-card);background:var(--surface-card);display:flex;flex-direction:column;justify-content:flex-end;padding:10px}
+.n{font-size:11px;font-weight:700}.v{font-size:10px;color:var(--secondary)}
+.photo{flex:1.4;border-radius:var(--radius-card);padding:10px;display:flex;flex-direction:column;justify-content:space-between;background:radial-gradient(120% 90% at 30% 15%,#488790 0%,#1D1E4C 58%,#06222B 100%);position:relative;overflow:hidden}
+.photo::after{content:"";position:absolute;inset:0;background:var(--scrim-hero)}
+.photo>*{position:relative;z-index:1}
+.gb{align-self:flex-start;background:var(--glass-badge);backdrop-filter:blur(var(--blur-badge));border:1px solid var(--glass-border);color:#fff;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:var(--radius-xs)}
+.go{background:var(--glass-overlay);backdrop-filter:blur(var(--blur-glass));border:1px solid var(--glass-border);color:#fff;font-size:11px;padding:8px;border-radius:var(--radius-card)}</style>
+</head><body>
+<div class="c" style="border:1px solid var(--outline-variant)"><span class="n">Rest</span><span class="v">1px outline-variant, no shadow</span></div>
+<div class="c" style="border:1px solid var(--outline-soft);box-shadow:var(--shadow-sm)"><span class="n">Soft</span><span class="v">outline/30 + shadow-sm</span></div>
+<div class="c" style="border:1px solid var(--outline-variant);box-shadow:var(--shadow-xl)"><span class="n">Hover</span><span class="v">shadow-xl + image zoom 1.05</span></div>
+<div class="photo"><span class="gb">glass-badge</span><div class="go">glass-overlay · white/10, blur 12 over a black/80 scrim</div></div>
+</body></html>

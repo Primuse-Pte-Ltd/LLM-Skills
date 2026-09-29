@@ -1,0 +1,34 @@
+/* Nextkt spacing — Stitch-derived stack/margin tokens (tailwind.config.ts spacing) on a 4px grid.
+   Fixed-grid editorial layout: 1280px container, 48px desktop margin, 16px mobile margin. */
+:root {
+  --space-0: 0;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-12: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Vertical rhythm (stack-*) */
+  --stack-sm: 8px;          /* label ↔ control, chip rows */
+  --stack-md: 16px;         /* card internals, list rows */
+  --stack-lg: 32px;         /* major section breaks, box padding */
+
+  /* Layout */
+  --container-max: 1280px;
+  --gutter: 24px;           /* card grids */
+  --margin-mobile: 16px;
+  --margin-desktop: 48px;
+  --account-nav-width: 256px; /* lg:w-64 account sidebar */
+  --summary-width: 380px;     /* cart order-summary column */
+
+  /* Chrome heights — globals.css overrides Tailwind's h-13…h-16 (h-14 = 60px, h-16 = 112px!) */
+  --header-height: 96px;      /* desktop header (h-15) */
+  --logo-height-desktop: 56px;/* h-13 */
+  --app-bar-height: 60px;     /* mobile app bar (h-14) */
+  --tab-bar-height: 96px;     /* mobile bottom nav (h-15, incl. safe-area padding) */
+  --control-height: 40px;     /* icon buttons, cart */
+  --cta-height: 60px;         /* "Add to Cart" (h-14, remapped to 3.75rem) */
+}

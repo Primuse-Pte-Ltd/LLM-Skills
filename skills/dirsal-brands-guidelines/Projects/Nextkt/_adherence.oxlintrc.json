@@ -1,0 +1,153 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/core/**",
+              "components/data-display/**",
+              "components/forms/**",
+              "components/mobile/**",
+              "components/navigation/**",
+              "ui_kits/event-checkout/**",
+              "ui_kits/mobile/**",
+              "ui_kits/storefront/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Inter|Material Symbols Outlined))/i]",
+        "message": "Font not provided by the design system. Available: Inter (+ Material Symbols Outlined for icons)."
+      },
+      {
+        "selector": "Literal[value=/rounded-full/]",
+        "message": "Nextkt remaps rounded-full to 12px — use --radius-pill (12px) or --radius-circle (9999px) explicitly."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Avatar'] > JSXAttribute > JSXIdentifier[name!=/^(?:src|name|size|tile|color|style|key|ref|className|children)$/]",
+        "message": "<Avatar> doesn't accept that prop. Declared props: src, name, size, tile, color, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:on-sale|primary|ga|vip|tables|sold-out|error|neutral)$/]",
+        "message": "<Badge> tone must be one of 'on-sale' | 'primary' | 'ga' | 'vip' | 'tables' | 'sold-out' | 'error' | 'neutral'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:solid|tint|glass)$/]",
+        "message": "<Badge> variant must be one of 'solid' | 'tint' | 'glass'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md)$/]",
+        "message": "<Badge> size must be one of 'sm' | 'md'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|tone|variant|caps|size|style|key|ref|className)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: children, tone, variant, caps, size, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|container|outline|secondary|inverse|glass|link|destructive)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'container' | 'outline' | 'secondary' | 'inverse' | 'glass' | 'link' | 'destructive'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg|cta)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg' | 'cta'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:default|low|muted)$/]",
+        "message": "<Card> tone must be one of 'default' | 'low' | 'muted'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IconButton'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:ghost|brand|glass|floating)$/]",
+        "message": "<IconButton> variant must be one of 'ghost' | 'brand' | 'glass' | 'floating'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='DateChip'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:leaf|glass|plain)$/]",
+        "message": "<DateChip> variant must be one of 'leaf' | 'glass' | 'plain'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='DateChip'] > JSXAttribute > JSXIdentifier[name!=/^(?:month|day|variant|style|key|ref|className|children)$/]",
+        "message": "<DateChip> doesn't accept that prop. Declared props: month, day, variant, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='EventCard'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:featured|discovery|directory|poster)$/]",
+        "message": "<EventCard> variant must be one of 'featured' | 'discovery' | 'directory' | 'poster'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='EventCard'] > JSXAttribute[name.name='badgeTone'] > Literal[value!=/^(?:on-sale|primary|vip|sold-out)$/]",
+        "message": "<EventCard> badgeTone must be one of 'on-sale' | 'primary' | 'vip' | 'sold-out'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='EventCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|title|image|badge|badgeTone|eyebrow|summary|venue|city|price|month|day|stock|cta|onClick|style|key|ref|className|children)$/]",
+        "message": "<EventCard> doesn't accept that prop. Declared props: variant, title, image, badge, badgeTone, eyebrow, summary, venue, city, price, month, day, stock, cta, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='EventRow'] > JSXAttribute > JSXIdentifier[name!=/^(?:title|venue|city|price|month|day|favorite|last|onClick|style|key|ref|className|children)$/]",
+        "message": "<EventRow> doesn't accept that prop. Declared props: title, venue, city, price, month, day, favorite, last, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SectionHeader'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:lg|md|eyebrow)$/]",
+        "message": "<SectionHeader> size must be one of 'lg' | 'md' | 'eyebrow'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SectionHeader'] > JSXAttribute > JSXIdentifier[name!=/^(?:title|subtitle|action|onAction|size|style|key|ref|className|children)$/]",
+        "message": "<SectionHeader> doesn't accept that prop. Declared props: title, subtitle, action, onAction, size, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='StatCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:icon|value|label|sub|onClick|style|key|ref|className|children)$/]",
+        "message": "<StatCard> doesn't accept that prop. Declared props: icon, value, label, sub, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TicketTier'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:ga|vip|tables)$/]",
+        "message": "<TicketTier> tone must be one of 'ga' | 'vip' | 'tables'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TicketTier'] > JSXAttribute > JSXIdentifier[name!=/^(?:badge|tone|name|price|subtitle|available|soldOut|qty|max|onChange|style|key|ref|className|children)$/]",
+        "message": "<TicketTier> doesn't accept that prop. Declared props: badge, tone, name, price, subtitle, available, soldOut, qty, max, onChange, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='MobileAppBar'] > JSXAttribute > JSXIdentifier[name!=/^(?:logoSrc|cartCount|onMenu|onCart|onLogo|style|key|ref|className|children)$/]",
+        "message": "<MobileAppBar> doesn't accept that prop. Declared props: logoSrc, cartCount, onMenu, onCart, onLogo, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='MobileTabBar'] > JSXAttribute > JSXIdentifier[name!=/^(?:items|value|onChange|safeArea|style|key|ref|className|children)$/]",
+        "message": "<MobileTabBar> doesn't accept that prop. Declared props: items, value, onChange, safeArea, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NavItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:icon|label|active|danger|onClick|style|key|ref|className|children)$/]",
+        "message": "<NavItem> doesn't accept that prop. Declared props: icon, label, active, danger, onClick, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Tabs'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:nav|underline|chips|segmented)$/]",
+        "message": "<Tabs> variant must be one of 'nav' | 'underline' | 'chips' | 'segmented'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Tabs'] > JSXAttribute > JSXIdentifier[name!=/^(?:tabs|value|onChange|variant|style|key|ref|className|children)$/]",
+        "message": "<Tabs> doesn't accept that prop. Declared props: tabs, value, onChange, variant, style."
+      }
+    ]
+  }
+}

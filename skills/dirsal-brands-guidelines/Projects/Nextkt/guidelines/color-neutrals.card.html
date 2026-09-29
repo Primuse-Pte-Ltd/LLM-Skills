@@ -1,0 +1,25 @@
+<!-- @dsCard group="Colors" viewport="700x190" name="Neutrals & Surfaces" subtitle="Cool #F8F9FA page, white cards, navy ink" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:20px;background:var(--background);font-family:var(--font-body)}
+.row{display:flex;border-radius:var(--radius-card);overflow:hidden;border:1px solid var(--outline-variant)}
+.sw{flex:1;height:80px;display:flex;flex-direction:column;justify-content:flex-end;padding:8px}
+.n{font-size:10px;font-weight:700;color:var(--on-surface)}.h{font-size:10px;opacity:.75;color:var(--on-surface);font-variant-numeric:tabular-nums}
+.ink{display:flex;gap:18px;margin-top:12px;align-items:baseline}
+.ink span{font-size:13px}.ink small{font-size:10px;color:var(--secondary);margin-left:4px}</style>
+</head><body>
+<div class="row">
+<div class="sw" style="background:var(--surface-container-lowest)"><span class="n">lowest · card</span><span class="h">#FFFFFF</span></div>
+<div class="sw" style="background:var(--background)"><span class="n">background</span><span class="h">#F8F9FA</span></div>
+<div class="sw" style="background:var(--surface-container-low)"><span class="n">low</span><span class="h">#F3F4F5</span></div>
+<div class="sw" style="background:var(--surface-container)"><span class="n">container</span><span class="h">#EDEEEF</span></div>
+<div class="sw" style="background:var(--surface-container-high)"><span class="n">high</span><span class="h">#E7E8E9</span></div>
+<div class="sw" style="background:var(--surface-container-highest)"><span class="n">highest</span><span class="h">#E1E3E4</span></div>
+<div class="sw" style="background:var(--outline-variant)"><span class="n">outline-var</span><span class="h">#C3C7CC</span></div>
+</div>
+<div class="ink">
+<span style="color:var(--on-surface);font-weight:700">Headline ink<small>on-surface #1D1E4C</small></span>
+<span style="color:var(--on-surface-variant)">Body copy<small>on-surface-variant #4A5560</small></span>
+<span style="color:var(--secondary)">Meta<small>secondary #5F5E5E</small></span>
+<span style="color:var(--outline)">Placeholder<small>outline #74787E</small></span>
+</div>
+</body></html>

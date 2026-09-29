@@ -75,7 +75,7 @@ and are never offered as options for other work.
 
 - **Kisum** (`themes/kisum.md`) - Cool neutrals with a single Kisum Purple accent; Manrope and Inter
 - **The Stage** (`themes/thestage.md`) - Dark green with a muted gold accent; Cormorant Garamond and Montserrat
-- **Nextkt** (`themes/nextkt.md`) - Light surface with the logo's teal and navy; Inter. Provisional until Nextkt's design system is added: say so when applying it
+- **Nextkt** (`themes/nextkt.md`) - Light cool surface with a teal action colour and navy ink; Inter only; VIP gold
 
 ## Theme Details
 

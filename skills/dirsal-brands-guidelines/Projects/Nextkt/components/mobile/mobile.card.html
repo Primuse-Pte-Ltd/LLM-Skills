@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" viewport="700x430" name="Mobile — App bar & Tab bar" subtitle="Storefront chrome below lg" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:24px;background:var(--surface-container);font-family:var(--font-body);display:flex;gap:24px;justify-content:center}
+.frame{width:320px;height:360px;border-radius:24px;overflow:hidden;border:1px solid var(--outline-variant);position:relative;display:flex;flex-direction:column;background:var(--background)}
+.body{flex:1;padding:16px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.body>*{flex-shrink:0}
+.cap{font-size:var(--text-micro);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--secondary);text-align:center;margin-bottom:8px}</style>
+</head><body>
+<div><div class="cap">Discover</div><div class="frame" id="a"></div></div>
+<div><div class="cap">Tickets</div><div class="frame" id="b"></div></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+const { MobileAppBar, MobileTabBar, EventRow, Tabs } = window.NextktDesignSystem_1c6e87;
+function Frame({ start, cart }){
+  const [t,setT]=React.useState(start);
+  return (<>
+    <MobileAppBar logoSrc="../../assets/logo.svg" cartCount={cart}/>
+    <div className="body">
+      <Tabs variant="chips" tabs={['All Events','Concerts','Festivals']} value="All Events"/>
+      <EventRow month="NOV" day="02" title="Velvet Jazz Nights" venue="Motion Blue" city="Jakarta" price="From Rp 350.000"/>
+      <EventRow month="NOV" day="15" title="Comedy Underground" venue="Kuningan City" price="From Rp 200.000" last/>
+    </div>
+    <MobileTabBar value={t} onChange={setT} safeArea={20} style={{height:76}}/>
+  </>);
+}
+ReactDOM.createRoot(document.getElementById('a')).render(<Frame start="discover" cart={0}/>);
+ReactDOM.createRoot(document.getElementById('b')).render(<Frame start="tickets" cart={2}/>);
+</script>
+</body></html>

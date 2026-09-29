@@ -1,6 +1,6 @@
 ---
 name: dirsal-brands-guidelines
-description: Brand and design guidelines for our internal projects — Kisum (live-music operating platform, purple analytics UI, web + mobile), The Stage (luxury event venue in Bali, dark green and gold), and Nextkt (standalone ticketing storefront and operator admin; guidelines pending). Identifies which project the user is working on and applies that project's colors, typography, logos, components, templates, and voice. Use this whenever the user builds, designs, restyles, or reviews anything visual for Kisum, The Stage, or Nextkt — UI screens, components, landing pages, mockups, prototypes, slides, emails, marketing pages — or mentions branding, brand colors, design system, look-and-feel, or "make it on-brand", even if they don't name the project. If the project can't be determined, this skill asks the user instead of guessing.
+description: Brand and design guidelines for our internal projects — Kisum (live-music operating platform, purple analytics UI, web + mobile), The Stage (luxury event venue in Bali, dark green and gold), and Nextkt (consumer ticketing storefront, teal and navy on light, Inter, photo-first event cards). Identifies which project the user is working on and applies that project's colors, typography, logos, components, templates, and voice. Use this whenever the user builds, designs, restyles, or reviews anything visual for Kisum, The Stage, or Nextkt — UI screens, components, landing pages, mockups, prototypes, slides, emails, marketing pages — or mentions branding, brand colors, design system, look-and-feel, or "make it on-brand", even if they don't name the project. If the project can't be determined, this skill asks the user instead of guessing.
 ---
 
 # Dirsal Brands Guidelines
@@ -19,7 +19,7 @@ Paths below are relative to this skill's directory.
 |---|---|---|---|
 | **Kisum** | `Projects/Kisum/` | Unified operating platform for the live-music industry (promoters, artists, venues, bookings, finance). Web app + mobile app. | `Projects/Kisum/readme.md` (lowercase) |
 | **The Stage** | `Projects/TheStage/` | Luxury event venue in Bali. Public website (events, venue hire, private events, gallery) + booking flows, built on `@thestage/ui` (shadcn). | `Projects/TheStage/README.md` |
-| **Nextkt** | `Projects/Nextkt/` | Standalone ticketing platform: consumer storefront, operator admin, sysadmin console, developer portal. **Design files not added yet.** | `Projects/Nextkt/README.md` (placeholder) |
+| **Nextkt** | `Projects/Nextkt/` | Standalone ticketing platform. The design system covers the consumer storefront (`Nextkt-Frontend`): discovery, event detail, cart, checkout, mobile. | `Projects/Nextkt/readme.md` (lowercase) |
 | **Default** | `Projects/Default/` | Fallback when no project can be identified. Has no design system — it asks the user. | `Projects/Default/README.md` |
 
 ## Step 1 — Identify the project
@@ -45,7 +45,8 @@ Distinctive signals per project:
   gold `#c9a962` on dark green `#0a140f`, Cormorant Garamond + Montserrat, Bali venue,
   venue hire, VIP tables, NYE events, the venue map.
 - **Nextkt:** `nextkt` / `nextkt.com`, `Nextkt-Frontend`, `Nextkt-Frontend-Admin`,
-  `Nextkt-Backend`, ticketing storefront, operator admin, box office, teal/navy palette.
+  `Nextkt-Backend`, `NextktDesignSystem`, "NexTicket" wordmark, teal `#1C6E87` on navy
+  `#1D1E4C`, VIP gold `#D4AF37`, Inter only, `Rp` prices, ticketing storefront, operator admin, box office.
   Kisum's docs mention Nextkt, but only to say it's outside the Kisum design system,
   so a Nextkt repo is Nextkt even if Kisum is referenced somewhere in it.
 
@@ -85,9 +86,15 @@ rules, voice, and the non-obvious traps. Then pull in only what the task needs:
 - `templates/*/assets/logoW.svg` — the white logo.
 
 **Nextkt** (`Projects/Nextkt/`)
-- `README.md` — a placeholder until the design files are added. Follow it: say the
-  guidelines aren't available yet, match the existing Nextkt code if you're in a
-  Nextkt repo, otherwise ask for references. Never substitute Kisum or The Stage.
+- `readme.md` — content voice, visual foundations, iconography, component index. `SKILL.md` in the same folder is a one-screen quick reference.
+- `uploads/DESIGN.md` — the full canonical spec, including the corrections against the upstream `DESIGN.md` (the Radius Trap, headline weights). `uploads/DESIGN-light.md` / `DESIGN-dark.md` for the storefront and the scoped Dark Editorial bands.
+- `tokens/*.css` via `styles.css` — the real token values.
+- `components/<group>/<Name>.prompt.md` — usage for each primitive.
+- `ui_kits/{storefront,event-checkout,mobile}/` — full reference screens for web and mobile.
+- `guidelines/*.card.html` — specimen cards (color, type, spacing, logo rules).
+- `assets/*.svg` — NexTicket lockup, N mark, icon.
+- Scope is the consumer storefront only. For the operator admin, sysadmin console, or
+  developer portal, reuse these tokens but match that repo's existing screens.
 
 **Don't read these into context:** `_ds_bundle.js`, `_vendor/`, `_preview/`, and
 `uploads/*.png`. They are large build outputs or screenshots, often several MB each.
@@ -126,6 +133,4 @@ Reference them from HTML if you need them at runtime.
 1. Put the design-system export in `Projects/<Name>/`, with an entry README.
 2. Add a row to the registry above, plus its distinctive signals in Step 1 and its key files in Step 2.
 3. Add it to the example question in `Projects/Default/README.md`.
-
-When Nextkt's design files arrive, they replace `Projects/Nextkt/README.md`; then
-update its registry row and Step 2 entry to point at the real files.
+4. Add a quick-reference theme in `../dirsal-theme-factory/themes/<name>.md`.

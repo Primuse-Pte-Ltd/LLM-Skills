@@ -43,8 +43,8 @@ refinement pass. What changes:
   make its color and type choices the brand's. The creative freedom goes into form,
   composition, pattern, scale, and rhythm.
 - **Brand rules win over this skill's taste rules.** Where they conflict, follow the brand.
-- **Nextkt is provisional.** Its design system isn't added yet. Use
-  `../dirsal-theme-factory/themes/nextkt.md` and say the palette is provisional.
+- **Nextkt gold is VIP-only.** Teal `#1C6E87` is the action colour; gold `#D4AF37`
+  marks the VIP tier and must not become a general accent in Nextkt pieces.
 
 One brand per piece. Never mix palettes, fonts, or logos across projects.
 

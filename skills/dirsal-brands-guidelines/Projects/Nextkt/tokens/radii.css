@@ -1,0 +1,14 @@
+/* Nextkt corner radii — "Soft and Precise".
+   TRAP: tailwind.config.ts REMAPS the radius scale. In Nextkt-Frontend:
+     rounded / rounded-sm = 2px · rounded-lg = 4px · rounded-xl = 8px · rounded-full = 12px (NOT a circle)
+   rounded-md (6px), rounded-2xl (16px), rounded-3xl (24px) keep Tailwind defaults.
+   Tokens below are the rendered pixel values, named by role. */
+:root {
+  --radius-xs: 2px;      /* rounded / rounded-sm — status badges, tier badges, date overlay chips */
+  --radius-btn: 4px;     /* rounded-lg — buttons, inputs, tier rows, featured event cards */
+  --radius-md: 6px;      /* rounded-md — directory date chip, seat-unit buttons */
+  --radius-card: 8px;    /* rounded-xl — panels, ticket box, account nav items, filter bar */
+  --radius-pill: 12px;   /* rounded-full (remapped) — chips, icon buttons, qty stepper, avatars */
+  --radius-modal: 16px;  /* rounded-2xl — modals, auth card, ticket page, empty states */
+  --radius-circle: 9999px; /* true circle — only via rounded-[9999px]; the storefront almost never uses it */
+}

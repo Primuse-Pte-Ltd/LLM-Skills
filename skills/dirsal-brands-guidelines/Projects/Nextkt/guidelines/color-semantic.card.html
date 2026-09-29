@@ -1,0 +1,24 @@
+<!-- @dsCard group="Colors" viewport="700x180" name="Status, Tiers & Error" subtitle="On-sale green, sold-out grey, GA/VIP/Tables, M3 error" -->
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>body{margin:0;padding:20px;background:var(--background);font-family:var(--font-body);color:var(--on-surface)}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.box{background:var(--surface-card);border:1px solid var(--outline-variant);border-radius:var(--radius-card);padding:12px}
+.t{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--secondary);margin:0 0 10px}
+.l{display:flex;align-items:center;gap:8px;font-size:11px;margin-bottom:7px}
+.b{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:var(--radius-xs);white-space:nowrap}
+code{font-size:10px;color:var(--on-surface-variant)}</style>
+</head><body>
+<div class="g">
+<div class="box"><p class="t">Status</p>
+<div class="l"><span class="b" style="background:var(--status-on-sale);color:#fff">On Sale</span><code>#10B981</code></div>
+<div class="l"><span class="b" style="background:var(--status-sold-out);color:#fff">Sold Out</span><code>#6B7280</code></div>
+<div class="l"><span class="b" style="background:var(--primary);color:#fff">Presale</span><code>primary</code></div></div>
+<div class="box"><p class="t">Ticket tiers</p>
+<div class="l"><span class="b" style="background:rgb(65 114 146/.12);color:var(--tier-ga)">GA</span><code>#417292</code></div>
+<div class="l"><span class="b" style="background:rgb(212 175 55/.16);color:var(--on-tertiary-container)">VIP</span><code>#D4AF37 · text #4E3D00</code></div>
+<div class="l"><span class="b" style="background:var(--tier-tables);color:#fff">Tables</span><code>#1D1E4C</code></div></div>
+<div class="box"><p class="t">Error</p>
+<div class="l"><span class="b" style="background:var(--error-container);color:var(--on-error-container)">Selling fast</span><code>#FFDAD6 / #93000A</code></div>
+<div class="l" style="color:var(--error)"><span class="ms" style="font-size:16px">error</span>Hold expired — seats released<code style="margin-left:auto">#BA1A1A</code></div></div>
+</div>
+</body></html>
