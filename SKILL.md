@@ -908,7 +908,7 @@ If that directory already exists, `git -C "$HOME/.agents/skills/llm-council" pul
 | Claude Code | `~/.claude/skills/llm-council` |
 | Codex | `~/.codex/skills/llm-council` |
 | Gemini CLI | `~/.gemini/skills/llm-council` |
-| Antigravity | `~/.gemini/antigravity/skills/llm-council` |
+| Antigravity | `~/.gemini/config/skills/llm-council` |
 | Cursor | `~/.cursor/skills/llm-council` |
 
 The links point at the clone, so a later pull is what every host reads. Do not copy a second `SKILL.md` into those folders. If `gemini` is on `PATH`, also run `gemini skills link "$HOME/.agents/skills/llm-council" --consent`.

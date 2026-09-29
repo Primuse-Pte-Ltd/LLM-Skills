@@ -36,7 +36,7 @@ python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
 | Claude Code | `~/.claude/skills/llm-council` |
 | Codex | `~/.codex/skills/llm-council` |
 | Gemini CLI | `~/.gemini/skills/llm-council` |
-| Antigravity | `~/.gemini/antigravity/skills/llm-council` |
+| Antigravity | `~/.gemini/config/skills/llm-council` |
 | Cursor | `~/.cursor/skills/llm-council` |
 
 If `gemini` is on `PATH`, register the same clone:
