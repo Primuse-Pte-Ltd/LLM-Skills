@@ -14,17 +14,20 @@ Each host runs its own model. Do not reuse an OpenAI model id on Claude, Cursor,
 
 The agent does this. Do not ask the user to clone the repo, change directory, or run the script.
 
+The install writes outside the current project (`~/.agents`, `~/.claude`, `~/.gemini`, `~/.cursor`). If the host asks for permission, ask the user once to approve those writes, then run the commands. Needs only `git` and `python3`; the repository is public, so no GitHub login is required.
+
 Clone outside the current project, then link that clone into every coding agent:
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
-gh repo clone Primuse-Pte-Ltd/llm-council "$HOME/.agents/skills/llm-council"
+git clone https://github.com/Primuse-Pte-Ltd/llm-council.git "$HOME/.agents/skills/llm-council"
 python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
 ```
 
 If `$HOME/.agents/skills/llm-council` already exists, update it and link again:
 
 ```bash
+git -C "$HOME/.agents/skills/llm-council" remote set-url origin https://github.com/Primuse-Pte-Ltd/llm-council.git
 git -C "$HOME/.agents/skills/llm-council" pull --ff-only
 python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
 ```

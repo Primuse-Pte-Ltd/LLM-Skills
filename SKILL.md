@@ -418,7 +418,7 @@ If the user asked only for a side-by-side comparison, bring the answers back and
 
 ## Install
 
-The agent does this. Do not ask the user to clone the repo or run the script. The source is GitHub:
+The agent does this. Do not ask the user to clone the repo or run the script. The install writes outside the current project (`~/.agents`, `~/.claude`, `~/.gemini`, `~/.cursor`). If the host asks for permission, ask the user once to approve those writes, then run the commands. Needs only `git` and `python3`; the repository is public, so no GitHub login is required. The source is GitHub:
 
 ```
 https://github.com/Primuse-Pte-Ltd/llm-council
@@ -428,11 +428,11 @@ Clone it outside the current project, then link that clone:
 
 ```bash
 mkdir -p "$HOME/.agents/skills"
-gh repo clone Primuse-Pte-Ltd/llm-council "$HOME/.agents/skills/llm-council"
+git clone https://github.com/Primuse-Pte-Ltd/llm-council.git "$HOME/.agents/skills/llm-council"
 python3 "$HOME/.agents/skills/llm-council/scripts/install.py"
 ```
 
-If that directory already exists, `git -C "$HOME/.agents/skills/llm-council" pull --ff-only` and run `install.py` again. A link that already points at the clone is left alone. A real directory that is not a link is left in place and reported. Do not delete it unless the user asked.
+If that directory already exists, run `git -C "$HOME/.agents/skills/llm-council" remote set-url origin https://github.com/Primuse-Pte-Ltd/llm-council.git`, then `git -C "$HOME/.agents/skills/llm-council" pull --ff-only`, and run `install.py` again. A link that already points at the clone is left alone. A real directory that is not a link is left in place and reported. Do not delete it unless the user asked.
 
 | Host | Where it lands |
 |---|---|
