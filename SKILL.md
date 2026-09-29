@@ -446,6 +446,8 @@ If that directory already exists, run `git -C "$HOME/.agents/skills/llm-council"
 
 The links point at the clone, so a later pull is what every host reads. Do not copy a second `SKILL.md` into those folders. If `gemini` is on `PATH`, also run `gemini skills link "$HOME/.agents/skills/llm-council" --consent`.
 
+To remove the skill, run `python3 "$HOME/.agents/skills/llm-council/scripts/uninstall.py" --check`, show the user what it would remove, and run it without `--check` after they approve.
+
 Omniroute and KisumAI do not take that link. See `README.md`.
 
 ## Rules

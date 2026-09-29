@@ -92,6 +92,28 @@ Codex reads `~/.agents/skills` itself. `~/.codex/skills` is the old location, so
 
 Then tell the user which hosts were linked and which were skipped. The host that is running is the chairman. The others are seats, asked read-only, each with its own model flag. Those commands are in `references/agents.md`.
 
+## Uninstall
+
+Paste this prompt into a coding agent on the same computer:
+
+```text
+Uninstall the llm-council skill. Run
+python3 ~/.agents/skills/llm-council/scripts/uninstall.py --check
+show me what it would remove, ask me once to approve, then run it again
+without --check. When done, tell me what was removed and what was left.
+```
+
+Or run it yourself:
+
+```bash
+python3 "$HOME/.agents/skills/llm-council/scripts/uninstall.py" --check   # preview, changes nothing
+python3 "$HOME/.agents/skills/llm-council/scripts/uninstall.py"           # remove
+```
+
+`uninstall.py` removes the links in `~/.claude/skills`, `~/.gemini/skills`, `~/.cursor/skills` and the old `~/.codex/skills`, the Antigravity folder and its manifest entry, and last the clone in `~/.agents/skills/llm-council` (which is what Codex reads). It only deletes a link that points at a `llm-council` folder or a folder whose `SKILL.md` says `name: llm-council`. Anything else is left in place and reported. Use `--keep-clone` to remove the links but keep the clone. Restart each agent afterwards.
+
+If you ran `gemini skills link` before, check `gemini skills list` and remove the entry there too. A skill uploaded to the Claude app is removed in the app's Skills settings.
+
 ## Omniroute
 
 Omniroute does not load `SKILL.md`. `omniroute skills install` registers an executable skill: a JSON file with `name`, `schema.input`, `schema.output`, and a `handler` string that names code Omniroute can run. This council is instructions for an agent, not that kind of handler.
