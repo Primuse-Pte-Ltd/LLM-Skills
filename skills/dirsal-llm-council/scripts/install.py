@@ -49,7 +49,15 @@ CODEX_LEGACY = HOME / ".codex" / "skills" / SKILL
 # files. A symlink is skipped.
 ANTIGRAVITY = HOME / ".gemini" / "config" / "skills" / SKILL
 MANIFEST = ANTIGRAVITY.parent / ".datacloud_skills_manifest"
-SKIP_NAMES = {".git", ".DS_Store", "temp", "__pycache__"}
+SKIP_NAMES = {".git", ".DS_Store", "temp", "__pycache__", ".venv", "data", "worktrees"}
+
+
+def excluded(name: str) -> bool:
+    return name in SKIP_NAMES or (name.startswith(".env") and name != ".env.example")
+
+
+def copy_ignore(directory, names):
+    return [name for name in names if excluded(name)]
 
 # How each host is recognised: a config folder in HOME, a command on PATH,
 # or an installed app. Any one is enough.
@@ -74,8 +82,8 @@ HOSTS = {
     },
     "antigravity": {
         "dest": ANTIGRAVITY,
-        "dirs": [HOME / ".gemini" / "antigravity", HOME / ".antigravity"],
-        "bins": ["antigravity"],
+        "dirs": [HOME / ".gemini" / "antigravity-cli", HOME / ".gemini" / "antigravity", HOME / ".antigravity"],
+        "bins": ["agy", "antigravity"],
         "apps": ["/Applications/Antigravity.app"],
     },
     "cursor": {
@@ -154,7 +162,7 @@ def link(name: str, dest: Path) -> str:
     if dest.is_symlink():
         if dest.resolve() == ROOT:
             return f"{name}: already linked"
-        dest.unlink()
+        return f"{name}: skipped, {dest} points elsewhere; review before replacing"
     elif dest.exists():
         return f"{name}: skipped, {dest} already exists and is not a link"
     try:
@@ -162,14 +170,14 @@ def link(name: str, dest: Path) -> str:
         return f"{name}: linked {dest} -> {ROOT}"
     except OSError:
         # Windows without Developer Mode cannot create symlinks.
-        shutil.copytree(ROOT, dest, ignore=shutil.ignore_patterns(*SKIP_NAMES))
+        shutil.copytree(ROOT, dest, ignore=copy_ignore)
         return f"{name}: copied to {dest} (symlinks not allowed here; run install.py again after every update)"
 
 
 def skill_checksum(skill_dir: Path) -> str:
     digest = hashlib.sha256()
     files = sorted(
-        (path for path in skill_dir.rglob("*") if path.is_file()),
+        (path for path in skill_dir.rglob("*") if path.is_file() and not any(excluded(part) for part in path.relative_to(skill_dir).parts)),
         key=lambda path: path.relative_to(skill_dir).as_posix(),
     )
     for path in files:
@@ -203,7 +211,7 @@ def link_antigravity(dest: Path) -> str:
     skill_md.write_bytes((ROOT / "SKILL.md").read_bytes())
     linked = 0
     for child in sorted(ROOT.iterdir()):
-        if child.name in SKIP_NAMES or child.name == "SKILL.md":
+        if excluded(child.name) or child.name == "SKILL.md":
             continue
         target = dest / child.name
         if target.is_symlink():
@@ -216,7 +224,7 @@ def link_antigravity(dest: Path) -> str:
             target.symlink_to(child, target_is_directory=child.is_dir())
         except OSError:
             if child.is_dir():
-                shutil.copytree(child, target, ignore=shutil.ignore_patterns(*SKIP_NAMES))
+                shutil.copytree(child, target, ignore=copy_ignore)
             else:
                 shutil.copy2(child, target)
         linked += 1
@@ -249,7 +257,10 @@ def is_stale_link(path: Path, old: str) -> bool:
 
 
 def cleanup_old_names() -> None:
-    """Remove what an install under the previous skill name left behind."""
+    """Remove what an install under the previous skill name left behind.
+
+    dirsal-llm-coding-council is a different skill in the same repository. Leave it alone.
+    """
     for old in OLD_NAMES:
         for parent in (
             HOME / ".agents" / "skills",
@@ -280,13 +291,16 @@ def cleanup_old_names() -> None:
                 print(f"old name: removed the {old} Antigravity manifest entry")
 
 
-def codex_status() -> str:
+def codex_status(cleanup=False) -> str:
     notes = []
     if ROOT != EXPECTED_ROOT.resolve() and ROOT != EXPECTED_ROOT:
         notes.append(f"codex: WARNING, the clone is at {ROOT}, but Codex only reads {EXPECTED_ROOT}")
     if CODEX_LEGACY.is_symlink():
-        CODEX_LEGACY.unlink()
-        notes.append("codex: removed old ~/.codex/skills link; Codex reads ~/.agents/skills")
+        if cleanup and CODEX_LEGACY.resolve() == ROOT:
+            CODEX_LEGACY.unlink()
+            notes.append("codex: removed redundant legacy link to canonical skill")
+        else:
+            notes.append(f"codex: review legacy link {CODEX_LEGACY}; left unchanged")
     elif CODEX_LEGACY.exists():
         notes.append(f"codex: left {CODEX_LEGACY} in place, it is not a link")
     if not notes:
@@ -301,6 +315,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--check", action="store_true", help="detect and report only, change nothing")
     parser.add_argument("--all", action="store_true", help="link every host, even ones not detected")
+    parser.add_argument("--legacy-gemini-link", action="store_true", help="explicitly add link for older Gemini clients only")
+    parser.add_argument("--cleanup-legacy", action="store_true", help="opt in to original old-name cleanup after operator review")
     args = parser.parse_args()
 
     if not (ROOT / "SKILL.md").is_file():
@@ -335,6 +351,9 @@ def main() -> int:
         return 2
 
     if args.check:
+        print(f"\nCanonical source: {ROOT}")
+        for name, path in (("shared", EXPECTED_ROOT), ("legacy Gemini", HOSTS["gemini"]["dest"]), ("legacy Codex", CODEX_LEGACY), ("Antigravity IDE", ANTIGRAVITY)):
+            print(f"  {name}: {path} -> {path.resolve() if path.is_symlink() else ('real directory/file' if path.exists() else 'absent')}")
         print("\n--check: nothing changed.")
         return 0
 
@@ -344,17 +363,16 @@ def main() -> int:
             print(f"{name}: skipped, not installed here")
             continue
         if name == "codex":
-            print(codex_status())
+            print(codex_status(args.cleanup_legacy))
+        elif name == "gemini" and not args.legacy_gemini_link:
+            print(f"gemini: shared discovery; legacy path {spec['dest']} left unchanged for operator review")
         elif name == "antigravity":
             print(link_antigravity(spec["dest"]))
         else:
             print(link(name, spec["dest"]))
 
-    cleanup_old_names()
-
-    if found["gemini"] and shutil.which("gemini"):
-        print("\ngemini is on PATH: also run")
-        print(f'  gemini skills link "{ROOT}" --consent')
+    if args.cleanup_legacy:
+        cleanup_old_names()
     print("\nRestart each linked agent so it loads the skill.")
     return 0
 
