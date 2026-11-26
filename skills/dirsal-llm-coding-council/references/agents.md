@@ -1,51 +1,27 @@
-## Ask the other agents
+# Ask the other agents
 
-The council seats are the installed agents, not a fixed OpenAI plus Gemini pair. A model id from one agent is invalid on the others. `gpt-5-nano` is an OpenAI API id. `gemini-3-flash-preview` is a Gemini API id. Claude will not accept either. Cursor, Codex, and Antigravity will not accept a Gemini id. KisumAI does not read either variable.
+Default independent seats are Claude Code, OpenAI Codex and Google Antigravity running Gemini. The host remains chairman. Use `scripts/native_council.py` and [native-council.md](native-council.md) for commands, exact permissions caveats, model configuration and the two-round JSON contract. The native runner is the only automated seat path for the 4D program. It does not silently use HTTP APIs or the retired individual Gemini CLI access path.
 
-Leave the model flag off unless the user named a model for that agent. The omitted flag uses the model that agent is already configured to run. If you pass a model, pass that agent's own id, from that agent's list command.
+| Seat | CLI | Default requested model |
+|---|---|---|
+| Claude | `claude -p` | `opus` |
+| Codex | `codex exec` | `gpt-5.6-sol` |
+| Antigravity | `agy` headless | `gemini-4-neon-high` |
 
-| Agent | Ask, read-only | Model flag | Where the ids come from |
-|---|---|---|---|
-| Claude | `claude -p --bare --output-format text` | `--model` | Alias `fable`, `opus`, `sonnet`, or a full Claude name such as `claude-fable-5` |
-| Codex | `codex exec --ephemeral --skip-git-repo-check -s read-only` | `-m` | The model configured in Codex. `codex exec -m <id>` |
-| Gemini | `gemini -p --approval-mode plan --output-format text` | `-m` | A Gemini model id. `gemini -m <id>` |
-| Antigravity | `agy --print --mode plan` | `--model` | `agy models` |
-| Cursor | `agent -p --mode ask --output-format text` | `--model` | `agent --list-models`. Examples the CLI documents: `gpt-5`, `sonnet-4`, `sonnet-4-thinking` |
+Model flags, read-only requests, process management and output parsing are centralized in the runner. Do not bypass the runner by calling ad hoc shell commands during a council. Do not use auto mode or dangerous permission flags. A missing or failed seat stays missing; a lens from the chairman is not an independent provider. The other installed agents (Cursor, Gemini CLI for accounts that still support it) may act as hosts, not automatic independent seats. Do not assume the host's model family from its app name.
 
-Do not add `--dangerously-skip-permissions`, `--yolo`, `--force`, or `--dangerously-bypass-approvals-and-sandbox`. Those flags let a member edit the machine. The council only needs the judgment.
+## Optional pair consult / HTTP API compatibility
 
-Run the members you have, in parallel. Name any member that is not installed. Then you are the chairman: ledger, anonymous review, verdict. Attribute a claim to the agent that said it ("Claude: …", "Cursor: …"), not to a model family that agent does not run.
-
-### OpenAI and Gemini HTTP APIs
-
-Use this only when the user wants those two APIs and the agent CLIs above are not the seats. The script is `scripts/query_llms.py` in this skill. Run it from the skill directory, the folder that contains this file. It prefers the `codex` and `gemini` CLIs, then falls back to the APIs. It prints JSON with `chatgpt` and `gemini` objects (`model`, `source`, `response`). It imports `requests`. If that import fails, `python3 -m pip install requests` once, then rerun.
+`query_llms.py` remains the two-seat compatibility entrypoint. It invokes the same native runner for Codex and Antigravity and returns `chatgpt` and `gemini` objects with model, source, status and response. It no longer attempts `codex -p`, retired individual Gemini CLI, or silent paid fallback.
 
 ```bash
-python3 scripts/query_llms.py "<framed question>"
+python3 scripts/query_llms.py --approved-context "<approved non-secret question>"
 ```
 
-When the CLIs are absent and the user still wants the HTTP APIs, put this in the working directory as `.env`. Never commit it. Never paste the keys into chat or into the task.
-
-```
-OPENAI_API_KEY=sk-...
-GEMINI_API_KEY=...
-OPENAI_MODEL=gpt-5-nano
-GEMINI_MODEL=gemini-3-flash-preview
-```
-
-Keys: https://platform.openai.com/api-keys and https://aistudio.google.com/app/apikey.
-
-These ladders are API ids only. They are not the model list for Claude, Codex, Cursor, Antigravity, Omniroute, or KisumAI.
-
-OpenAI API, lower capability to higher: `gpt-5-nano`, `gpt-5-mini`, `gpt-5.2`, `gpt-5.2-pro`.
-Gemini API, lower to higher: `gemini-2.5-flash-lite`, `gemini-2.5-flash`, `gemini-3-flash-preview`, `gemini-3-pro-preview`.
-
-Do not invent current prices. If cost matters, check that provider's pricing page before a heavier API model.
-
-A direct test of the script, from the skill directory:
+Explicit paid HTTP mode is separately available for authorized, non-secret context. Export `OPENAI_API_KEY`, `GEMINI_API_KEY`, `OPENAI_MODEL`, and `GEMINI_MODEL` in the operator's shell using current provider-supported IDs. No automatic dotenv reading, no default model IDs, no keys in the question or transcript. Only after explicit approval of API billing and sharing:
 
 ```bash
-python3 scripts/query_llms.py "Test prompt"
+python3 scripts/query_llms.py --api --approved-context "<approved non-secret question>"
 ```
 
-Success is JSON with both responses. An error string inside a seat means that seat dropped. If both error, say so and run the lens council on this agent.
+Do not use HTTP mode for 4D unless the operator explicitly changes the program's provider policy. The dashboard, OpenCode and external `the-llm-council` remain optional legacy instruments; they are not substitutes for required independent native seats. Never use a worktree/Git or API-backed instrument where the governing rules prohibit it.

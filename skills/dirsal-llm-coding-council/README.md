@@ -10,96 +10,32 @@ https://github.com/Primuse-Pte-Ltd/LLM-Skills
 
 This skill is the `skills/dirsal-llm-coding-council` folder in that repository.
 
-Each host runs its own model. Do not reuse an OpenAI model id on Claude, Cursor, Codex, Antigravity, or Gemini, and do not reuse a Gemini model id on the others. Leave the model flag off to keep the model that host is already using.
+## Native multi-model integration
 
-## Install with a prompt
+The preferred cross-model path uses Claude Code (`opus`), Codex (`gpt-5.6-sol`) and Antigravity (`gemini-4-neon-high`) directly, with explicit models to preserve independence. `scripts/native_council.py` runs parallel independent reviews, then an optional anonymous critique round. The existing six-lens council and verdict remain available. The runner uses existing CLI authentication, not automatic API fallback. See [Native Council](references/native-council.md) for approval, permissions, tests, CLI commands and the 4D integration contract. Gemini CLI is not used for the native council. Existing dashboard/OpenCode/API modes remain opt-in and subject to policy.
 
-Paste this prompt into any coding agent. One install covers every agent installed on that computer, so you only need to run it once per computer. Run it from an agent on your own computer, not from a cloud chat: the script checks this and stops if it finds no agents.
+## Update from this ZIP (operator-owned)
 
-```text
-Install the dirsal-llm-coding-council skill from https://github.com/Primuse-Pte-Ltd/LLM-Skills
-(folder skills/dirsal-llm-coding-council). It does not have its own repository.
-Follow the "Install" section of skills/dirsal-llm-coding-council/README.md exactly:
-clone https://github.com/Primuse-Pte-Ltd/LLM-Skills.git to ~/.agents/LLM-Skills
-(or pull if that checkout already exists), symlink
-~/.agents/LLM-Skills/skills/dirsal-llm-coding-council to ~/.agents/skills/dirsal-llm-coding-council,
-then run python3 ~/.agents/skills/dirsal-llm-coding-council/scripts/install.py.
-The skill used to be called llm-coding-council. install.py removes links left
-under that old name. Do not touch dirsal-llm-council, and do not delete
-~/.agents/LLM-Skills.
-This writes outside the current project; ask me once to approve, then continue.
-The script checks where it is running first. If it prints STOP, do not work
-around it: tell me what it found and what I should do.
-When done, tell me which agents were linked and which were skipped.
-```
+1. Keep a recoverable copy of the current canonical skill and its local configuration outside the replacement directory. Never overwrite a live installation during an active council. Preserve private `.env` files locally, not in this ZIP or a public repository.
+2. Extract the ZIP to a staging folder. Compare the delivered files with the current canonical folder `~/.agents/LLM-Skills/skills/dirsal-llm-coding-council`; replace the skill files there only after approval. Do not create another checkout or pull over the delivered files. The operator owns any Git operations; the agents do not run them under a zero-Git policy.
+3. Preview the existing installer with `python3 ~/.agents/LLM-Skills/skills/dirsal-llm-coding-council/scripts/install.py --check`. Existing shared symlinks should continue to work. Run the installer only if required and approved; Antigravity IDE copies may need refresh. It now avoids new duplicate Gemini links by default. A real conflicting directory must be examined, not removed automatically.
+4. Run `python3 ~/.agents/LLM-Skills/skills/dirsal-llm-coding-council/scripts/native_council.py --probe`. Then follow the permission and model checks in the native reference before sending private code. Do not assume the successful probe proves read-only isolation.
 
-| Host | Where to paste it | Notes |
-|---|---|---|
-| Claude Code | Terminal or IDE chat | Approve the shell commands when asked. Start a new session so the skill loads. |
-| Codex | Codex CLI or IDE chat | Codex may run commands in a sandbox that cannot write to `~`. Approve the command or allow full access for this step. Restart Codex after. |
-| Cursor | Agent chat (Agent mode, not Ask) | Approve the terminal commands. Reload the window after. |
-| Antigravity | Agent panel | Approve the terminal commands. Restart Antigravity so it lists the skill. |
-| Gemini CLI | `gemini` chat | Approve the shell commands. The agent also runs `gemini skills link` when `gemini` is installed. |
-| Claude app (claude.ai, desktop) | Not by prompt | Zip the skill folder and upload it in the app's Skills settings. The prompt install is for coding agents only. |
-| Omniroute | Not by prompt | See [Omniroute](#omniroute). |
-| KisumAI | Not by prompt | See [KisumAI](#kisumai). |
+Offline verification: `python3 -m unittest discover -s tests -v` from the skill folder. Tests use fake CLI processes only, never provider accounts. See CHANGELOG for delivery scope.
 
-To check it worked, ask the agent: "Do you have the dirsal-llm-coding-council skill? Council this change: <the design>".
+## New installation / host registration
 
-To update later, paste the same prompt again. It pulls the latest version and links again.
+The operator obtains the canonical skill from the existing LLM-Skills checkout or an approved ZIP. Do not ask an agent to clone or pull when Git is prohibited. Ensure `~/.agents/skills/dirsal-llm-coding-council` points to the canonical skill directory; verify it is not an independent copy before replacing anything. The existing local installer discovers installed hosts and links only those it finds. First run `scripts/install.py --check` and review the results. If approved, run `scripts/install.py` from the canonical skill. `--all` links even undetected hosts; only use if specifically authorized. `--legacy-gemini-link` is for older Gemini clients that truly require their own link; modern Gemini discovers the shared directory. `--cleanup-legacy` permits the original old-name cleanup; review paths and backups first. Real conflicting folders are reported rather than silently replaced. Do not touch the separate `dirsal-llm-council` skill.
 
-## Install
-
-The agent does this. Do not ask the user to clone the repo, change directory, or run the script.
-
-The install writes outside the current project (`~/.agents`, `~/.claude`, `~/.gemini`, `~/.cursor`). If the host asks for permission, ask the user once to approve those writes, then run the commands. Needs only `git` and `python3`. The repository is public, so no GitHub login is required.
-
-This skill lives in [LLM-Skills](https://github.com/Primuse-Pte-Ltd/LLM-Skills), at `skills/dirsal-llm-coding-council`. Clone that repository once, outside the current project, then symlink this folder into `~/.agents/skills`. One checkout serves every skill in the repo, including `dirsal-llm-council`.
-
-```bash
-mkdir -p "$HOME/.agents/skills"
-if [ ! -d "$HOME/.agents/LLM-Skills/.git" ]; then
-  git clone https://github.com/Primuse-Pte-Ltd/LLM-Skills.git "$HOME/.agents/LLM-Skills"
-else
-  git -C "$HOME/.agents/LLM-Skills" pull --ff-only
-fi
-ln -sfn "$HOME/.agents/LLM-Skills/skills/dirsal-llm-coding-council" "$HOME/.agents/skills/dirsal-llm-coding-council"
-python3 "$HOME/.agents/skills/dirsal-llm-coding-council/scripts/install.py"
-```
-
-Do not clone this repository into `~/.agents/skills/dirsal-llm-coding-council`. That path has to be the skill folder, and the repository root is not a skill. Do not rename `~/.agents/skills/dirsal-llm-council` onto this skill. That path is the other council.
-
-This skill was called `llm-coding-council` before. `install.py` removes a link named `llm-coding-council` in `~/.agents/skills`, `~/.claude/skills`, `~/.gemini/skills`, `~/.cursor/skills`, or `~/.codex/skills` when it points at this folder or at a `llm-coding-council` folder that no longer exists. It also removes the old `llm-coding-council` Antigravity folder and its manifest entry. A real `llm-coding-council` directory, for example a checkout of the old standalone repo, is reported and left in place. Remove it after the user approves, or Codex loads the council twice.
-
-`install.py` first checks where it is running, then links only the agents it finds:
-
-- It reports the OS and whether this looks like a container, cloud sandbox, CI runner, or SSH session.
-- An agent counts as installed only if its own folder exists in the home folder (`~/.claude`, `~/.codex`, `~/.gemini`, `~/.cursor`, `~/.gemini/antigravity`) or its app is installed. A command on `PATH` alone does not count, because sandboxes often ship a `claude` binary nobody has used.
-- If it finds no agents, it prints `STOP`, links nothing, and exits with code 2. That means the agent is running somewhere other than the user's computer, such as a cloud chat or remote session. Tell the user to run the prompt from a coding agent on their own machine. Do not rerun with `--all` unless the user asks.
-- If the home folder cannot be written, it prints `STOP` and exits with code 3. The agent is sandboxed. Ask the user to approve the command with full access.
-- On Windows without symlink rights, it copies the skill instead of linking it. Run `install.py` again after every update.
-
-Options: `--check` reports without changing anything. `--all` links every host even if it was not found.
-
-For the agents it finds, `install.py` creates the links below. A link that already points at the skill folder is left alone. A real directory that is not a link is left in place and reported.
-
-| Host | Where it reads the skill |
+| Host | Discovery location |
 |---|---|
 | Claude Code | `~/.claude/skills/dirsal-llm-coding-council` |
 | Codex | `~/.agents/skills/dirsal-llm-coding-council` |
-| Gemini CLI | `~/.gemini/skills/dirsal-llm-coding-council` |
-| Antigravity | `~/.gemini/config/skills/dirsal-llm-coding-council` |
+| Gemini CLI | shared `~/.agents/skills/`; legacy link only when explicitly required |
+| Antigravity IDE | `~/.gemini/config/skills/dirsal-llm-coding-council` (existing installer layout; CLI discovery must be checked separately) |
 | Cursor | `~/.cursor/skills/dirsal-llm-coding-council` |
 
-If `gemini` is on `PATH`, register the same folder:
-
-```bash
-gemini skills link "$HOME/.agents/skills/dirsal-llm-coding-council" --consent
-```
-
-Codex reads `~/.agents/skills` itself. `~/.codex/skills` is the old location, so this install does not add a second link there.
-
-Then tell the user which hosts were linked and which were skipped. The host that is running is the chairman. The others are seats, asked read-only, each with its own model flag. Those commands are in `references/agents.md`.
+The CLI runner does not depend on the child hosts loading this skill: it sends a bounded review prompt. For use of this skill directly within a host, restart the host and check discovery. Anthropic's app upload and the optional Omniroute/KisumAI paths are separate; a cloud chat cannot execute the local CLI runner. On Windows, symlink fallbacks may copy files; verify updated content before use. No secret files are intentionally linked/copied by the installer.
 
 ## Uninstall
 
@@ -127,7 +63,7 @@ If you ran `gemini skills link` before, check `gemini skills list` and remove th
 
 Omniroute does not load `SKILL.md`. `omniroute skills install` registers an executable skill: a JSON file with `name`, `schema.input`, `schema.output`, and a `handler` string that names code Omniroute can run. This council is instructions for an agent, not that kind of handler.
 
-The install above is what Omniroute's agents read. Omniroute picks the upstream provider and that provider's model. The OpenAI and Gemini ladders in `SKILL.md` are only for the optional HTTP fallback, not for Omniroute routes.
+The install above is what Omniroute's agents read. Omniroute picks the upstream provider and that provider's model. The optional HTTP compatibility path is explicitly authorized and uses operator-selected API model IDs, not Omniroute routes.
 
 If `omniroute` is on `PATH`, confirm its own registry:
 

@@ -9,7 +9,8 @@ description: >-
   Expansionist, Outsider, and Executor. Team is router, researcher,
   architect, assessor, planner, implementer, test-designer, reviewer,
   red-team, and shipper. Installs into Claude, Codex, Gemini, Antigravity,
-  and Cursor. Each host uses its own model. Use when the user says
+  and Cursor. Native independent seats use Claude, Codex, and Antigravity
+  with Gemini; no automatic API fallback. Use when the user says
   "coding council", "council this code", "council this change", "council
   this design", "council this architecture", "council this system",
   "council this API", "war room this design", or "pressure-test this
@@ -41,13 +42,13 @@ Council:
 - [ ] Router classified the task and named the crew
 - [ ] Working team wrote a Council Brief
 - [ ] Decision ledger lists every option, the mistake that kills it, and the bugs
-- [ ] Six seats launched in parallel on the brief and the ledger
+- [ ] Selected seats launched independently in parallel; native seats use a neutral evidence frame
 - [ ] Ledger updated with anything peer review added
 - [ ] A generic seat sent back once, then dropped if it is still generic
 - [ ] Anonymous peer review completed
 - [ ] Chairman named the call, what happened to the plan, and the assumption the call dies on
 - [ ] Verdict posted in chat
-- [ ] HTML report and markdown transcript saved, and the HTML report opened
+- [ ] HTML report and markdown transcript saved/opened only if authorized; otherwise verdict in chat
 ```
 
 ## The bar
@@ -81,15 +82,20 @@ Specialist criteria, applied to the user's facts:
 
 | Mode | Use when | Who answers |
 |---|---|---|
-| **Lens council** (default) | "coding council", "council this change", "council this design", a real systems tradeoff | Working team, then six seats: The User plus five lenses. No API keys. |
-| **Pair consult** | "ask ChatGPT and Gemini", "consult other models" on a plan | `codex` and `gemini` CLIs, else OpenAI and Gemini APIs |
+| **Lens council** | explicit single-host lens review, ordinary systems tradeoff | Working team, then six seats: The User plus five lenses. No API keys. |
+| **Native council** (default for independent or complex technical review) | coding council across model families, 4D audit and verification | `scripts/native_council.py`: Claude, Codex, Antigravity (Gemini) |
+| **Pair consult** | ask ChatGPT and Gemini specifically | Codex and Antigravity via `scripts/query_llms.py`; HTTP only with explicit approval |
 | **Dashboard** | live side-by-side comparison, anonymous model vote, "start the council dashboard" | AI Gateway models in the browser |
 | **OpenCode council** | several configured models should answer, or propose and rank code in worktrees | OpenCode CLI |
 | **CLI council** | production implementation, CWE review, architecture, tests, threat model, research, build-vs-buy, release notes | `the-llm-council` (`council run`) |
 
+**Mandatory policy.** The existing global, workspace and module engineering rules take priority over this skill, including Ponytail or any other skill. Never run Git (even indirectly) where forbidden; no services, deployments, env changes, or project writes in a council without separate authorization. Do not use OpenCode worktrees when Git is prohibited; do not launch the dashboard or external API-backed runners without explicit approval. Do not fabricate a successful review. A council verdict is advice, not authorization to modify code.
+
+**Native council workflow.** Read `references/native-council.md` first. Use the original specialists and ledger, but launch the native reviewers on a neutral frame before showing the working team's recommendations. All three receive the same approved evidence; the runner performs independent responses and one optional anonymized critique wave. The host reconciles the output into the ledger and writes the verdict using Stage 3. Do not additionally spawn six simulated advisors or repeat the peer wave unless the user explicitly requests it. For ordinary single-family lens work, use the original six-seat protocol. For independent review, use at least two distinct model families; critical reviews request all three. Evidence-only is bounded, not full discovery; direct workspace access is blocked until local permissions are verified and operator approves. Never launch a council from a child (`DIRSAL_COUNCIL_CHILD`). Missing critical seats block verification; do not substitute simulated lenses. No automatic API fallback, automatic remediation or retry. The host may request a separately approved retry once if needed. See the native reference for pre/post-remediation use and constraints.
+
 Lens council is the protocol in the next sections: working team, then the six seats, then peer review, then the chairman. Pair consult and OpenCode can replace the six seats in Stage 1 when the user wants other models' own words. Stages 2 and 3 still happen here. The dashboard is the comparison surface; bring a chairman verdict back when the user wants a decision, not only a grid. `council run` is an optional engine for the working-team roles when the package is installed. The six seats still sit on that output unless the user asked only for the CLI JSON.
 
-If a model seat is missing a key or a CLI, name that seat and continue with whoever answered. If every external model fails, run the lens council and say that is what happened.
+If a model seat is missing a key or a CLI, name that seat and continue with whoever answered. If every external model fails, a lens-only analysis may be offered, clearly labeled non-independent; required cross-model verification remains blocked.
 
 ## Become expert before anyone speaks
 
@@ -288,11 +294,11 @@ Each seat still has to be an expert on the discipline in the frame. A Contrarian
 
 ## Stage 1 — Convene the council
 
-Spawn all six seats at the same time. Sequential calls let earlier answers leak into later ones. Each seat gets its role, the framed question, and the Council Brief. Nothing else. 150–300 words. No preamble.
+In lens mode, spawn all six seats at the same time. Sequential calls let earlier answers leak into later ones. Each seat gets its role, the framed question, and the Council Brief. Nothing else. 150–300 words. No preamble.
 
 The prompts are in `references/prompts.md`. Use them verbatim.
 
-On a pair consult or an OpenCode run, Stage 1 is the model runner. Treat each model answer as one seat. Do not edit those answers before review. If a model answer is generic, say so in the verdict. Do not quietly upgrade it.
+On a native council, pair consult or an authorized OpenCode run, Stage 1 is the model runner. Treat each model answer as one seat. Do not edit those answers before review. If a model answer is generic, say so in the verdict. Do not quietly upgrade it.
 
 ### Reject a weak seat once
 
@@ -308,6 +314,8 @@ Before peer review, read each answer. Send a seat back once when any of these is
 The retry prompt is the original prompt plus: "Your previous answer failed because [one sentence]. Answer again. Same seat. No preamble." If the second answer fails the same way, drop that seat, tell the user which seat dropped, and continue. Do not drop The User for being inconvenient. Drop The User only for inventing constraints that are not in the frame, or for refusing to name a hole in the user's own idea.
 
 ## Stage 2 — Anonymous peer review
+
+For the native runner, consume its peer review results rather than relaunching the same wave. Names are hidden in the packet metadata, not guaranteed absent from response text. Apply the following procedure manually only for other modes.
 
 Label the surviving answers Response A through F in random order. Six seats use six letters. The mapping stays hidden from reviewers, including which letter is The User. Spawn one reviewer per seat, all at once. Each reviewer sees only the letters.
 
@@ -380,14 +388,14 @@ Discipline: {discipline}
 ### The One Thing to Do First
 ```
 
-On a pair consult, the Recommendation also carries a contribution line for each model that answered, tied to a specific claim: "ChatGPT: …", "Gemini: …". That attribution sits inside the verdict. It is not a second document.
+On a native council or pair consult, the Recommendation also carries a contribution line for each model that answered, tied to a specific claim: "ChatGPT: …", "Gemini: …". That attribution sits inside the verdict. It is not a second document.
 
-Every council session produces two files, with the same timestamp. The user sees the HTML report. The transcript is there if they want to dig deeper or reference a specific seat later.
+When the operator authorizes artifact writes, a council session produces two files, with the same timestamp. Otherwise deliver only in chat. The user sees the HTML report. The transcript is there if they want to dig deeper or reference a specific seat later.
 
 - `council-report-YYYYMMDD-HHMM.html` — visual report for scanning
 - `council-transcript-YYYYMMDD-HHMM.md` — full transcript for reference
 
-If an `active/` directory exists, save both there. Otherwise save both in the working directory. A session that writes only one of the two files is not delivered.
+If an `active/` directory exists, save both there. Otherwise save both in the working directory. For an authorized artifact delivery, write both files; never write in a read-only review.
 
 The transcript includes the raw question, the framed question, the discipline and criteria, the router crew, the Council Brief, the Decision Ledger, every seat including dropped ones, the letter mapping, every review, and the verdict.
 
@@ -402,7 +410,7 @@ The page, in order:
 5. Peer-review highlights in one `<details>`, collapsed.
 6. A footer with the timestamp and the question.
 
-Open the HTML file after writing both.
+Open the HTML file after writing both only if authorized.
 
 ## Other instruments
 
@@ -410,7 +418,8 @@ Read only the file for the mode in "Choose the instrument". Stages 2 and 3 still
 
 | Mode | Read |
 |---|---|
-| Pair consult, or asking Claude, Codex, Gemini, Antigravity, Cursor | `references/agents.md` |
+| Native council / 4D independent review | `references/native-council.md` |
+| Pair consult or host compatibility | `references/agents.md` |
 | Dashboard | `references/dashboard.md` |
 | OpenCode worktrees | `references/opencode.md` |
 | `council run` | `references/cli-council.md` |
@@ -419,7 +428,7 @@ A filled verdict at the density this council owes is `references/worked-verdict.
 
 ## Host members
 
-When this skill is installed in Claude, Codex, Gemini, Antigravity, or Cursor, that host is the chairman. The others are optional seats. Ask them with the commands in `references/agents.md`, each on its own model. A missing CLI is a dropped seat, named in the verdict.
+When installed in Claude, Codex, Gemini, Antigravity, or Cursor, that host is chairman. The native runner requests Claude, Codex and Antigravity (Gemini) as separate seats. Count model families, not apps. A missing CLI is a dropped seat, named in the verdict. No child invokes the council again.
 
 Omniroute is the router in front of those agents. It does not load this `SKILL.md`. The model Omniroute selects is the upstream provider's model, not the OpenAI/Gemini ladder in this file.
 
@@ -429,53 +438,18 @@ If the user asked only for a side-by-side comparison, bring the answers back and
 
 ## Install
 
-The agent does this. Do not ask the user to clone the repo or run the script. The install writes outside the current project (`~/.agents`, `~/.claude`, `~/.gemini`, `~/.cursor`). If the host asks for permission, ask the user once to approve those writes, then run the commands. Needs only `git` and `python3`. The repository is public, so no GitHub login is required. This skill does not have its own repository. It is `skills/dirsal-llm-coding-council` inside:
-
-```
-https://github.com/Primuse-Pte-Ltd/LLM-Skills
-```
-
-Clone that repository once, outside the current project, then symlink this folder:
-
-```bash
-mkdir -p "$HOME/.agents/skills"
-if [ ! -d "$HOME/.agents/LLM-Skills/.git" ]; then
-  git clone https://github.com/Primuse-Pte-Ltd/LLM-Skills.git "$HOME/.agents/LLM-Skills"
-else
-  git -C "$HOME/.agents/LLM-Skills" pull --ff-only
-fi
-ln -sfn "$HOME/.agents/LLM-Skills/skills/dirsal-llm-coding-council" "$HOME/.agents/skills/dirsal-llm-coding-council"
-python3 "$HOME/.agents/skills/dirsal-llm-coding-council/scripts/install.py"
-```
-
-Do not clone the repository into `~/.agents/skills/dirsal-llm-coding-council`. Do not rename `~/.agents/skills/dirsal-llm-council` onto this skill. That path is the other council. A link that already points at this folder is left alone. This skill was called `llm-coding-council` before. `install.py` removes links under that old name when they point at this skill or at a folder that no longer exists. A real `llm-coding-council` directory is reported and left in place. Remove it after the user approves, or Codex loads the council twice.
-
-`install.py` checks where it is running first and links only the agents whose folder exists in the home folder. If it prints `STOP` (exit 2: no agents found, so this is a cloud or remote sandbox; exit 3: home folder not writable), do not work around it. Tell the user what it found and ask them to run the install from a coding agent on their own computer, or to approve full access. `--check` reports without changing anything.
-
-| Host | Where it lands |
-|---|---|
-| Claude Code | `~/.claude/skills/dirsal-llm-coding-council` |
-| Codex | `~/.agents/skills/dirsal-llm-coding-council` (Codex reads this directory; `~/.codex/skills` is the old location) |
-| Gemini CLI | `~/.gemini/skills/dirsal-llm-coding-council` |
-| Antigravity | `~/.gemini/config/skills/dirsal-llm-coding-council` |
-| Cursor | `~/.cursor/skills/dirsal-llm-coding-council` |
-
-The links point at the skill folder inside `~/.agents/LLM-Skills`, so a later `git -C "$HOME/.agents/LLM-Skills" pull --ff-only` is what every host reads. Do not copy a second `SKILL.md` into those folders. If `gemini` is on `PATH`, also run `gemini skills link "$HOME/.agents/skills/dirsal-llm-coding-council" --consent`.
-
-To remove the skill, run `python3 "$HOME/.agents/skills/dirsal-llm-coding-council/scripts/uninstall.py" --check`, show the user what it would remove, and run it without `--check` after they approve.
-
-Omniroute and KisumAI do not take that link. See `README.md`.
+The canonical source is `~/.agents/LLM-Skills/skills/dirsal-llm-coding-council`. See README for local update instructions. The operator owns Git and any repository synchronization; agents must not execute Git, even for installation, where prohibited. Do not pull over a locally delivered update. After the operator approves the canonical replacement, preview `python3 scripts/install.py --check`; only run the installer after approval. Never bypass the host's permissions. Gemini discovers shared skills through `~/.agents/skills`; do not add a duplicate Gemini link by default. Antigravity CLI discovery must be checked on the installed version. See README for optional legacy host registration.
 
 ## Rules
 
-- The working team drafts the plan. The ledger lists the options, mistakes, and bugs. The six seats judge that record. Do not swap those jobs.
+- The working team drafts the plan. The ledger lists the options, mistakes, and bugs. The selected independent seats or six lenses judge that record. Do not swap those jobs.
 - Do not write the recommendation until every option, including do nothing, has a disposition.
 - A high-severity bug is fixed, accepted out loud, or the reason an option died.
-- Convene the six seats in parallel. Peer reviewers see letters, not names, including The User.
+- Convene selected seats in parallel; six lenses only for the lens mode. Peer reviewers see letters, not names where possible.
 - A seat that fails the bar is retried once, then dropped in public.
 - The chairman may overrule the majority and must say why.
 - The chairman names the assumption that kills the recommendation.
-- One failed model does not cancel the council.
+- One failed model does not cancel analysis, but missing required independent seats block verification.
 - Do not council a question with a single right answer.
 - Do not council a product bet, a price, a hire, a piece of copy, or a pivot. This council is for code and systems.
 - Do not merge, commit, or apply code unless the user asked.
@@ -489,10 +463,10 @@ Methodology by Andrej Karpathy. This folder is the council: the six seats, the w
 
 ## important notes
 
-- **Always spawn all 6 advisors in parallel.** Sequential spawning wastes time and lets earlier responses bleed into later ones.
+- **In lens mode, always spawn all 6 advisors in parallel.** Sequential spawning wastes time and lets earlier responses bleed into later ones.
 - **Always anonymize for peer review.** If reviewers know which advisor said what, they'll defer to certain thinking styles instead of evaluating on merit.
 - **The chairman can disagree with the majority.** If 5 out of 6 advisors say "do it" but the reasoning of the 1 dissenter is strongest, the chairman should side with the dissenter and explain why.
 - **Don't council trivial questions.** If the user asks something with one right answer, just answer it. If the question does not change a system, do not run this council.
-- **The visual report matters.** Most users will scan the report, not read the full transcript. Make the HTML output clean and scannable.
+- **If artifact writing is authorized, the visual report matters.** Most users will scan the report, not read the full transcript. Make the HTML output clean and scannable.
 
 ---
